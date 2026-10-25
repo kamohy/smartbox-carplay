@@ -1,8 +1,10 @@
 # Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.6.0 / 2026-10-25 10:16 CET
+Dokumentstand: 0.7.0 / 2026-10-25 10:47 CET
 
-0.6.0 ergänzt die Diagnosekarte samt rein lesendem CGI. Paket: `ota/5234/firmware-0.6.0.img`, 6.195.245 Byte, SHA-256 `af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb`. Offlineprüfung und reproduzierbarer Zweitbuild bestanden; Geräteinstallation steht noch aus. Version 0.5.0 wurde bereits erfolgreich installiert, wie nachfolgend dokumentiert.
+0.7.0 ergänzt automatische Livewerte und begrenzten nativen Logrecorder. Paket: `ota/5234/firmware-0.7.0.img`, 6.199.341 Byte, SHA-256 `32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4`. Reproduzierbarer Zweitbuild und lokale Prüfungen bestanden; Installation/Persistenztest stehen noch aus. Der Builder erlaubt nun zehn Dateien, darunter exakt zwei native Recorder-Startpfade. Alle anderen Originaldateien bleiben erhalten.
+
+0.6.0 wurde inzwischen per echtem Browser-Updater installiert. Normalstart, sieben statische Webdateien und CGI-Endpunkte sind geprüft. Die CPU-Jiffies-Anzeige war fehlerhaft; 0.7.0 enthält den anhand realer Messdaten geprüften Fix. Nachfolgend bleibt der historische Ersttransfer 0.5.0 dokumentiert; die alten Angaben zu sechs Dateien betreffen ausschließlich 0.5.0.
 
 **Status: auf dem eigenen ly5234-Adapter installiert und im Normalstart geprüft.** Der Nutzer hat den Versuch ausdrücklich ohne vollständiges Backup/Recovery und mit akzeptiertem Geräteverlust freigegeben. Das ist kein geprüfter Rückweg und kein bestätigter Audio-Fix.
 

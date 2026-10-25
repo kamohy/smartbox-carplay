@@ -31,10 +31,11 @@ class DeviceCGI(unittest.TestCase):
     def test_real_status_json_and_numeric_values(self):
         header,body=self.run_cgi('id=status').split('\n\n',1);j=json.loads(body)
         self.assertIn('Cache-Control: no-store',header)
-        self.assertEqual(j['cpu'],{'total_jiffies':680,'idle_jiffies':525})
+        self.assertEqual(j['cpu'],{'total_jiffies':680,'idle_jiffies':525,'count':1})
         self.assertEqual(j['memory_kib']['available'],20000)
         self.assertEqual(j['network']['rx_dropped'],123)
         self.assertEqual(j['uptime_seconds'],123.5);self.assertEqual(j['usb_state'],'configured')
+        self.assertEqual(j['idle_seconds'],50.0)
     def test_missing_metrics_are_unknown_not_fabricated_zero(self):
         (self.proc/'uptime').unlink();(self.proc/'meminfo').unlink()
         j=json.loads(self.run_cgi('id=status').split('\n\n',1)[1])

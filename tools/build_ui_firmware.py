@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and independently verify an OFFLINE UI-only SmartBox 5234 candidate.
+"""Build and independently verify an OFFLINE SmartBox 5234 diagnostics candidate.
 
 No network access, device upload or flashing is implemented by this tool.
 """
@@ -22,9 +22,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_SHA = '7afff8e6a6387662aa10d84d5f8745e8406b91fb704aa4942f6e416393b10f63'
 CUSTOMER_CAPACITY = 0x3A0000
 BOOT_CAPACITY = 0x310000
-OVERLAY = ('index.html', 'css/bad-hippo-dark.css', 'css/bad-hippo-logo.svg',
+WEB_OVERLAY = ('index.html', 'css/bad-hippo-dark.css', 'css/bad-hippo-logo.svg',
            'js/bh-sha256.js', 'js/bh-update.js', 'js/bh-update-config.json',
            'js/bh-diagnostics.js','cgi-bin/bh-diagnostics.cgi')
+OVERLAY = tuple('/ota/www/'+p for p in WEB_OVERLAY) + ('/app/lyLink.sh','/app/bh-log-recorder.sh')
+
+def overlay_source(path: str, web_root: Path) -> Path:
+    if path.startswith('/ota/www/'):
+        return web_root/path.removeprefix('/ota/www/')
+    if path in ('/app/lyLink.sh','/app/bh-log-recorder.sh'):
+        return web_root.parent/'firmware-overlay'/path.lstrip('/')
+    raise ValueError('unsupported overlay path: '+path)
 
 def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -124,7 +132,7 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path | None,
                      expected_changes: list[dict] | None = None) -> dict:
     archived = {x['path']:x for x in expected_changes} if expected_changes is not None else None
     if archived is not None:
-        overlay = tuple(path.removeprefix('/ota/www/') for path in archived)
+        overlay = tuple(archived)
     old = {m.name:m.payload for m in read_cpio(unpack_image(source))}
     new = {m.name:m.payload for m in read_cpio(unpack_image(candidate))}
     if old['kernel'] != new['kernel'] or old['sw-description'] != new['sw-description']:
@@ -133,7 +141,7 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path | None,
         raise ValueError('partition capacity exceeded')
     before, old_fs = filesystem_snapshot(old['customer'])
     after, new_fs = filesystem_snapshot(new['customer'])
-    expected = {'/ota/www/'+p for p in overlay}
+    expected = set(overlay)
     if set(before)-set(after): raise ValueError('original filesystem paths lost')
     changes=[]
     for path,record in before.items():
@@ -142,12 +150,11 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path | None,
         if path in expected:
             for key in ('mode','uid','gid','mtime'):
                 if record[key] != other[key]: raise ValueError('original file metadata changed: '+path)
-    for relative in overlay:
-        path='/ota/www/'+relative
-        expected_hash=archived[path]['sha256'] if archived is not None else digest((overlay_root/relative).read_bytes())
+    for path in overlay:
+        expected_hash=archived[path]['sha256'] if archived is not None else digest(overlay_source(path,overlay_root).read_bytes())
         if after.get(path,{}).get('sha256') != expected_hash:
             raise ValueError('overlay contents not reproduced: '+path)
-        permissions = 0o755 if relative=='cgi-bin/bh-diagnostics.cgi' else 0o644
+        permissions = 0o755 if path in ('/ota/www/cgi-bin/bh-diagnostics.cgi','/app/bh-log-recorder.sh') else 0o644
         if path not in before and (after[path]['mode'] != stat.S_IFREG|permissions or after[path]['uid'] or after[path]['gid']):
             raise ValueError('incorrect new file permissions: '+path)
         changes.append({'path':path,'action':'replace' if path in before else 'add','sha256':expected_hash,'mode':oct(after[path]['mode'])})
@@ -180,8 +187,8 @@ def main():
     helper=ROOT/'tools/smartbox-squashfs/target/release/smartbox-squashfs.exe'
     if not helper.is_file(): p.error('build tools/smartbox-squashfs with cargo build --release --locked first')
     command=[str(helper),str(base),str(target)]
-    for name in OVERLAY:
-        command += ['replace' if name=='index.html' else 'add','/ota/www/'+name,str(ROOT/'web-ui'/name)]
+    for path in OVERLAY:
+        command += ['replace' if path in ('/ota/www/index.html','/app/lyLink.sh') else 'add',path,str(overlay_source(path,ROOT/'web-ui'))]
     subprocess.run(command,check=True)
     candidate=pack_image(write_cpio(members,{'customer':target.read_bytes()}))
     report=verify_candidate(source,candidate,ROOT/'web-ui')

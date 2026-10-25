@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "enabled": true,
   "status": "ready-for-device-test",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.6.0.img",
-  "size": 6195245,
-  "sha256": "af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb",
-  "notes": "Integrierte Diagnose: CPU/RAM/Laufzeit, lokale Aufzeichnung, Telefon-/Mikrofon-Logauswertung und frischer Logdownload. Offline geprüft; erster Gerätetest dieser Version steht noch aus. Kein Audio-Fix."
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.7.0.img",
+  "size": 6199341,
+  "sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
+  "notes": "Automatische CPU/RAM/Laufzeit-Anzeige, CPU-Messkorrektur und begrenzte persistente gzip-Systemlogs. Zweimal identisch gebaut und lokal geprüft; Geräte-/Persistenztest dieser Version noch ausstehend. Kein Audio-Fix."
 }

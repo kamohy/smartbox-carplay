@@ -1,7 +1,19 @@
 # Aufgaben
 
-Version: 0.6.0  
-Stand: 2026-10-25 10:16 CET
+Version: 0.7.0  
+Stand: 2026-10-25 10:47 CET
+
+## Automatische Werte und persistente Logs 0.7.0
+
+- [x] CPU anhand realer Daten auf Laufzeit-/Idle-Sekunden umstellen; angehaltene Idle-Jiffies nicht als 100 % Last interpretieren.
+- [x] Liveanzeige automatisch alle zwei Sekunden, unabhängig von Browseraufzeichnung; Hintergrundpause.
+- [x] Native Shellaufzeichnung in vorhandenen Startpfad einbinden; kein Node-Runtime erforderlich.
+- [x] Echter RW-Datenmount, drei Startslots mit je zwei gzip-Dateien bis 24 KiB, mindestens 64 KiB Reserve.
+- [x] CRC, Bootrotation, Platzmangel, übergroße Logs, RAM-/RO-Mounts und fremde Dateien mit echtem Skript prüfen.
+- [x] Zweimal byteidentisch bauen; Kernel und alle nicht freigegebenen Originaldateien erhalten.
+- [ ] Freien Speicher, Daemon, CPU und automatische Anzeige am Gerät prüfen.
+- [ ] Log sichern, neu starten und bisherige Dateien erneut mit gleichem Hash laden.
+- [ ] Erhalt nach echtem Abziehen der Stromversorgung bestätigen.
 
 ## Integrierte Diagnose 0.6.0
 
@@ -10,7 +22,7 @@ Stand: 2026-10-25 10:16 CET
 - [x] Unbekannte Audiowerte ausdrücklich unbekannt lassen; bekannte Hersteller-Logformate auswerten.
 - [x] CGI-Abfrage-/Methodengrenzen, echte Shellausführung mit proc/sys-Fixtures und CPU-/Audioparser prüfen.
 - [x] Neues Image zweimal byteidentisch bauen; CGI-Ausführungsmodus und Erhalt aller ursprünglichen Einträge unabhängig prüfen.
-- [ ] 0.6.0 über den eigenen öffentlichen Updatekanal installieren und am echten Gerät prüfen.
+- [x] 0.6.0 über eigenen Updatekanal installieren und am Gerät prüfen; CPU-Jiffies-Anzeige als fehlerhaft erkannt.
 - [ ] Aktiven Teams-Anruf im Fahrzeug mit den neuen Werkzeugen erfassen.
 
 ## Oberfläche und eigener Updatekanal
@@ -24,12 +36,13 @@ Stand: 2026-10-25 10:16 CET
 - [ ] Vollbackup und Recovery verifizieren. Nutzer hat den ersten UI-Updateversuch ausdrücklich ohne diese Voraussetzung und mit möglichem Geräteverlust freigegeben.
 - [ ] Den eigenen `/sbin/update`-/Recovery-Prüfpfad vollständig untersuchen; neu berechnete MD5/CPIO-Prüfsummen allein beweisen keine Annahme durch den Geräte-Updater.
 - [x] Erstinstallation, anschließenden Normalstart und Auslieferung aller sechs UI-Dateien direkt am Adapter per SHA-256 verifiziert.
-- [ ] GitHub-/CORS-Download unter Safari und unter der echten Geräte-HTTP-Origin end-to-end prüfen.
+- [x] GitHub-/CORS-Download unter echter Geräte-HTTP-Origin end-to-end geprüft (0.5.0 → 0.6.0).
+- [ ] Update zusätzlich unter iPhone/Safari prüfen.
 - [x] Nach Geräteprüfung UI-Version 0.5.0 im eigenen Manifest freigeben; kein Audio-/Fahrzeugerfolg behauptet.
 
 ## Nächster sicherer Schritt
 
-- [ ] Vor jedem Fahrzeugtest Adapter stromlos neu starten; erst nach dem hörbar betroffenen Teams-Anruf den ersten Logexport auslösen, um den CGI-Cache zu umgehen.
+- [x] Eigenen frischen Logexport ergänzen, der den OEM-Cache umgeht; altes Erfassungsskript nutzt weiterhin Herstellerexport.
 - [ ] Teams-Anruf im Hyundai i30 Kombi (2018) mit `Mode 2` protokollieren: Telefonraten, Aufnahme/Wiedergabe, Formate und Resampler.
 - [ ] Als Abgrenzung einen normalen Telefonanruf über den Adapter prüfen: ebenfalls beidseitig blechern oder nur Teams?
 - [ ] Musik zusätzlich als Kontrolle prüfen; derzeit ist nur der Teams-Fehler ausdrücklich bestätigt.

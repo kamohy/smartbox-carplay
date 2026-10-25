@@ -100,6 +100,8 @@ input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
 .bh-raw summary { cursor: pointer; }
 .bh-raw pre { max-height: 260px; overflow: auto; margin-top: 10px; padding: 12px; background: #0d1219; border-radius: 8px; font: 11px/1.6 ui-monospace,Consolas,monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
 .bh-log-link { display: inline-block; margin: 3px 0 12px; color: #ffa14f; font-size: 12px; font-weight: 600; }
+.bh-store-files { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: var(--bh-muted); }
+.bh-source { display: block; width: 100%; color: var(--bh-text); background: #10151d; border: 1px solid var(--bh-line); padding: 10px 12px; margin: 8px 0 15px; border-radius: 8px; font: inherit; font-size: 12px; }
 @media (max-width: 600px) {
   .bh-header, .container, .bh-preview-banner { width: calc(100% - 24px); }
   .bh-header { padding: 25px 0 22px; gap: 8px; flex-wrap: wrap; }

@@ -1,12 +1,16 @@
-/* Device diagnostics: fixed read-only CGI, local browser recording and export. */
+/* Device diagnostics: automatic live display and bounded on-device log storage. */
 (function(root){
   'use strict';
   function cpuPercent(previous,current){
     if(!previous || !current || !previous.cpu || !current.cpu) return null;
-    var total=current.cpu.total_jiffies-previous.cpu.total_jiffies;
-    var idle=current.cpu.idle_jiffies-previous.cpu.idle_jiffies;
-    if(!Number.isFinite(total)||!Number.isFinite(idle)||total<=0||idle<0||idle>total) return null;
-    return Math.max(0,Math.min(100,100*(total-idle)/total));
+    var count=current.cpu.count;
+    if(!Number.isInteger(count)||count<1||count!==previous.cpu.count) return null;
+    if(!Number.isFinite(current.uptime_seconds)||!Number.isFinite(previous.uptime_seconds)||
+       !Number.isFinite(current.idle_seconds)||!Number.isFinite(previous.idle_seconds)) return null;
+    var elapsed=(current.uptime_seconds-previous.uptime_seconds)*count;
+    var idle=current.idle_seconds-previous.idle_seconds;
+    if(elapsed<=0||idle<0||idle>elapsed+0.02*count) return null;
+    return Math.max(0,Math.min(100,100*(elapsed-idle)/elapsed));
   }
   function parseAudio(text){
     var result={phone_output:null,phone_request:null,microphone_conversion:null,buffer_warning_lines:0};
@@ -23,7 +27,7 @@
   }
   root.BHDiagnostics={cpuPercent:cpuPercent,parseAudio:parseAudio};
   if(!root.document) return;
-  var state={previous:null,recording:false,timer:null,samples:[],host:null,busy:false,audio:null};
+  var state={previous:null,recording:false,timer:null,samples:[],host:null,busy:false,audio:null,polls:0};
   function el(id){return document.getElementById(id);}
   function put(id,text){var element=el(id);if(element) element.textContent=text;}
   function uptime(seconds){
@@ -49,9 +53,31 @@
       j.aud>=1&&j.aud<=3?'Telefon-Puffersonderpfad aktiv. Weitere Unterschiede zwischen 1–3 sind noch nicht vollständig belegt.':'Keine belegte Moduszuordnung.');
   }
   function stop(){
-    state.recording=false;if(state.timer) clearInterval(state.timer);state.timer=null;
+    state.recording=false;
     put('bh_diag_record','Aufzeichnung starten');
     put('bh_diag_recording',state.samples.length+' Messpunkte im Browser gespeichert');
+  }
+  function pauseLive(){if(state.timer)clearInterval(state.timer);state.timer=null;}
+  function startLive(){if(!state.timer&&!document.hidden&&el('bh_diag_refresh'))state.timer=setInterval(refresh,2000);}
+  async function storage(){
+    try{
+      var j=await get('/cgi-bin/bh-diagnostics.cgi?id=storage',true);
+      var labels={saved:'Automatische Speicherung aktiv',collecting:'Protokoll wird gespeichert',ready:'Speicher bereit',initializing:'Aufzeichnung startet',no_space:'Zu wenig freier Speicher – alte Logs bleiben erhalten',mount_unavailable:'Keine beschreibbare Datenpartition',storage_probe_failed:'Speicherprüfung fehlgeschlagen',not_running:'Aufzeichnung läuft nicht',write_failed:'Speichern fehlgeschlagen',snapshot_too_large:'Protokoll überschreitet Speicherlimit'};
+      put('bh_store_status',labels[j.state]||(j.running?'Aufzeichnung aktiv':'Aufzeichnung nicht verfügbar'));
+      put('bh_store_space',j.supported?j.available_kib+' / '+j.total_kib+' KiB frei':'Unbekannt');
+      var list=el('bh_store_files'),select=el('bh_diag_source'),selected=select?select.value:'';
+      if(list)list.replaceChildren();
+      if(select){select.replaceChildren();var live=document.createElement('option');live.value='';live.textContent='Aktueller RAM-Log';select.appendChild(live);}
+      var files=Array.isArray(j.files)?j.files.slice().sort(function(a,b){return (b.boot||0)-(a.boot||0)||(b.saved_uptime||0)-(a.saved_uptime||0);}):[];
+      files.forEach(function(file){
+        if(!/^[012][ab]$/.test(file.id))return;
+        var name='Start '+(file.boot==null?'?':file.boot)+' · '+file.id+' · '+Math.ceil(file.bytes/1024)+' KiB';
+        if(list){var a=document.createElement('a');a.className='bh-log-link';a.href='/cgi-bin/bh-diagnostics.cgi?id=stored'+file.id;a.download='smartbox-log-'+file.id+'.gz';a.textContent=name;list.appendChild(a);}
+        if(select){var option=document.createElement('option');option.value=file.id;option.textContent=name;select.appendChild(option);}
+      });
+      if(select&&Array.from(select.options).some(function(o){return o.value===selected;}))select.value=selected;
+      if(list&&!files.length)list.textContent='Noch kein gespeichertes Protokoll.';
+    }catch(error){put('bh_store_status','Speicherstatus nicht erreichbar: '+error.message);}
   }
   async function refresh(){
     if(state.busy) return;state.busy=true;
@@ -67,6 +93,7 @@
       put('bh_diag_net',j.network.interface||'Unbekannt');
       put('bh_diag_drops',j.network.rx_dropped==null||j.network.tx_dropped==null?'Unbekannt':j.network.rx_dropped+' / '+j.network.tx_dropped);
       put('bh_diag_status','Letzte Abfrage: '+new Date().toLocaleTimeString()+' · CPU über Messintervall');
+      state.polls++;if(state.polls%5===0)storage();
       if(state.recording){
         state.samples.push({browser_time:new Date().toISOString(),cpu_percent:cpu,device:j});
         put('bh_diag_recording','Aufzeichnung läuft · '+state.samples.length+' Messpunkte');
@@ -79,8 +106,9 @@
     var button=el('bh_diag_audio');if(button)button.disabled=true;
     put('bh_diag_audio_summary','Audio-Log wird gelesen …');
     try{
-      var text=await get('/cgi-bin/bh-diagnostics.cgi?id=audio',false);
-      var parsed=parseAudio(text);state.audio={captured_at:new Date().toISOString(),analysis:parsed,raw:text};
+      var source=el('bh_diag_source')?el('bh_diag_source').value:'';
+      var text=await get('/cgi-bin/bh-diagnostics.cgi?id=audio'+(source?'&source='+encodeURIComponent(source):''),false);
+      var parsed=parseAudio(text);state.audio={captured_at:new Date().toISOString(),source:source||'live',analysis:parsed,raw:text};
       put('bh_diag_phone',parsed.phone_output?parsed.phone_output.rate_hz+' Hz / '+parsed.phone_output.bits+' Bit':'Noch keine Telefon-Ausgaberate im Log');
       var request=parsed.phone_request;
       put('bh_diag_phone_request',request?request.rate_hz+' Hz / '+request.bits+' Bit / '+request.channels+' Kanal/Kanäle':'Keine Telefon-Audioanfrage im Log');
@@ -94,20 +122,26 @@
   }
   function initialize(){
     if(!el('bh_diag_refresh')) return;
-    stop();state.previous=null;
+    pauseLive();stop();state.previous=null;
     el('bh_diag_refresh').onclick=function(){refresh().then(function(){setTimeout(refresh,1000);});host().catch(function(){});};
     el('bh_diag_record').onclick=function(){
       if(state.recording){stop();return;}
       state.samples=[];state.recording=true;put('bh_diag_record','Aufzeichnung stoppen');
-      host().catch(function(){});refresh();state.timer=setInterval(refresh,2000);
+      host().catch(function(){});refresh();startLive();
     };
     el('bh_diag_export').onclick=function(){
-      save(JSON.stringify({schema:1,ui_version:'0.6.0',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
+      save(JSON.stringify({schema:1,ui_version:'0.7.0',cpu_source:'uptime-idle',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
     };
     el('bh_diag_audio').onclick=analyze;
+    el('bh_store_save').onclick=async function(){
+      try{var response=await fetch('/cgi-bin/bh-diagnostics.cgi?id=save',{method:'POST'});if(!response.ok)throw Error('HTTP '+response.status);put('bh_store_status','Speichern angefordert …');setTimeout(storage,6000);}
+      catch(error){put('bh_store_status','Speichern nicht möglich: '+error.message);}
+    };
     el('bh_diag_refresh').onclick();
+    storage();startLive();
   }
   var originalGo=root.go_tpl;
-  root.go_tpl=function(name){stop();originalGo(name);if(name==='tpl_home')initialize();};
-  root.addEventListener('pagehide',stop);
+  root.go_tpl=function(name){pauseLive();stop();originalGo(name);if(name==='tpl_home')initialize();};
+  root.addEventListener('pagehide',function(){pauseLive();stop();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)pauseLive();else startLive();});
 })(typeof window==='undefined'?globalThis:window);

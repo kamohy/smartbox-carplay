@@ -1,0 +1,87 @@
+{
+  "target_version": "0.6.0",
+  "sha256": "af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb",
+  "size": 6195245,
+  "source_ui_version": "0.5.0",
+  "device_installation_verified": true,
+  "browser_update_clicked": true,
+  "observed_states": [
+    {
+      "at": "2026-10-25T10:18:03.574526+01:00",
+      "appver": "00000000.5234.2",
+      "update": 2
+    },
+    {
+      "at": "2026-10-25T10:18:24.590124+01:00",
+      "appver": "00000000.5234.2",
+      "update": 3
+    },
+    {
+      "at": "2026-10-25T10:19:54.805071+01:00",
+      "appver": "26011517.5234.2",
+      "update": 0
+    }
+  ],
+  "flash_completion_state": 3,
+  "reboot_requested": true,
+  "status": "installed-and-verified",
+  "normal_boot_verified": true,
+  "verified_at": "2026-10-25T10:19:55.139134+01:00",
+  "verified_web_files": [
+    {
+      "path": "/index.html",
+      "size": 26522,
+      "sha256": "e0a77008482ea6fff30d250f2af68d6b4d5cfb129e650a8b1c2a291fd6830aa4",
+      "matches": true
+    },
+    {
+      "path": "/css/bad-hippo-dark.css",
+      "size": 9184,
+      "sha256": "1ab62d3c570bec28a83b90e4d1510b1b77c93bf26a1a588cb26fb6d34965cf8d",
+      "matches": true
+    },
+    {
+      "path": "/css/bad-hippo-logo.svg",
+      "size": 19774,
+      "sha256": "410ba4061bf6e9b8cee1ccda855285dd888ce8fd4e420a9bfdd143248aab7fe2",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-sha256.js",
+      "size": 2357,
+      "sha256": "87fd2433a8087b3f63477e9b84f271ac863b4cd3b4fbea2d204e0a035cf50333",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-update.js",
+      "size": 3311,
+      "sha256": "5e5b36b69509c6b97fc8ad6c4bb43b60ff6c5abcbd424382bd9247d0bdb372cb",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-update-config.json",
+      "size": 337,
+      "sha256": "79bd3070d1ce44b80758877967553144c21d74fbb3cdefb1990d11cff1862f35",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-diagnostics.js",
+      "size": 7021,
+      "sha256": "01deeadc0ce92427c25f3121655e8c4d3be2ac67b0589125090e289aea15c62d",
+      "matches": true
+    }
+  ],
+  "backend_status_verified": true,
+  "settings_after": {
+    "aud": 2,
+    "mic": 0,
+    "sig": 149,
+    "conn": "cp"
+  },
+  "tested_device_count": 1,
+  "audio_vehicle_tested": false,
+  "full_backup_verified": false,
+  "recovery_verified": false,
+  "cpu_display_valid": false,
+  "cpu_correction_target": "0.7.0"
+}

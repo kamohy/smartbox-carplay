@@ -1,7 +1,8 @@
 #!/bin/sh
-# Fixed, read-only operations. No user-supplied command or filesystem path.
+# Fixed diagnostic operations, plus one bounded recorder-save request.
 PROC=${BH_PROC_ROOT:-/proc}
 SYS=${BH_SYS_ROOT:-/sys}
+RECORDER=${BH_RECORDER:-/mnt/customer/app/bh-log-recorder.sh}
 header() {
   printf 'Content-Type: %s; charset=utf-8\r\nCache-Control: no-store\r\n' "$1"
 }
@@ -25,26 +26,63 @@ audio_dump() {
     printf '%s\n' 'logcat unavailable'
   fi
 }
+if [ "${REQUEST_METHOD:-GET}" = POST ] && [ "${QUERY_STRING:-}" = id=save ]; then
+  case "${HTTP_ORIGIN:-}" in ''|'http://192.168.1.101') :;; *)
+    printf 'Status: 403 Forbidden\r\n'; header application/json; printf '\r\n{"error":"Local origin required"}\n'; exit 0;;
+  esac
+  if [ -r "$RECORDER" ] && sh "$RECORDER" request; then
+    printf 'Status: 202 Accepted\r\n'; header application/json; printf '\r\n{"queued":true}\n'
+  else
+    printf 'Status: 503 Service Unavailable\r\n'; header application/json; printf '\r\n{"error":"Recorder/storage unavailable"}\n'
+  fi
+  exit 0
+fi
 if [ "${REQUEST_METHOD:-GET}" != GET ]; then
   printf 'Status: 405 Method Not Allowed\r\nAllow: GET\r\n'; header application/json
   printf '\r\n{"error":"GET only"}\n'; exit 0
 fi
 case "${QUERY_STRING:-}" in
+  id=storage)
+    header application/json; printf '\r\n'
+    if [ -r "$RECORDER" ]; then sh "$RECORDER" status; else printf '{"supported":false,"running":false,"state":"not_running","files":[]}\n'; fi
+    ;;
+  id=stored0a|id=stored0b|id=stored1a|id=stored1b|id=stored2a|id=stored2b)
+    id=${QUERY_STRING#id=stored}
+    if [ -r "$RECORDER" ] && sh "$RECORDER" has "$id"; then
+      header application/gzip; printf 'Content-Disposition: attachment; filename="smartbox-log-%s.gz"\r\n\r\n' "$id"
+      sh "$RECORDER" cat "$id"
+    else
+      printf 'Status: 404 Not Found\r\n'; header application/json; printf '\r\n{"error":"Stored log unavailable"}\n'
+    fi
+    ;;
+  'id=audio&source=0a'|'id=audio&source=0b'|'id=audio&source=1a'|'id=audio&source=1b'|'id=audio&source=2a'|'id=audio&source=2b')
+    id=${QUERY_STRING#id=audio&source=}
+    if [ -r "$RECORDER" ] && sh "$RECORDER" has "$id"; then
+      header text/plain; printf '\r\n=== Stored log %s: last 200 matching audio lines ===\n' "$id"
+      sh "$RECORDER" unpack "$id" | grep -Ei 'AudioPlayerCreate|phone call rate|mic times.*rate|force music rate|SWResample|swr_|underrun|overrun|xrun|in_sample_rate|out_sample_rate' | tail -n 200
+    else
+      printf 'Status: 404 Not Found\r\n'; header application/json; printf '\r\n{"error":"Stored audio log unavailable"}\n'
+    fi
+    ;;
   id=status)
-    uptime=; load1=; load5=; load15=; total=; available=
+    uptime=; idle_seconds=; load1=; load5=; load15=; total=; available=
     user=0; nice=0; system=0; idle=0; iowait=0; irq=0; softirq=0; steal=0
-    if [ -r "$PROC/uptime" ]; then read -r uptime ignored < "$PROC/uptime"; fi
+    if [ -r "$PROC/uptime" ]; then read -r uptime idle_seconds < "$PROC/uptime"; fi
     if [ -r "$PROC/loadavg" ]; then read -r load1 load5 load15 ignored < "$PROC/loadavg"; fi
     if [ -r "$PROC/meminfo" ]; then
       while read -r key value unit; do
         case "$key" in MemTotal:) total=$value;; MemAvailable:) available=$value;; esac
       done < "$PROC/meminfo"
     fi
-    cpu_total=; cpu_idle=
+    cpu_total=; cpu_idle=; cpu_count=0
     if [ -r "$PROC/stat" ]; then
-      read -r label user nice system idle iowait irq softirq steal ignored < "$PROC/stat"
-      cpu_total=$((user + nice + system + idle + iowait + irq + softirq + steal))
-      cpu_idle=$((idle + iowait))
+      while read -r label user nice system idle iowait irq softirq steal ignored; do
+        case "$label" in
+          cpu) cpu_total=$((user + nice + system + idle + iowait + irq + softirq + steal)); cpu_idle=$((idle + iowait));;
+          cpu[0-9]*) cpu_count=$((cpu_count + 1));;
+          *) break;;
+        esac
+      done < "$PROC/stat"
     fi
     iface=
     if [ -d "$SYS/class/net/p2p-wlan0-0" ]; then iface=p2p-wlan0-0
@@ -55,8 +93,9 @@ case "${QUERY_STRING:-}" in
     done
     case "$usb" in configured|connected|disconnected|attached|powered|default|addressed|suspended|'not attached') :;; *) usb=unknown;; esac
     header application/json; printf '\r\n{"schema":1,"uptime_seconds":'; number "$uptime"
+    printf ',"idle_seconds":'; number "$idle_seconds"
     printf ',"memory_kib":{"total":'; number "$total"; printf ',"available":'; number "$available"; printf '}'
-    printf ',"cpu":{"total_jiffies":'; number "$cpu_total"; printf ',"idle_jiffies":'; number "$cpu_idle"; printf '}'
+    printf ',"cpu":{"total_jiffies":'; number "$cpu_total"; printf ',"idle_jiffies":'; number "$cpu_idle"; printf ',"count":'; number "$cpu_count"; printf '}'
     printf ',"load":['; number "$load1"; printf ','; number "$load5"; printf ','; number "$load15"; printf ']'
     printf ',"usb_state":"%s","network":{"interface":"%s"' "$usb" "$iface"
     for metric in rx_bytes tx_bytes rx_dropped tx_dropped rx_errors tx_errors; do
@@ -70,7 +109,7 @@ case "${QUERY_STRING:-}" in
   id=logs)
     header text/plain
     printf 'Content-Disposition: attachment; filename="smartbox-diagnostics.txt"\r\n\r\n'
-    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.6.0 - fresh read, no log buffer clear'
+    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.7.0 - fresh read, no log buffer clear'
     for name in version uptime loadavg meminfo stat; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done
@@ -81,6 +120,6 @@ case "${QUERY_STRING:-}" in
     ;;
   *)
     printf 'Status: 400 Bad Request\r\n'; header application/json
-    printf '\r\n{"error":"Supported queries: id=status, id=audio, id=logs"}\n'
+    printf '\r\n{"error":"Unsupported diagnostics query"}\n'
     ;;
 esac

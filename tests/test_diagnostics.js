@@ -3,10 +3,18 @@ const assert=require('node:assert/strict');const fs=require('node:fs');const vm=
 const context={};vm.createContext(context);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../web-ui/js/bh-diagnostics.js'),'utf8'),context);
 const d=context.BHDiagnostics;
-assert.equal(d.cpuPercent({cpu:{total_jiffies:1000,idle_jiffies:600}},{cpu:{total_jiffies:1100,idle_jiffies:670}}),30);
-assert.equal(d.cpuPercent(null,{cpu:{total_jiffies:10,idle_jiffies:3}}),null);
-assert.equal(d.cpuPercent({cpu:{total_jiffies:1100,idle_jiffies:670}},{cpu:{total_jiffies:10,idle_jiffies:3}}),null);
-assert.equal(d.cpuPercent({cpu:{total_jiffies:100,idle_jiffies:20}},{cpu:{total_jiffies:100,idle_jiffies:20}}),null);
+const old={uptime_seconds:100,idle_seconds:60,cpu:{count:1,total_jiffies:1000,idle_jiffies:600}};
+const next={uptime_seconds:110,idle_seconds:67,cpu:{count:1,total_jiffies:1100,idle_jiffies:600}};
+assert.equal(d.cpuPercent(old,next),30); // Idle ticks deliberately stuck, as observed on the device.
+assert.equal(d.cpuPercent(null,next),null);
+assert.equal(d.cpuPercent(next,old),null);
+assert.equal(d.cpuPercent(old,old),null);
+assert.equal(d.cpuPercent(old,{...next,idle_seconds:80}),null);
+assert.equal(d.cpuPercent(old,{...next,cpu:{count:2}}),null);
+assert.equal(d.cpuPercent({cpu:{count:1}},{cpu:{count:1}}),null);
+const fieldBefore={uptime_seconds:424.61,idle_seconds:229.64,cpu:{count:1}};
+const fieldAfter={uptime_seconds:427.25,idle_seconds:230.58,cpu:{count:1}};
+assert.ok(Math.abs(d.cpuPercent(fieldBefore,fieldAfter)-64.39393939393823)<0.0001);
 let result=d.parseAudio('Music rate=48000\nAudioPlayerCreate sampleRate: 48000 , sampleSize: 16,channels 2,audioType : 1 , hasInput 0');
 assert.equal(result.phone_output,null);assert.equal(result.phone_request,null);assert.equal(result.microphone_conversion,null);
 result=d.parseAudio('AudioPlayerCreate sampleRate: 16000 , sampleSize: 16,channels 1,audioType : 8 , hasInput 1\nphone call rate=24000, sz=16\nphone call rate=16000, sz=16\nUSB mic times = 10, rate = 48kHz -> 16kHz\naudio underrun\nxrun');

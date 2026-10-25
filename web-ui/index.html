@@ -33,7 +33,7 @@
 			<p class="bh-subtitle">Deine Verbindung. Deine Einstellungen.</p>
 		</div>
 	</div>
-	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.6.0</div>
+	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.7.0</div>
 </header>
 <div class="container" id="container"></div>
 <script type="text/html" id="tpl_home">
@@ -121,7 +121,7 @@
 		</a>
 	</div>
 	<section class="cells bh-diagnostics" aria-labelledby="bh_diag_title">
-		<h2 class="title" id="bh_diag_title">Adapter-Diagnose <span class="bh-readonly">Nur lesend</span></h2>
+		<h2 class="title" id="bh_diag_title">Adapter-Diagnose <span class="bh-readonly">Live · automatisch</span></h2>
 		<div class="bh-diag-content">
 			<p class="bh-diag-status" id="bh_diag_status" aria-live="polite">Gerätewerte werden geladen …</p>
 			<div class="bh-metrics">
@@ -142,7 +142,13 @@
 				<button type="button" id="bh_diag_export">Sitzung speichern</button>
 			</div>
 			<p class="bh-diag-note" id="bh_diag_recording">Aufzeichnung bleibt im Browser, maximal 30 Minuten.</p>
+			<div class="bh-audio-head"><h3>Protokolle auf dem Adapter</h3><button type="button" id="bh_store_save">Jetzt auf Adapter speichern</button></div>
+			<p class="bh-diag-note" id="bh_store_status">Speicher wird geprüft …</p>
+			<p class="bh-diag-note">Datenpartition: <span id="bh_store_space">—</span>. Komprimierter Ringpuffer, etwa jede Minute, bis zu drei Gerätestarts. Die letzten Sekunden vor Stromverlust können fehlen.</p>
+			<div id="bh_store_files" class="bh-store-files"></div>
 			<div class="bh-audio-head"><h3>Telefon-Audio</h3><button type="button" id="bh_diag_audio">Audio-Log auswerten</button></div>
+			<label class="bh-diag-note" for="bh_diag_source">Quelle der Audioauswertung</label>
+			<select id="bh_diag_source" class="bh-source"><option value="">Aktueller RAM-Log</option></select>
 			<p class="bh-diag-note" id="bh_diag_audio_summary">Für einen Teams-Test den Anruf durchführen und danach das Audio-Log auswerten.</p>
 			<dl class="bh-diag-rows">
 				<div><dt>Telefon-Ausgabe, Log</dt><dd id="bh_diag_phone">Noch nicht ausgewertet</dd></div>

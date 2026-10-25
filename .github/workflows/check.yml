@@ -18,3 +18,4 @@ jobs:
       - run: node tests/test_update.js
       - run: node tests/test_diagnostics.js
       - run: sh -n web-ui/cgi-bin/bh-diagnostics.cgi
+      - run: sh -n firmware-overlay/app/bh-log-recorder.sh

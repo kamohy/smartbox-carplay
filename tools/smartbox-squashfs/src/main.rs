@@ -12,14 +12,14 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut writer = FilesystemWriter::from_fs_reader(&fs)?;
     // Preserve the source filesystem timestamp for deterministic rebuilding.
     for action in args[3..].chunks_exact(3) {
-        if !action[1].starts_with("/ota/www/") || action[1].contains("..") {
-            return Err("only files below /ota/www/ may be modified".into());
+        if !(action[1].starts_with("/ota/www/") || action[1] == "/app/lyLink.sh" || action[1] == "/app/bh-log-recorder.sh") || action[1].contains("..") {
+            return Err("only web files and the two explicit recorder startup paths may be modified".into());
         }
         let bytes = Cursor::new(std::fs::read(&action[2])?);
         match action[0].as_str() {
             "replace" => writer.replace_file(&action[1], bytes)?,
             "add" => {
-                let mode = if action[1] == "/ota/www/cgi-bin/bh-diagnostics.cgi" { 0o755 } else { 0o644 };
+                let mode = if action[1] == "/ota/www/cgi-bin/bh-diagnostics.cgi" || action[1] == "/app/bh-log-recorder.sh" { 0o755 } else { 0o644 };
                 writer.push_file(bytes, &action[1], NodeHeader::new(mode, 0, 0, 1768470083))?;
             },
             _ => return Err("action must be replace or add".into()),

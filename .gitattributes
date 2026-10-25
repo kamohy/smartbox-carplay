@@ -1,4 +1,5 @@
 * text=auto eol=lf
 # UI bytes are embedded in the verified firmware; never normalize them.
 web-ui/** -text
+firmware-overlay/** -text
 *.img binary

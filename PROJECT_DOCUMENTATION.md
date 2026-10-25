@@ -1,9 +1,19 @@
 # Projektdokumentation
 
-Version: 0.6.0  
-Stand: 2026-10-25 10:16 CET
+Version: 0.7.0  
+Stand: 2026-10-25 10:47 CET
 
 ## 2026-10-25
+
+### 10:16–10:47 CET – Geräteprüfung 0.6.0, Liveanzeige und persistente Logs 0.7.0
+
+0.6.0 wurde über den eingebetteten öffentlichen Updatekanal heruntergeladen, geprüft und installiert. Recovery 2→3, kontrollierter Normalstart, Herstellerbasis 26011517.5234.2 und sieben Webdateihashes sind bestätigt. Der CGI lieferte echte Werte, einen frischen 60.935-Byte-Log und korrekte Methodengrenzen. Belege: `evidence/updates/2026-10-25-101652-ui060/`. Der historische offene Installationspunkt ist erledigt.
+
+Idle-Jiffies blieben auf dem echten Gerät stehen, obwohl `/proc/uptime` Idle-Sekunden weiterzählte. Der Fix nutzt Laufzeit, Idle-Sekunden und CPU-Anzahl: reales Vergleichspaar 64,3939 % statt falscher 100 %. Die zweimal gebaute Zwischenversion 0.6.1 wurde weder veröffentlicht noch installiert; der Fix geht in 0.7.0 ein.
+
+Der Nutzer beauftragte persistente Systemlogs und automatische CPU/RAM/Laufzeit. Browser-JavaScript fragt alle zwei Sekunden ab, unabhängig von optionaler Aufzeichnung. Das native Shellskript startet über das minimal ergänzte originale `lyLink.sh`, außerhalb Recovery. Es prüft den RW-Datenmount und freien Platz, hält Status alle fünf Sekunden in RAM und schreibt etwa alle 60 Sekunden gzip-Snapshots. Drei Startslots mit je zwei Dateien bis 24 KiB und 64 KiB Mindestreserve begrenzen den Platz. Neue Dateien werden CRC-geprüft, synchronisiert und atomar umbenannt. Kein Formatieren/Mounten/Rohflashzugriff.
+
+Die Seite ergänzt Speicherstatus, Downloads, Sofortspeicher-Anforderung und Audioauswertung früherer Logs. Nur feste IDs sind zugelassen. Das echte Skript besteht Tests zu vier Starts, CRC, fremden Dateien, RAM-/RO-/fehlenden Mounts, Platzmangel und übergroßen Logs. 24 Pythonprüfungen und beide JavaScriptprogramme bestehen. Zwei Builds sind identisch: 6.199.341 Byte, SHA-256 `32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4`. Zehn erlaubte Dateien ändern sich; alle anderen Originalinodes und Kernel bleiben erhalten. Geräteinstallation und echter Persistenztest stehen bei diesem Eintrag noch aus.
 
 ### 10:07–10:16 CET – Integrierte Diagnose, Version 0.6.0
 

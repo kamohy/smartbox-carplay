@@ -1,7 +1,9 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.6.0  
-Stand: 2026-10-25 10:16 CET
+Version: 0.7.0  
+Stand: 2026-10-25 10:47 CET
+
+0.6.0 wurde über den eigenen Browser-Updater installiert: Normalstart, sieben Webdateihashes und echte CGI-Abfragen geprüft. 0.7.0 ergänzt automatische Livewerte alle zwei Sekunden und begrenzte, komprimierte Systemlogs auf der Datenpartition. Zwei identische Builds und Speicherschutztests bestanden; Geräteinstallation und Persistenztest stehen noch aus. Der entdeckte CPU-Zählerfehler wird dabei korrigiert. Details: [diagnostics.md](diagnostics.md).
 
 ## Projektvorstellung
 
@@ -20,7 +22,7 @@ Fahrzeug laut Nutzer: Hyundai i30 Kombi, Baujahr 2018. Konkret bestätigtes Fehl
 - Diagnose 0.6.0: CPU/RAM/Laufzeit/USB, WLAN-Zähler, Aufzeichnung im Browser, frische lokale Logs und Auswertung tatsächlich vorhandener Telefon-/Mikrofonmeldungen. Noch keine Messung der hörbaren Klangqualität.
 - Eigene Firmware `ota/5234/firmware-0.5.0.img` erfolgreich über den Geräte-Updater installiert. Normalstart und alle sechs Webdateien am realen Gerät per SHA-256 geprüft. CarPlay-/Teams-Audio wurde mit dieser UI-Version noch nicht im Fahrzeug geprüft.
 - Dauerhafte neue Update-API: https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json
-- Der eigene Updatekanal ist jetzt auf dem Adapter installiert; Firmware-UI 0.5.0 und Projekt-/Werkzeugstand 0.5.1 sind getrennt versioniert.
+- Der eigene Updatekanal ist auf dem Adapter installiert; Herstellerkennung und eigene UI-Version sind getrennt.
 
 - Installierte Firmware: `26011517.5234.2`
 - Plattform direkt im CRC-geprüften Gerätelog bestätigt: Allwinner V821B, 32-Bit RISC-V
@@ -32,7 +34,7 @@ Fahrzeug laut Nutzer: Hyundai i30 Kombi, Baujahr 2018. Konkret bestätigtes Fehl
 - USB-Emulation: Apple `VID_05AC/PID_12A8`
 - Aktueller Audiomodus: Mode 2 (`aud=2`)
 
-Das Hersteller-Update ist entschlüsselt und in SWUpdate, SquashFS, Kernel und Device Tree zerlegt. Zusätzlich ist der darin liegende `lylink`-Pack mit sechs weiteren ELF-Dateien einschließlich `rcpservice` extrahiert; jede Datei besteht ihre ZIP-CRC-Prüfung. Das Update enthält nicht sämtliche Flashpartitionen und ersetzt deshalb kein vollständiges Gerätebackup. Es wurde nichts auf den Adapter geflasht.
+Das Hersteller-Update ist entschlüsselt und in SWUpdate, SquashFS, Kernel und Device Tree zerlegt. Zusätzlich ist der darin liegende `lylink`-Pack mit sechs weiteren ELF-Dateien einschließlich `rcpservice` extrahiert; jede Datei besteht ihre ZIP-CRC-Prüfung. Das Update enthält nicht sämtliche Flashpartitionen und ersetzt deshalb kein vollständiges Gerätebackup. Eigene Oberflächen 0.5.0 und 0.6.0 wurden installiert; Audiobibliotheken wurden dabei nicht verändert.
 
 ## Wichtigster Audiofund
 

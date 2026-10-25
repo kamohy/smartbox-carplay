@@ -1,15 +1,17 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.6.0  
-Stand: 2026-10-25 10:16 CET
+Version: 0.7.0  
+Stand: 2026-10-25 10:47 CET
 
 ## Offen
 
-- Diagnoseversion 0.6.0 ist gebaut und lokal geprüft; Geräteinstallation und Runtimeprüfung stehen noch aus.
+- 0.7.0 ist offline geprüft. Reale Datenpartition/freier Platz, Recorderstart und Neustartpersistenz müssen am Gerät geprüft werden.
+- Abrupter Stromverlust kann die letzte ungespeicherte Minute verlieren. Ringlogs sind begrenzte Ausschnitte, kein lückenloses Archiv.
+- Windows hat globale manuelle WLAN-Adressen; `.2` tauchte zusätzlich zu `.104` wieder auf. Nach Gerätetests auf ursprünglichen DHCP-Betrieb zurückstellen.
 - Audioauswertung sieht nur vorhandene Meldungen im letzten passenden Logausschnitt. Fehlende Meldungen sind kein Nachweis eines falschen oder richtigen Audioformats.
 
 - Die neue Oberfläche ist auf einem eigenen Adapter installiert und geprüft. Vollbackup, Hardware-Recovery und Fahrzeug-/Teams-Test stehen weiterhin aus.
-- Browser-/CORS-Endprüfung des späteren echten Firmware-Downloads auf der Geräte-Origin steht aus.
+- iPhone-/Safari-Endprüfung steht aus; Desktop-Browser auf echter Geräte-Origin wurde erfolgreich geprüft.
 
 - Teams-Anrufe im Hyundai i30 Kombi (2018) sind über den Adapter in beiden Richtungen blechern. Derselbe Teams-Anwendungsfall auf demselben iPhone klingt über direktes USB-Kabel deutlich besser. Ein entsprechender Fehler bei Musik ist nicht bestätigt.
 - Die genauen Laufzeitparameter der Modi `aud=0..3` sind noch nicht vollständig einem Fahrzeug-Log und den jeweiligen Audioformaten zugeordnet.
@@ -21,6 +23,9 @@ Stand: 2026-10-25 10:16 CET
 - Die im Webfrontend vorhandene ADB-Umschaltung wird für Plattform 5234 ausgeblendet und wurde nicht erzwungen.
 
 ## Behoben oder geklärt
+
+- 2026-10-25 10:47 CET: 0.6.0 per eingebettetem GitHub-Updater installiert; sieben statische Dateien und funktionaler CGI bestätigt. Idle-Jiffies blieben trotz laufender Idle-Sekunden stehen. 0.7.0 nutzt zwei Laufzeit-/Idle-Messungen; reale Gegenprobe und Rücksetzfälle sind getestet.
+- 2026-10-25 10:47 CET: Liveanzeige startet automatisch, unabhängig von optionaler Browseraufzeichnung.
 
 - 2026-10-25 10:03 CET: Firmware 0.5.0 angenommen, Updaterzustand 2→3 beobachtet, anschließend mit `id=set&conn=cp` normal neu gestartet. Alle sechs neuen/geänderten Webdateien stimmen per SHA-256 mit dem Build überein. Einstellungen `aud=2`, `mic=0`, `sig=149` erhalten; `conn=cp` ist der protokollierte Neustart-/CarPlayaufruf.
 - 2026-10-25 10:03 CET: Während des Updates läuft nur die Recovery-Verwaltung mit Versionsanzeige `00000000.5234.2`; fehlende statische Dateien und `no QUERY STRING` waren in dieser Phase kein endgültiger Installationsbefund.

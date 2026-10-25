@@ -1,9 +1,12 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.5.1  
-Stand: 2026-10-25 10:03 CET
+Version: 0.6.0  
+Stand: 2026-10-25 10:16 CET
 
 ## Offen
+
+- Diagnoseversion 0.6.0 ist gebaut und lokal geprüft; Geräteinstallation und Runtimeprüfung stehen noch aus.
+- Audioauswertung sieht nur vorhandene Meldungen im letzten passenden Logausschnitt. Fehlende Meldungen sind kein Nachweis eines falschen oder richtigen Audioformats.
 
 - Die neue Oberfläche ist auf einem eigenen Adapter installiert und geprüft. Vollbackup, Hardware-Recovery und Fahrzeug-/Teams-Test stehen weiterhin aus.
 - Browser-/CORS-Endprüfung des späteren echten Firmware-Downloads auf der Geräte-Origin steht aus.

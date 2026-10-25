@@ -1,7 +1,17 @@
 # Aufgaben
 
-Version: 0.5.1  
-Stand: 2026-10-25 10:03 CET
+Version: 0.6.0  
+Stand: 2026-10-25 10:16 CET
+
+## Integrierte Diagnose 0.6.0
+
+- [x] Lesendes CGI für Betriebssystemwerte, Audio-Logausschnitt und frischen Logexport ergänzen.
+- [x] Diagnosekarte direkt in die Einstellungsseite integrieren; Browseraufzeichnung und lokalen JSON-Export ergänzen.
+- [x] Unbekannte Audiowerte ausdrücklich unbekannt lassen; bekannte Hersteller-Logformate auswerten.
+- [x] CGI-Abfrage-/Methodengrenzen, echte Shellausführung mit proc/sys-Fixtures und CPU-/Audioparser prüfen.
+- [x] Neues Image zweimal byteidentisch bauen; CGI-Ausführungsmodus und Erhalt aller ursprünglichen Einträge unabhängig prüfen.
+- [ ] 0.6.0 über den eigenen öffentlichen Updatekanal installieren und am echten Gerät prüfen.
+- [ ] Aktiven Teams-Anruf im Fahrzeug mit den neuen Werkzeugen erfassen.
 
 ## Oberfläche und eigener Updatekanal
 

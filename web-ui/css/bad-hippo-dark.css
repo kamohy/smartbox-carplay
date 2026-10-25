@@ -1,4 +1,4 @@
-/* Bad-Hippo SmartBox UI 0.5.0 — appearance only; vendor handlers are unchanged. */
+/* Bad-Hippo SmartBox UI 0.6.0 — dark settings and read-only diagnostics. */
 :root {
   color-scheme: dark;
   --bh-bg: #0c0f14;
@@ -77,6 +77,29 @@ input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
 .weui-actionsheet__cell:active { background: #293243; }
 .bh-preview-banner { width: min(100% - 40px, 920px); margin: 0 auto 18px; padding: 11px 15px; border: 1px solid #7d511f; border-radius: 9px; background: #2b2116; color: #ffd1a0; font-size: 12px; line-height: 1.6; }
 :focus-visible { outline: 2px solid var(--bh-accent); outline-offset: -3px; }
+.bh-diagnostics .title { display: flex; align-items: center; justify-content: space-between; }
+.bh-readonly { color: var(--bh-muted); font-size: 10px; font-weight: 500; border: 1px solid #394557; padding: 3px 8px; border-radius: 20px; }
+.bh-diag-content { padding: 19px 22px 22px; }
+.bh-diag-status, .bh-diag-note { color: var(--bh-muted); font-size: 12px; line-height: 1.65; margin: 0 0 16px; }
+.bh-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-bottom: 17px; }
+.bh-metrics > div { background: #10151d; border: 1px solid var(--bh-line); border-radius: 10px; padding: 13px; }
+.bh-metrics span { display: block; color: var(--bh-muted); font-size: 10px; margin-bottom: 7px; }
+.bh-metrics strong { font-size: 16px; font-weight: 600; line-height: 1.35; display: block; overflow-wrap: anywhere; }
+.bh-diag-rows { margin: 0 0 13px; font-size: 12px; }
+.bh-diag-rows > div { display: grid; grid-template-columns: minmax(160px,1fr) minmax(0,1.5fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--bh-line); }
+.bh-diag-rows dt { color: var(--bh-muted); }
+.bh-diag-rows dd { margin: 0; color: var(--bh-text); text-align: right; overflow-wrap: anywhere; }
+.bh-tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 10px; }
+.bh-tools button, .bh-audio-head button { font: inherit; font-size: 12px; color: #ebeff6; background: #263142; border: 1px solid #3b4b62; border-radius: 8px; padding: 10px 13px; cursor: pointer; }
+.bh-tools button:nth-child(2) { color: #1b1007; border-color: var(--bh-accent); background: var(--bh-accent); }
+.bh-tools button:hover, .bh-audio-head button:hover { filter: brightness(1.12); }
+.bh-tools button:disabled, .bh-audio-head button:disabled { opacity: .55; cursor: wait; }
+.bh-audio-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--bh-line); margin-top: 20px; padding-top: 18px; margin-bottom: 12px; }
+.bh-audio-head h3 { font-size: 14px; margin: 0; }
+.bh-raw { font-size: 12px; margin: 15px 0; color: var(--bh-muted); }
+.bh-raw summary { cursor: pointer; }
+.bh-raw pre { max-height: 260px; overflow: auto; margin-top: 10px; padding: 12px; background: #0d1219; border-radius: 8px; font: 11px/1.6 ui-monospace,Consolas,monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bh-log-link { display: inline-block; margin: 3px 0 12px; color: #ffa14f; font-size: 12px; font-weight: 600; }
 @media (max-width: 600px) {
   .bh-header, .container, .bh-preview-banner { width: calc(100% - 24px); }
   .bh-header { padding: 25px 0 22px; gap: 8px; flex-wrap: wrap; }
@@ -95,4 +118,7 @@ input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
   .weui-label { width: 92px; }
   .weui-cells__title { padding-inline: 16px; }
   .weui-btn { margin: 14px 16px 18px; }
+  .bh-diag-content { padding: 15px 16px 18px; }
+  .bh-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .bh-diag-rows > div { grid-template-columns: minmax(105px,1fr) minmax(0,1.4fr); gap: 10px; }
 }

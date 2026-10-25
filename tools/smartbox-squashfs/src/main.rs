@@ -18,7 +18,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         let bytes = Cursor::new(std::fs::read(&action[2])?);
         match action[0].as_str() {
             "replace" => writer.replace_file(&action[1], bytes)?,
-            "add" => writer.push_file(bytes, &action[1], NodeHeader::new(0o644, 0, 0, 1768470083))?,
+            "add" => {
+                let mode = if action[1] == "/ota/www/cgi-bin/bh-diagnostics.cgi" { 0o755 } else { 0o644 };
+                writer.push_file(bytes, &action[1], NodeHeader::new(mode, 0, 0, 1768470083))?;
+            },
             _ => return Err("action must be replace or add".into()),
         }
     }

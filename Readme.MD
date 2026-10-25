@@ -1,7 +1,7 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.5.1  
-Stand: 2026-10-25 10:03 CET
+Version: 0.6.0  
+Stand: 2026-10-25 10:16 CET
 
 ## Projektvorstellung
 
@@ -16,7 +16,8 @@ Fahrzeug laut Nutzer: Hyundai i30 Kombi, Baujahr 2018. Konkret bestätigtes Fehl
 ## Aktueller Stand
 
 - Öffentliches Repository: https://github.com/kamohy/smartbox-carplay
-- Eigene Oberfläche 0.5.0: dunkles Design und eingebettetes Bad-Hippo-Logo.
+- Eigene Oberfläche: dunkles Design und eingebettetes Bad-Hippo-Logo. 0.6.0 ergänzt integrierte Diagnosewerkzeuge.
+- Diagnose 0.6.0: CPU/RAM/Laufzeit/USB, WLAN-Zähler, Aufzeichnung im Browser, frische lokale Logs und Auswertung tatsächlich vorhandener Telefon-/Mikrofonmeldungen. Noch keine Messung der hörbaren Klangqualität.
 - Eigene Firmware `ota/5234/firmware-0.5.0.img` erfolgreich über den Geräte-Updater installiert. Normalstart und alle sechs Webdateien am realen Gerät per SHA-256 geprüft. CarPlay-/Teams-Audio wurde mit dieser UI-Version noch nicht im Fahrzeug geprüft.
 - Dauerhafte neue Update-API: https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json
 - Der eigene Updatekanal ist jetzt auf dem Adapter installiert; Firmware-UI 0.5.0 und Projekt-/Werkzeugstand 0.5.1 sind getrennt versioniert.
@@ -59,6 +60,7 @@ Vollbackup und verifizierter Recoveryweg fehlen weiterhin. Der Nutzer hat am 25.
 - `PROJECT_DOCUMENTATION.md`: chronologisches Arbeitsprotokoll
 - `porting.md`: Plattform-, Webserver- und Updategrenzen
 - `firmware_installation.md`: Build, Updateweg und Installationsstatus
+- `diagnostics.md`: Bedienung, Messumfang und Grenzen der Diagnosewerkzeuge
 - `todo.md`: offene und erledigte Aufgaben
 - `bugs.md`: bekannte Fehler, Risiken und geklärte Punkte
 - `evidence/SHA256SUMS.txt`: Hashliste zentraler Original- und Analyseartefakte

@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "enabled": true,
-  "status": "device-ui-verified",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.5.0.img",
-  "size": 6187053,
-  "sha256": "3b1d45b1ca75b9462bfc53974b5d34c6f28aef9b4f0761c746f1cb0923074581",
-  "notes": "Dunkle Einstellungen mit Bad-Hippo-Logo und dauerhaftem GitHub-Updatekanal. Installation, Normalstart und sechs Webdateien auf einem eigenen ly5234 geprüft. Kein bestätigter Audio-Fix; Vollbackup/Recovery fehlen."
+  "status": "ready-for-device-test",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.6.0.img",
+  "size": 6195245,
+  "sha256": "af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb",
+  "notes": "Integrierte Diagnose: CPU/RAM/Laufzeit, lokale Aufzeichnung, Telefon-/Mikrofon-Logauswertung und frischer Logdownload. Offline geprüft; erster Gerätetest dieser Version steht noch aus. Kein Audio-Fix."
 }

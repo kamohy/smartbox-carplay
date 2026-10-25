@@ -35,7 +35,10 @@ def main():
     image=(ROOT/'ota/5234/firmware-0.5.0.img').read_bytes()
     if hashlib.sha256(image).hexdigest()!=IMAGE_SHA: p.error('candidate hash differs from reviewed image')
     original=(ROOT/'evidence/firmware/26011517.5234.2/update.img').read_bytes()
-    verify_candidate(original,image,ROOT/'web-ui')
+    report_path=ROOT/'ota/5234/build-report-0.5.0.json'
+    if not report_path.exists(): report_path=ROOT/'ota/5234/build-report.json'
+    report=json.loads(report_path.read_text(encoding='utf-8'))
+    verify_candidate(original,image,None,expected_changes=report['changes'])
     opener=build_opener(ProxyHandler({}))
     def read(path):
         with opener.open(DEVICE+path,timeout=8) as r:return r.read()

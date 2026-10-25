@@ -1,0 +1,17 @@
+'use strict';
+const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
+const context={};vm.createContext(context);
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../web-ui/js/bh-diagnostics.js'),'utf8'),context);
+const d=context.BHDiagnostics;
+assert.equal(d.cpuPercent({cpu:{total_jiffies:1000,idle_jiffies:600}},{cpu:{total_jiffies:1100,idle_jiffies:670}}),30);
+assert.equal(d.cpuPercent(null,{cpu:{total_jiffies:10,idle_jiffies:3}}),null);
+assert.equal(d.cpuPercent({cpu:{total_jiffies:1100,idle_jiffies:670}},{cpu:{total_jiffies:10,idle_jiffies:3}}),null);
+assert.equal(d.cpuPercent({cpu:{total_jiffies:100,idle_jiffies:20}},{cpu:{total_jiffies:100,idle_jiffies:20}}),null);
+let result=d.parseAudio('Music rate=48000\nAudioPlayerCreate sampleRate: 48000 , sampleSize: 16,channels 2,audioType : 1 , hasInput 0');
+assert.equal(result.phone_output,null);assert.equal(result.phone_request,null);assert.equal(result.microphone_conversion,null);
+result=d.parseAudio('AudioPlayerCreate sampleRate: 16000 , sampleSize: 16,channels 1,audioType : 8 , hasInput 1\nphone call rate=24000, sz=16\nphone call rate=16000, sz=16\nUSB mic times = 10, rate = 48kHz -> 16kHz\naudio underrun\nxrun');
+assert.equal(result.phone_output.rate_hz,16000);assert.equal(result.phone_output.bits,16);
+assert.equal(result.phone_request.channels,1);assert.equal(result.microphone_conversion.from_khz,48);
+assert.equal(result.microphone_conversion.to_khz,16);assert.equal(result.buffer_warning_lines,2);
+assert.equal(d.parseAudio('phone call rate=unknown, sz=16').phone_output,null);
+console.log('PASS: CPU deltas/reset and evidence-only phone/microphone log interpretation');

@@ -1,6 +1,8 @@
-# Firmware 0.5.0: Build und Installationsstatus
+# Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.5.1 / 2026-10-25 10:03 CET
+Dokumentstand: 0.6.0 / 2026-10-25 10:16 CET
+
+0.6.0 ergänzt die Diagnosekarte samt rein lesendem CGI. Paket: `ota/5234/firmware-0.6.0.img`, 6.195.245 Byte, SHA-256 `af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb`. Offlineprüfung und reproduzierbarer Zweitbuild bestanden; Geräteinstallation steht noch aus. Version 0.5.0 wurde bereits erfolgreich installiert, wie nachfolgend dokumentiert.
 
 **Status: auf dem eigenen ly5234-Adapter installiert und im Normalstart geprüft.** Der Nutzer hat den Versuch ausdrücklich ohne vollständiges Backup/Recovery und mit akzeptiertem Geräteverlust freigegeben. Das ist kein geprüfter Rückweg und kein bestätigter Audio-Fix.
 

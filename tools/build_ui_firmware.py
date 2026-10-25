@@ -23,7 +23,8 @@ SOURCE_SHA = '7afff8e6a6387662aa10d84d5f8745e8406b91fb704aa4942f6e416393b10f63'
 CUSTOMER_CAPACITY = 0x3A0000
 BOOT_CAPACITY = 0x310000
 OVERLAY = ('index.html', 'css/bad-hippo-dark.css', 'css/bad-hippo-logo.svg',
-           'js/bh-sha256.js', 'js/bh-update.js', 'js/bh-update-config.json')
+           'js/bh-sha256.js', 'js/bh-update.js', 'js/bh-update-config.json',
+           'js/bh-diagnostics.js','cgi-bin/bh-diagnostics.cgi')
 
 def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -119,7 +120,11 @@ def filesystem_snapshot(data: bytes) -> tuple[dict,dict]:
                     'compression':fs.sb.compression,'bytes_used':fs.size,
                     'mkfs_time':fs.mkfs_time.isoformat()}
 
-def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path) -> dict:
+def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path | None, overlay: tuple[str,...] = OVERLAY,
+                     expected_changes: list[dict] | None = None) -> dict:
+    archived = {x['path']:x for x in expected_changes} if expected_changes is not None else None
+    if archived is not None:
+        overlay = tuple(path.removeprefix('/ota/www/') for path in archived)
     old = {m.name:m.payload for m in read_cpio(unpack_image(source))}
     new = {m.name:m.payload for m in read_cpio(unpack_image(candidate))}
     if old['kernel'] != new['kernel'] or old['sw-description'] != new['sw-description']:
@@ -128,7 +133,7 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path) -> dic
         raise ValueError('partition capacity exceeded')
     before, old_fs = filesystem_snapshot(old['customer'])
     after, new_fs = filesystem_snapshot(new['customer'])
-    expected = {'/ota/www/'+p for p in OVERLAY}
+    expected = {'/ota/www/'+p for p in overlay}
     if set(before)-set(after): raise ValueError('original filesystem paths lost')
     changes=[]
     for path,record in before.items():
@@ -137,14 +142,15 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path) -> dic
         if path in expected:
             for key in ('mode','uid','gid','mtime'):
                 if record[key] != other[key]: raise ValueError('original file metadata changed: '+path)
-    for relative in OVERLAY:
+    for relative in overlay:
         path='/ota/www/'+relative
-        expected_data=(overlay_root/relative).read_bytes()
-        if after.get(path,{}).get('sha256') != digest(expected_data):
+        expected_hash=archived[path]['sha256'] if archived is not None else digest((overlay_root/relative).read_bytes())
+        if after.get(path,{}).get('sha256') != expected_hash:
             raise ValueError('overlay contents not reproduced: '+path)
-        if path not in before and (after[path]['mode'] != stat.S_IFREG|0o644 or after[path]['uid'] or after[path]['gid']):
+        permissions = 0o755 if relative=='cgi-bin/bh-diagnostics.cgi' else 0o644
+        if path not in before and (after[path]['mode'] != stat.S_IFREG|permissions or after[path]['uid'] or after[path]['gid']):
             raise ValueError('incorrect new file permissions: '+path)
-        changes.append({'path':path,'action':'replace' if path in before else 'add','sha256':digest(expected_data)})
+        changes.append({'path':path,'action':'replace' if path in before else 'add','sha256':expected_hash,'mode':oct(after[path]['mode'])})
     if set(after)-set(before) != expected-set(before): raise ValueError('unexpected new filesystem entries')
     for key in ('version','block_size','compression','mkfs_time'):
         if old_fs[key] != new_fs[key]: raise ValueError('SquashFS property changed: '+key)
@@ -159,7 +165,8 @@ def verify_candidate(source: bytes, candidate: bytes, overlay_root: Path) -> dic
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',type=Path,default=ROOT/'evidence/firmware/26011517.5234.2/update.img')
-    p.add_argument('--output',type=Path,default=ROOT/'dist/0.5.0')
+    version=json.loads((ROOT/'web-ui/js/bh-update-config.json').read_text(encoding='utf-8'))['ui_version']
+    p.add_argument('--output',type=Path,default=ROOT/'dist'/version)
     args=p.parse_args()
     if args.output.exists(): p.error('output directory already exists; use a new directory')
     source=args.source.read_bytes()
@@ -178,9 +185,9 @@ def main():
     subprocess.run(command,check=True)
     candidate=pack_image(write_cpio(members,{'customer':target.read_bytes()}))
     report=verify_candidate(source,candidate,ROOT/'web-ui')
-    report.update(source_roundtrip_byte_identical=True,version='0.5.0',squashfs_writer='backhand 0.25.5',
+    report.update(source_roundtrip_byte_identical=True,version=version,squashfs_writer='backhand 0.25.5',
                   squashfs_writer_sha256=digest(helper.read_bytes()))
-    (args.output/'firmware-0.5.0.candidate.img').write_bytes(candidate)
+    (args.output/f'firmware-{version}.candidate.img').write_bytes(candidate)
     (args.output/'build-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report,indent=2))
 

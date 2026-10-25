@@ -33,7 +33,7 @@
 			<p class="bh-subtitle">Deine Verbindung. Deine Einstellungen.</p>
 		</div>
 	</div>
-	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.5.0</div>
+	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.6.0</div>
 </header>
 <div class="container" id="container"></div>
 <script type="text/html" id="tpl_home">
@@ -120,6 +120,41 @@
 			<div class="weui-cell__ft" id="aa"></div>
 		</a>
 	</div>
+	<section class="cells bh-diagnostics" aria-labelledby="bh_diag_title">
+		<h2 class="title" id="bh_diag_title">Adapter-Diagnose <span class="bh-readonly">Nur lesend</span></h2>
+		<div class="bh-diag-content">
+			<p class="bh-diag-status" id="bh_diag_status" aria-live="polite">Gerätewerte werden geladen …</p>
+			<div class="bh-metrics">
+				<div><span>CPU</span><strong id="bh_diag_cpu">—</strong></div>
+				<div><span>RAM belegt / gesamt</span><strong id="bh_diag_ram">—</strong></div>
+				<div><span>Laufzeit</span><strong id="bh_diag_uptime">—</strong></div>
+				<div><span>USB-Gadget</span><strong id="bh_diag_usb">—</strong></div>
+			</div>
+			<dl class="bh-diag-rows">
+				<div><dt>WLAN-Schnittstelle</dt><dd id="bh_diag_net">—</dd></div>
+				<div><dt>RX / TX verworfen, seit Boot</dt><dd id="bh_diag_drops">—</dd></div>
+				<div><dt>Audiomodus</dt><dd id="bh_diag_mode">—</dd></div>
+			</dl>
+			<p class="bh-diag-note" id="bh_diag_mode_note"></p>
+			<div class="bh-tools">
+				<button type="button" id="bh_diag_refresh">Werte aktualisieren</button>
+				<button type="button" id="bh_diag_record">Aufzeichnung starten</button>
+				<button type="button" id="bh_diag_export">Sitzung speichern</button>
+			</div>
+			<p class="bh-diag-note" id="bh_diag_recording">Aufzeichnung bleibt im Browser, maximal 30 Minuten.</p>
+			<div class="bh-audio-head"><h3>Telefon-Audio</h3><button type="button" id="bh_diag_audio">Audio-Log auswerten</button></div>
+			<p class="bh-diag-note" id="bh_diag_audio_summary">Für einen Teams-Test den Anruf durchführen und danach das Audio-Log auswerten.</p>
+			<dl class="bh-diag-rows">
+				<div><dt>Telefon-Ausgabe, Log</dt><dd id="bh_diag_phone">Noch nicht ausgewertet</dd></div>
+				<div><dt>Telefon-Audioanfrage, Typ 8</dt><dd id="bh_diag_phone_request">Noch nicht ausgewertet</dd></div>
+				<div><dt>Mikrofon-Umwandlung, Log</dt><dd id="bh_diag_mic">Noch nicht ausgewertet</dd></div>
+				<div><dt>Pufferwarnungen im Ausschnitt</dt><dd id="bh_diag_warnings">—</dd></div>
+			</dl>
+			<details class="bh-raw"><summary>Audio-Rohdaten anzeigen</summary><pre id="bh_diag_audio_raw">Noch nicht geladen.</pre></details>
+			<a class="bh-log-link" href="/cgi-bin/bh-diagnostics.cgi?id=logs" download="smartbox-diagnostics.txt">Frisches Geräteprotokoll speichern</a>
+			<p class="bh-diag-note">Direkter Logexport ohne den alten CGI-Cache. Die Datei bleibt lokal und kann Gerätekennungen enthalten.</p>
+		</div>
+	</section>
 	<div class="cells">
 		<div class="title" id="txt4"></div>
 		<div class="weui-cell">
@@ -820,5 +855,6 @@
 </script>
 <script src="/js/bh-sha256.js"></script>
 <script src="/js/bh-update.js"></script>
+<script src="/js/bh-diagnostics.js"></script>
 </body>
 </html>

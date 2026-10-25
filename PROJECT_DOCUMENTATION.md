@@ -1,9 +1,19 @@
 # Projektdokumentation
 
-Version: 0.5.1  
-Stand: 2026-10-25 10:03 CET
+Version: 0.6.0  
+Stand: 2026-10-25 10:16 CET
 
 ## 2026-10-25
+
+### 10:07–10:16 CET – Integrierte Diagnose, Version 0.6.0
+
+Der Nutzer fragte nach Analysewerkzeugen und bestätigte ausdrücklich die Integration in die Einstellungsseite. Ergänzt wurden eine sichtbare Diagnosekarte und ein eng begrenzter Shell-CGI mit ausschließlich festen GET-Abfragen für Status, Audioausschnitt und lokalen Logdownload. POST, zusätzliche Parameter, Kommandos und Dateipfade werden abgewiesen. Der CGI liest proc/sys, dmesg und `logcat -d`; er löscht keine Puffer, schreibt nicht in den Flash und nutzt nicht den alten `/tmp/log.gz`-Cache.
+
+Die Oberfläche berechnet CPU aus zwei Zählerständen, zeigt Speicher und Laufzeit, USB-Zustand und kumulative WLAN-Drops. Aufzeichnung erfolgt im Browser mit höchstens 900 Messpunkten bei zwei Sekunden Abstand. JSON- und Logexport bleiben lokal. Telefon-Ausgabe und Mikrofonumwandlung werden ausschließlich aus konkret vorhandenen Hersteller-Logformaten gelesen. Insbesondere wird 48-kHz-Musik nicht als Telefonrate ausgegeben und fehlende Daten werden nicht durch Annahmen ersetzt.
+
+Der SquashFS-Patcher setzt ausschließlich den neuen Diagnose-CGI auf ausführbaren Modus 0755; alle ursprünglichen Dateimetadaten bleiben erhalten. Zwei neue Builds sind byteidentisch: 6.195.245 Byte, SHA-256 `af5c80bca12b13eca5f14481ef30b9955cd1d711d7a49199ca209f8edd2c5bdb`. Acht Dateien werden ergänzt/ersetzt, Kernel und Updatebeschreibung bleiben original. 19 Pythonprüfungen und beide JavaScript-Prüfprogramme bestehen. Die Shelltests wurden unter Git-for-Windows mit LF-Fixtures ausgeführt; Windows-CRLF in künstlichen sysfs-Dateien wurde in den Fixtures korrigiert.
+
+Die Geräteinstallation dieser Version steht zum Zeitpunkt dieses Eintrags noch aus. Ziel ist der echte eigene GitHub-Updatekanal der bereits installierten 0.5.0-Oberfläche.
 
 ### 09:39–10:03 CET – Rückweg untersucht, ausdrückliche Risikofreigabe, echte Installation, Version 0.5.1
 

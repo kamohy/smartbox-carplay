@@ -39,6 +39,8 @@ class Preview(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urlsplit(self.path)
+        if parsed.path == "/cgi-bin/bh-diagnostics.cgi":
+            return self.send_bytes(b'{"error":"Diagnostics require the installed device backend"}', "application/json", 503)
         if parsed.path == "/cgi-bin/index.cgi":
             params = parse_qs(parsed.query)
             if params != {"id": ["host"]}:

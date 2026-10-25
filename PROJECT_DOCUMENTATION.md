@@ -1,9 +1,15 @@
 # Projektdokumentation
 
 Version: 0.8.1 (Analyse; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 12:14 CET
+Stand: 2026-10-25 12:19 CET
 
 ## 2026-10-25
+
+### 12:19 CET – Abschließender Gerätestands- und Blockerabgleich
+
+Erneut direkt gelesen: UI 0.7.0, Herstellerbasis 26011517.5234.2, Updatezustand 0, aud=3, LED=0, delay=0, conn=cp. Die Laufzeit von 812,67 Sekunden passt zum kontrollierten Neustart um 12:05; ein nachfolgender Kaltstart durch den angefragten Netzteilwechsel ist nicht erkennbar. Kein Flash-/Beobachtungsprozess läuft weiter; beide früheren Beobachtungsprozesse sind terminal. Privater Beleg: `evidence/updates/2026-10-25-ui080/final-idle-audit.json`.
+
+Der für den nächsten kontrollierten Geräteversuch angeforderte Netzteilwechsel ist weiterhin unbestätigt. Dieser externe Schritt blieb seit dem ursprünglichen 0.8.0-Arbeitsblock und der folgenden Offline-Diagnosevorbereitung offen. Alle notwendigen bisherigen Offlineprüfungen sind durchgeführt; eine Geräteinstallation, ein LED-Schalttest, die erweiterte Hardwareabfrage und die beauftragte Loglöschung sind noch nicht verifiziert. Der bereits gesicherte Fahrzeuglog bleibt erhalten. Keine weitere Installation oder Löschung wurde behauptet oder wiederholt; weitere Gerätearbeit wartet auf die Rückmeldung zum physischen Anschluss.
 
 ### 12:11–12:14 CET – Offline-Messstelle für die 8-/16-kHz-Auswahl
 

@@ -1,9 +1,21 @@
 # Projektdokumentation
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
 
 ## 2026-10-25
+
+### 11:29–11:41 CET – Erster Teams-Feldtest, 8-kHz-Engpass, Analyseversion 0.7.1
+
+Der Nutzer meldete vorhandene Fahrzeuglogs. Der PC war zunächst nicht im Adapter-WLAN; Windows wiederholte erfolglose Sicherheitsanmeldungen. Das vorhandene Profil wurde vor einer erneuten WPA2/AES-Parametrierung lokal gesichert; es enthielt bereits AES, die angezeigte GCMP/CCMP-Auswahl blieb bestehen. Eine kausale Profilreparatur ist daher nicht bewiesen. Nach Wiederverbindung gelang der Zugriff. Nutzer stellte klar, dass das iPhone bereits getrennt war. Keine Geräte-IP, kein Audiomodus und keine Firmware wurden in diesem Block geändert.
+
+Alle sechs Ringdateien aus Starts 5/6/7 wurden samt Hoststatus und frischem PC-Log gesichert. gzip-CRC und Gerätidentität geprüft; Rohdaten bleiben unter `evidence/field-tests/2026-10-25-113352/`. Start 5 enthält Mode 2, Start 6 Mode 3, Start 7 die PC-Sitzung. Nutzer bestätigt beide Versuche als Teams und subjektiv besseren, aber weiterhin gedämpften Ton nach Moduswechsel.
+
+Die Fahrzeuglogs zeigen übereinstimmend Telefon-Audiotyp 8 mit 16.000 Hz/16 Bit/Mono auf iPhone-Seite und 8.000 Hz/16 Bit/Mono beim USB-Telefonstart. Die HU-Taktrückmeldungen liegen bei etwa 8.000 Hz; Mikrofonumwandlung 8.000→16.000 ist ebenfalls protokolliert. Die Herstellerbeschriftung `8000kHz -> 16000kHz` ist falsch: Konvertervariablen und Aufbau im Originalcode sind in Hz. Die installierte Webauswertung übernimmt diesen Einheitenfehler; im neuen Offlinewerkzeug ist die Auswertung korrekt. Kein PCM-/Kabelvergleich und keine vollständige Klangursache behauptet.
+
+Der Originalcode `rcpservice` ab 0x2BEAC ruft GetHUAudioFormat/GetHUPluginVer auf. Bit 2 führt zunächst zu 8 kHz; der Versionsvergleich gegen 319 bei 0x2C06A kann die folgende Prüfung auf Bit 4/16 kHz überspringen. Weitere Zweige wählen unmittelbar 16 kHz. Die echten Eingangsmasken und Plugin-Version fehlen im Logausschnitt. Daher ist weder eine feste Hardwaregrenze noch ein sicherer Rate-Override bewiesen.
+
+`tools/analyze_field_logs.py` prüft Archive offline, trennt Boots, dedupliziert überlappende Zeilen, hält Telefon und Audiotyp 64 auseinander und wertet Messpunkte getrennt aus. Regressionen decken echte Logformate/Einheiten, Überlappung, getrennte Starts und defekte CRC ab. 26 Pythonprüfungen und beide JavaScript-Prüfprogramme bestehen. Feldbericht `field_test_2026-10-25.md` dokumentiert Befunde, Grenzen und nächsten Schritt: initiale Fähigkeits-/Versionsdaten sichern. Projektversion 0.7.1 bezeichnet Analyse/Dokumentation, installiert und im OTA-Manifest bleibt 0.7.0. Keine Audiosoftware verändert oder geflasht.
 
 ### 10:54–10:55 CET – Echte Stromtrennung bestanden
 

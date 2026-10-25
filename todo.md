@@ -1,7 +1,21 @@
 # Aufgaben
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
+
+## Befund aus dem ersten Fahrzeugtest
+
+- [x] Sechs persistente Logs sichern und vollständig auf gzip-CRC prüfen; Rohdaten lokal halten.
+- [x] Nutzer bestätigt Teams-Versuche in Mode 2 und 3; aktuelle Konfiguration aud=3 gelesen, nicht verändert.
+- [x] 16-kHz-iPhone-Anfrage gegen 8-kHz-USB-Telefonstart und gemessene 8-kHz-Taktrückmeldung abgleichen.
+- [x] Mikrofonumwandlung 8 → 16 kHz und falsche kHz-Herstellerbeschriftung belegen.
+- [x] Radio-Fähigkeits-/Plugin-Versionswahl für 8/16 kHz im Originalcode weiterverfolgen.
+- [x] Offlineanalysator mit Deduplizierung, getrennten Boots/Audiotypen und CRC-Fehlerfällen ergänzen.
+- [ ] HU-Fähigkeitswörter, GetHUPluginVer und erste Formatauswahl dauerhaft erfassen; bislang im Logausschnitt nicht enthalten.
+- [ ] Erst anhand der echten Fähigkeiten einen Telefonformat-Versuch ableiten; Versionsprüfung nicht blind entfernen.
+- [ ] kHz-Anzeige des installierten Webparsers korrigieren; aktuell 0.7.0, kein Fix geflasht.
+- [ ] Alle tatsächlichen WLAN-Datenschnittstellen getrennt messen; null Bytes auf p2p-wlan0-0 erlauben keine Verlustdiagnose.
+- [ ] Telefonformat des direkten Kabelvergleichs nachweisen; hörbaren Vergleich und Zeitzuordnung beibehalten.
 
 ## Automatische Werte und persistente Logs 0.7.0
 
@@ -23,7 +37,7 @@ Stand: 2026-10-25 10:55 CET
 - [x] CGI-Abfrage-/Methodengrenzen, echte Shellausführung mit proc/sys-Fixtures und CPU-/Audioparser prüfen.
 - [x] Neues Image zweimal byteidentisch bauen; CGI-Ausführungsmodus und Erhalt aller ursprünglichen Einträge unabhängig prüfen.
 - [x] 0.6.0 über eigenen Updatekanal installieren und am Gerät prüfen; CPU-Jiffies-Anzeige als fehlerhaft erkannt.
-- [ ] Aktiven Teams-Anruf im Fahrzeug mit den neuen Werkzeugen erfassen.
+- [x] Aktive Teams-Telefonpfade im Fahrzeug mit den neuen Werkzeugen erfassen (Starts 5/6, Mode 2/3).
 
 ## Oberfläche und eigener Updatekanal
 
@@ -43,12 +57,12 @@ Stand: 2026-10-25 10:55 CET
 ## Nächster sicherer Schritt
 
 - [x] Eigenen frischen Logexport ergänzen, der den OEM-Cache umgeht; altes Erfassungsskript nutzt weiterhin Herstellerexport.
-- [ ] Teams-Anruf im Hyundai i30 Kombi (2018) mit `Mode 2` protokollieren: Telefonraten, Aufnahme/Wiedergabe, Formate und Resampler.
+- [x] Teams-Anruf im Hyundai i30 Kombi (2018) mit Mode 2/3 protokolliert: 16-kHz-Anfrage, 8-kHz-USB-Telefonpfad, Mikrofonumwandlung.
 - [ ] Als Abgrenzung einen normalen Telefonanruf über den Adapter prüfen: ebenfalls beidseitig blechern oder nur Teams?
 - [ ] Musik zusätzlich als Kontrolle prüfen; derzeit ist nur der Teams-Fehler ausdrücklich bestätigt.
 - [ ] Prüfen, ob das Radio parallel direkt per Bluetooth mit dem iPhone verbunden ist; nur diese Verbindung für den Vergleich trennen, Bluetooth und die SmartBox-Kopplung am iPhone eingeschaltet lassen.
 - [ ] Nach dem ersten Telefonlog einen gezielten Modusvergleich planen. Im bereits nachvollzogenen Telefon-Pufferpfad verhalten sich 1/2/3 gleich; Default vs. Mode 2 ist dort der tatsächlich sichtbare Unterschied.
-- [ ] Telefon-Ein-/Ausgaberaten und interne 16-kHz-Mono-Umwandlung sowie Fehlermeldungen gegenüberstellen.
+- [x] Telefon-Ein-/Ausgaberaten und 8→16-kHz-Mono-Umwandlung gegenübergestellt; kein vollständiger PCM-/Kabelvergleich vorhanden.
 - [ ] Gemeldeten HU-Hersteller und Modellkennung aus dem Fahrzeuglog ermitteln und auf den tatsächlichen Modellpfad abbilden.
 - [ ] Bei Teams ist ein Sprach-/Telefonpfad erwartbar; Mono oder 16 kHz allein beweisen keinen Fehler. Die konkrete Verschlechterung gegenüber Kabel muss durch ausgehandelte Formate/Verarbeitung erklärt werden.
 

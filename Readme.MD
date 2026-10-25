@@ -1,7 +1,9 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Analysewerkzeuge; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
+
+Erster Fahrzeuglog ausgewertet: Bei Teams fordert das iPhone in Mode 2 und Mode 3 16 kHz an, der Telefonpfad zum Radio läuft jedoch mit 8 kHz. Die Mikrofonumwandlung 8 → 16 kHz ist ebenfalls protokolliert. Der Moduswechsel verbessert laut Nutzer den Klang, die Dämpfung bleibt. Eine feste Hardwaregrenze ist noch nicht bewiesen; die Firmware besitzt eine von Radiofähigkeiten und Plugin-Version abhängige 16-kHz-Auswahl. [Feldtest und Grenzen](field_test_2026-10-25.md). Kein neuer Flash in diesem Analyseblock.
 
 0.7.0 ist über den eigenen Browser-Updater installiert und direkt am Gerät geprüft: automatische Livewerte alle zwei Sekunden, korrigierte CPU-Berechnung und begrenzte, komprimierte Systemlogs. Datenpartition: tatsächlich 512 KiB, nach dem ersten Log 304 KiB frei. Logger und Sofortspeicherung funktionieren. Zwei Logs überstanden sowohl einen Software-Neustart als auch tatsächliche Stromtrennung mit erneutem PC-Anschluss byteidentisch. Details: [diagnostics.md](diagnostics.md).
 
@@ -63,6 +65,7 @@ Vollbackup und verifizierter Recoveryweg fehlen weiterhin. Der Nutzer hat am 25.
 - `porting.md`: Plattform-, Webserver- und Updategrenzen
 - `firmware_installation.md`: Build, Updateweg und Installationsstatus
 - `diagnostics.md`: Bedienung, Messumfang und Grenzen der Diagnosewerkzeuge
+- `field_test_2026-10-25.md`: erster Teams-Fahrzeuglog, 8-kHz-Engpass und nächste gezielte Prüfung
 - `todo.md`: offene und erledigte Aufgaben
 - `bugs.md`: bekannte Fehler, Risiken und geklärte Punkte
 - `evidence/SHA256SUMS.txt`: Hashliste zentraler Original- und Analyseartefakte
@@ -70,6 +73,7 @@ Vollbackup und verifizierter Recoveryweg fehlen weiterhin. Der Nutzer hat am 25.
 ## Werkzeuge
 
 - `tools/capture_device_state.ps1`: Status und Diagnoseprotokoll im Fahrzeug lesend sichern
+- `tools/analyze_field_logs.py`: persistente Snapshots offline prüfen, pro Start deduplizieren und Telefon-/USB-/Mikrofonformate getrennt auswerten
 - `tools/decrypt_firmware.py`: Herstellerabbild entschlüsseln und MD5 prüfen
 - `tools/build_ui_firmware.py`: UI-Kandidat vollständig offline bauen und unabhängig prüfen
 - `tools/smartbox-squashfs`: eng begrenzter SquashFS-Patcher auf Basis von Backhand 0.25.5

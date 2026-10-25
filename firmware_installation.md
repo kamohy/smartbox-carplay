@@ -1,6 +1,8 @@
 # Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.7.0 / 2026-10-25 10:55 CET
+Dokumentstand: 0.7.1 / 2026-10-25 11:41 CET
+
+Projektversion 0.7.1 ergänzt ausschließlich Offlineanalyse und Dokumentation des ersten Teams-Feldtests. Installiert und im öffentlichen OTA-Manifest angeboten bleibt UI-Firmware 0.7.0. In diesem Analyseblock erfolgte kein Flash und keine Audio-Konfigurationsänderung.
 
 0.7.0 ergänzt automatische Livewerte und begrenzten nativen Logrecorder. Paket: `ota/5234/firmware-0.7.0.img`, 6.199.341 Byte, SHA-256 `32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4`. Reproduzierbarer Zweitbuild, lokale Prüfungen und Installation per Browser-Updater bestanden. Normalboot, sieben statische Dateihashes, CPU-Fix, Recorder und 512-KiB-Datenpartition sind geprüft. Beide ersten Logs überstanden Software-Neustart und echte Stromtrennung byteidentisch. Der Builder erlaubt zehn Dateien, darunter exakt zwei Recorder-Startpfade; andere Originaldateien bleiben erhalten. Der öffentliche Laufzeitnachweis steht in `ota/5234/device-proof-0.7.0.json`; Rohlogs bleiben lokal.
 

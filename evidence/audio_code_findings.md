@@ -1,9 +1,15 @@
 # Zusätzliche Audiobelege aus Firmware 26011517.5234.2
 
-Version: 0.4.1  
-Stand: 2026-10-25 09:19 CET
+Version: 0.7.1  
+Stand: 2026-10-25 11:41 CET
 
-Die Adressen sind ELF-Virtualadressen der archivierten stabilen Dateien, keine beobachteten Prozessadressen auf dem Gerät. Statische Codebelege sind getrennt von einem noch fehlenden Audiotest im Fahrzeug zu bewerten.
+Die Adressen sind ELF-Virtualadressen der archivierten stabilen Dateien, keine beobachteten Prozessadressen auf dem Gerät. Seit dem ersten Fahrzeugtest sind Telefonanfrage 16 kHz, USB-Telefonstart/Taktrückmeldung 8 kHz und Mikrofonumwandlung 8→16 kHz in Mode 2 und 3 belegt. Der Nutzer bestätigt Teams. Vollständiger Befund: `field_test_2026-10-25.md`. Ältere Aussagen weiter unten zum damals fehlenden Fahrzeuglog sind historisch.
+
+## Telefonformatauswahl nach dem Feldtest
+
+`rcpservice` ab 0x2BEAC ruft bei 0x2BEE0/0x2BEE4 `GetHUAudioFormat` und bei 0x2BEF4/0x2BEF8 `GetHUPluginVer` auf. Das Auswahlwort kommt je nach Strukturzweig aus Stackoffset 0x28 oder 0x04. Bit 2 kann bei 0x2C058 zunächst 8000 Hz/Mono wählen. Bei 0x2C06A überspringt ein Vergleich des ersten numerischen Plugin-Versionsteils gegen 319 gegebenenfalls die anschließende Prüfung von Bit 4. Diese Prüfung bei 0x2C06E kann über 0x2C072 16000 Hz/Mono wählen; ein weiterer entsprechender Zweig liegt bei 0x2C13C. Das Vorhandensein dieser Zweige beweist noch keine 16-kHz-Unterstützung des konkreten Radios. Die Eingangsmasken/Plugin-Version fehlen im erhaltenen Fahrzeuglog.
+
+Die reale Mikrofonzeile enthält `8000kHz -> 16000kHz`. Das ist eine falsche Beschriftung: Der Konverteraufbau ab 0x164FC benutzt eine interne Zielrate 16000 **Hz**, vergleicht bei 0x16544 gegen diese Ganzzahl und richtet beide Richtungen mit 16 Bit/Mono ein. Die installierte Webauswertung muss ihre Einheiteninterpretation noch korrigieren; der neue Offlineanalysator behandelt die Rohwerte als Hz.
 
 ## Weitere Verpackungsschicht
 

@@ -1,7 +1,13 @@
 # Technischer Analysebericht – SmartBox 5234
 
-Version: 0.5.1  
-Stand: 2026-10-25 10:03 CET
+Version: 0.7.1  
+Stand: 2026-10-25 11:41 CET
+
+## Neuer Laufzeitbefund
+
+Der erste Fahrzeugtest ist jetzt vorhanden. Nutzer bestätigt Teams in Mode 2 und Mode 3. Beide Logs zeigen 16-kHz-Telefonanforderung des iPhones, 8-kHz-Telefonstart am USB-Dienst, Taktrückmeldung um 8 kHz und Mikrofonumwandlung 8 → 16 kHz. Das ist ein konkreter Formatengpass, der zum weiterhin gedämpften Klang passt. Die subjektive Verbesserung durch den Moduswechsel ändert diese Rate nicht. Ausführliche Belege und Grenzen: [Feldtest](field_test_2026-10-25.md).
+
+Noch nicht bewiesen sind vollständige hörbare Kausalität, Telefonformat beim direkten Kabelvergleich und eine feste Hardwaregrenze. `rcpservice` enthält eine von gemeldeten HU-Fähigkeiten und Plugin-Version abhängige Wahl von 8/16 kHz. Die konkreten Eingangswerte dieser Wahl fehlen im aufbewahrten Ausschnitt; sie sind der nächste Prüfpunkt. Die folgenden älteren Aussagen „kein Fahrzeuglog“ beschreiben den historischen Stand vor diesem Feldtest.
 
 ## Kurzurteil
 

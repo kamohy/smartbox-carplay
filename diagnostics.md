@@ -1,7 +1,9 @@
 # Integrierte Adapter-Diagnose
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Dokumentation; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
+
+Feldtesthinweis: Die installierte Webauswertung übernimmt bei Mikrofonraten die falsche Hersteller-Einheit `kHz`. Die reale Zeile `8000kHz -> 16000kHz` bedeutet bei dieser geprüften Firmware 8.000 → 16.000 Hz. Bis zu einem eigenen UI-Fix ist die Offlineauswertung mit `tools/analyze_field_logs.py` maßgeblich. Außerdem sind die RX-/TX-Bytezähler der ausgewählten p2p-Schnittstelle im Feldtest null; daraus keine CarPlay-Verlustrate ableiten. Siehe `field_test_2026-10-25.md`.
 
 ## Neuer Stand 0.7.0
 

@@ -1,7 +1,9 @@
 # Portierung und Updateweg
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
+
+0.7.1 ergänzt ausschließlich Offlineauswertung und Feldtestdokumentation. Es gibt kein neu angebotenes oder installiertes 0.7.1-Geräteimage. Der Feldtest zeigt den 8-kHz-Telefonpfad; `rcpservice` wählt 8/16 kHz anhand von HU-Fähigkeiten und Plugin-Version. Vor einem gezielten Audioexperiment müssen die konkreten Auswahlwerte erfasst werden. Ein 16-kHz-Codezweig ist kein Beweis, dass dieses Radio ihn unterstützt. Details: `field_test_2026-10-25.md`.
 
 0.7.0 erweitert die freigegebenen Buildpfade um exakt `/app/lyLink.sh` und `/app/bh-log-recorder.sh`. Das originale Startskript erhält nur einen Hintergrundstart außerhalb des Updatemodus. Der Recorder prüft den tatsächlichen RW-Datenmount `/mnt/UDISK` und freien Platz, schreibt ausschließlich `bh-logs/` und verändert keine Partitionierung. Das ist mehr als eine Webdateiänderung; alle anderen Originaldateien und der Kernel bleiben erhalten.
 

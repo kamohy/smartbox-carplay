@@ -1,9 +1,13 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.7.0  
-Stand: 2026-10-25 10:55 CET
+Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 11:41 CET
 
 ## Offen
+
+- Teams-Feldtest belegt 8-kHz-Telefonpfad trotz 16-kHz-iPhone-Anfrage, in Mode 2 und 3. Das passt zur verbleibenden Dämpfung. Auswahlursache und tatsächliche 16-kHz-Fähigkeiten des Radios sind noch offen.
+- Diagnose-Webparser 0.7.0 übernimmt die falsche kHz-Einheit der Herstellerzeile: 8000/16000 sind hier Hz. Offlineauswertung 0.7.1 berücksichtigt dies; Geräteanzeige noch nicht korrigiert.
+- Diagnose wählt p2p-wlan0-0, dessen RX-/TX-Bytezähler im Feldtest null bleiben. WLAN-Verlustdiagnose daraus unzulässig; tatsächliche Dateninterfaces müssen separat erfasst werden.
 
 - Die Wiederverbindung am Windows-PC war nach Stromtrennung verzögert; nach erneutem PC-Anschluss sind WLAN und Gerät wieder erreichbar. Kein fortbestehender Startfehler nachgewiesen.
 - Abrupter Stromverlust kann die letzte ungespeicherte Minute verlieren. Ringlogs sind begrenzte Ausschnitte, kein lückenloses Archiv.
@@ -15,7 +19,7 @@ Stand: 2026-10-25 10:55 CET
 
 - Teams-Anrufe im Hyundai i30 Kombi (2018) sind über den Adapter in beiden Richtungen blechern. Derselbe Teams-Anwendungsfall auf demselben iPhone klingt über direktes USB-Kabel deutlich besser. Ein entsprechender Fehler bei Musik ist nicht bestätigt.
 - Die genauen Laufzeitparameter der Modi `aud=0..3` sind noch nicht vollständig einem Fahrzeug-Log und den jeweiligen Audioformaten zugeordnet.
-- Es fehlt ein Diagnoseprotokoll aus einem aktiven Teams-Anruf; damit sind die benutzten Telefon-Ein-/Ausgabeformate, Umwandlungen und Pufferparameter noch unbekannt.
+- Ein aktiver Teams-Log ist jetzt vorhanden. Noch fehlen Radio-Fähigkeitswörter/Plugin-Version der initialen Auswahl, ein PCM-Vergleich und die Formate beim direkten Kabelbetrieb.
 - Ein vollständiger Flash-Backup- und Recoveryweg ist noch nicht verifiziert.
 - Die Cloud-Testfirmware trägt im Manifest die Kennung `26122515.5234.2`, ihr internes `system.json` jedoch `26051115.5234.2`. Sie darf deshalb nicht als eindeutig freigegebene Zielversion behandelt werden.
 - Der CGI-Export cached `/tmp/log.gz`: Mehrere Abrufe nach derselben ersten Erfassung liefern alte Daten. Für jeden Fahrzeugversuch ist vor der Wiedergabe ein Adapterneustart nötig.
@@ -23,6 +27,8 @@ Stand: 2026-10-25 10:55 CET
 - Die im Webfrontend vorhandene ADB-Umschaltung wird für Plattform 5234 ausgeblendet und wurde nicht erzwungen.
 
 ## Behoben oder geklärt
+
+- 2026-10-25 11:41 CET: Erster Teams-Fahrzeuglog gesichert und dedupliziert. Mode 2/3 nutzen beide 8 kHz im Telefon-USB-Pfad; ein reiner Musikratenwechsel trifft den beobachteten Engpass nicht. Projektanalyse 0.7.1, Gerät unverändert auf UI 0.7.0.
 
 - 2026-10-25 10:55 CET: Auch echte Stromtrennung bestanden. Nutzer bestätigt erneuten PC-Anschluss, Recorder zählt Boot 3. Beide Boot-1-Logs sind weiterhin SHA-256-identisch und gzip-CRC-gültig. Kaltstart und persistente Speicherung damit auf diesem Adapter belegt.
 

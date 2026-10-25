@@ -60,7 +60,7 @@ case "${QUERY_STRING:-}" in
     done
     printf ']}\n';;
   id=errors)
-    header text/plain; printf '\r\nBad-Hippo error report 0.9.0\n'
+    header text/plain; printf '\r\nBad-Hippo error report 0.9.1\n'
     printf '\n=== Update status ===\n'
     path="$SYS/class/misc/ly_misc_dev/ly/update"
     if [ -r "$path" ]; then cat "$path"; else printf 'unavailable\n'; fi
@@ -78,7 +78,7 @@ case "${QUERY_STRING:-}" in
     done
     printf '\n';;
   id=hardware)
-    header text/plain; printf '\r\nBad-Hippo hardware probe 0.9.0\n'
+    header text/plain; printf '\r\nBad-Hippo hardware probe 0.9.1\n'
     for name in cpuinfo meminfo mtd partitions mounts; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done
@@ -170,7 +170,7 @@ case "${QUERY_STRING:-}" in
   id=logs)
     header text/plain
     printf 'Content-Disposition: attachment; filename="smartbox-diagnostics.txt"\r\n\r\n'
-    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.9.0 - fresh read, no log buffer clear'
+    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.9.1 - fresh read, no log buffer clear'
     for name in version uptime loadavg meminfo stat; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done

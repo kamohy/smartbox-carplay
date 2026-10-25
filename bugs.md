@@ -1,8 +1,18 @@
 # Bugs und Auffälligkeiten
 
-## Aktueller Auftrag: verständliche Oberfläche 0.9.0
+## Fix 0.9.1: echter Updatezustand statt Zeit-Prozent
++
++Stand: 2026-10-25T14:36:01+01:00
++
++Der Nutzer hat 0.9.0 über den PC-Browser und anschließend erneut am Handy angestoßen. Direkte lesende Abfragen zeigen bisher weiter Zustand 1 und installierte UI 0.7.0. Es wurde vom Agenten kein weiterer Upload und kein Neustart ausgelöst. Die native cpbox.js berechnet die Prozentwerte nach dem Upload aus einem Zeitzähler; Neuladen setzt diese Browseranzeige zurück, nicht den laufenden Geräteprozess. Die Übertragung erfolgt als HTTP-Multipart-POST über WLAN, nicht über Bluetooth.
++
++0.9.1 korrigiert genau diese Verwechslung: Nach dem Upload wird nur der reale Gerätecode mit verständlicher Bedeutung angezeigt; beim Seitenstart wird ein bereits aktiver Vorgang wieder abgefragt und ein weiterer Upload gesperrt. Status 0 wird nicht als erfolgreiche Neuinstallation ausgegeben; Status 3 verlangt weiterhin Neustart und Versionskontrolle. Ein Zeitstempel im Manifestabruf verhindert künftig das beobachtete alte Cacheangebot. Tests prüfen unter anderem den erneuten Seitenstart bei aktivem Update ohne neuen Upload.
++
++0.9.1 ist separat gebaut und geprüft, aber noch nicht am Gerät installiert. Der öffentliche Standardkanal bleibt während des laufenden 0.9.0-Versuchs unverändert auf 0.9.0. Es findet keine Paketänderung innerhalb eines laufenden Downloads statt. Alle Einstellungs-/Speicherfunktionen von 0.9.0 bleiben enthalten. Hash: 3c799c1be0a96b4532d72b2c55490718d78b1dd73f2f4835952e194840dc3214, 6203437 Byte. Ältere folgende Abschnitte sind Historie.
++
++## Aktueller Auftrag: verständliche Oberfläche 0.9.0
 
-Stand: 2026-10-25T14:25:58+01:00
+Stand: 2026-10-25T14:36:01+01:00
 
 Prüfnachweis 2026-10-25T14:28:48+01:00: 34 lokale Pythonprüfungen und vier JS-Prüfprogramme erfolgreich; CI 40197644303 erfolgreich. Browser-Vorschau bestätigt Beschriftungen und LED-Schalter. Öffentliche Version 0.9.0 ist freigegeben; der reale HTTP-Header der Manifestdatei nennt Cache-Control: max-age=300. Das Handy zeigte noch die ältere gesperrte 0.8.3. Geräteinstallation bleibt offen, kein paralleler PC-Upload gestartet.
 
@@ -14,7 +24,7 @@ Technikübersicht: Allwinner V821B/RISC-V, 64 MiB physischer RAM, 16 MiB SPI-NOR
 
 Image: 6203437 Byte; SHA-256 `7c72d07dd55e24ac7dc641649f39a81a2624f379f1fdbfa947fbc9734fb95cb8`. Kernel und Updatebeschreibung unverändert; 12 ausdrücklich erlaubte Pfade, alle anderen ursprünglichen Inodes/Daten unabhängig geprüft. Der vollständige Herstellercontainer schreibt den unveränderten Kernel erneut. Keine Änderung an Telefon-Audioalgorithmus, CPU-Takt, Partitionslayout oder WLAN-Konfiguration. Der bestehende öffentliche Kanal bietet 0.9.0 für die ausdrücklich beauftragte Geräteprüfung an; Installation und Bedienung am Dongle sind noch zu verifizieren. Alte Fahrzeuglogs bleiben lokal gesichert. Ältere folgende Abschnitte dokumentieren die Historie.
 
-Version: 0.9.0 (Geräteinstallation noch zu bestätigen)
+Version: 0.9.1 (bereit; aktiver Kanal 0.9.0; Gerät zuletzt 0.7.0)
 Stand: 2026-10-25T14:25:58+01:00
 
 Abschließender Gerätestand: Beide gezielt geänderten 0.8.3-Versuche (vor und nach dem freigegebenen Datenreset) blieben nach angenommenem Upload in Zustand 1. Nach jeweils kontrolliertem Neustart ist UI 0.7.0/Updatezustand 0 bestätigt. Die neue Oberfläche ist nicht installiert; es erfolgt kein weiterer unveränderter Upload. Letzte freie Kapazität nach neuer Aufzeichnung: 276/512 KiB; direkt nach dem Reset waren es 304 KiB. Die alten erreichbaren Logs sind entfernt und alle ursprünglichen Fahrzeuglogs lokal gesichert.

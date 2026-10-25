@@ -30,9 +30,18 @@ assert.equal(updater.validate(valid,config),valid);
   await assert.rejects(context.download_fw(valid.url),/Kein freigegebenes/);
   let updated=false;context.update_fw=()=>{updated=true;};context.onUpdate();assert.equal(updated,false);
   // Exercise the real download guard after an enabled manifest was fetched.
-  context.fetch=async(url)=>({ok:true,json:async()=>url.startsWith('/')?config:{...valid,version:'0.5.1'}});
+  context.fetch=async(url)=>({ok:true,json:async()=>url.includes('id=host')?{update:0}:url.startsWith('/')?config:{...valid,version:'0.5.1'}});
   context.showNewVer=()=>{};await context.queryNewVer();
   await assert.rejects(context.download_fw(valid.url),/Firmwareprüfung/);
   await assert.rejects(context.download_fw('https://example.com/wrong.img'),/Kein freigegebenes/);
+  assert.match(updater.statusText(1),/Vorbereitung/);
+  assert.match(updater.statusText(1),/keinen messbaren Prozent/);
+  assert.match(updater.statusText(3),/Kontrolle/);
+  assert.match(updater.statusText(0),/noch nicht bestätigt/);
+  assert.match(updater.statusText(4),/Updatefehler/);
+  // Reloading an already-active update observes it and never exposes a new upload.
+  let scheduled=false;context.setTimeout=()=>{scheduled=true;return 1;};context.clearTimeout=()=>{};
+  context.fetch=async()=>({ok:true,json:async()=>({update:1})});
+  await context.queryNewVer();assert.equal(scheduled,true);assert.equal(updated,false);
   console.log('PASS: SHA-256 matches Node crypto; numeric versions, channel guards, disabled updates and corrupt downloads verified');
 })().catch(error=>{console.error(error);process.exitCode=1;});

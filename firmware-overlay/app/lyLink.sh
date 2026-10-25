@@ -71,7 +71,7 @@ fi
 
 echo 3 > /proc/sys/vm/drop_caches
 
-# Bad-Hippo 0.9.0: run recorder from RAM, with no working directory on customer.
+# Bad-Hippo 0.9.1: run recorder from RAM, with no working directory on customer.
 if [ "$LY_BOOT_MODE" != update ] && [ -x "$WORKDIR/bh-log-recorder.sh" ]; then
     if cp "$WORKDIR/bh-log-recorder.sh" /tmp/bh-recorder.sh && chmod 755 /tmp/bh-recorder.sh; then
         (cd / && exec /tmp/bh-recorder.sh run) >/dev/null 2>&1 &

@@ -79,7 +79,7 @@ metrics() {
 }
 collect() {
   lines=$1
-  printf 'Bad-Hippo persistent system log 0.9.0\nBoot counter: %s\nSaved uptime: %s\nLogcat tail lines: %s\n' "$BOOT" "$(now)" "$lines"
+  printf 'Bad-Hippo persistent system log 0.9.1\nBoot counter: %s\nSaved uptime: %s\nLogcat tail lines: %s\n' "$BOOT" "$(now)" "$lines"
   printf '\n=== proc snapshots ===\n'
   for name in version uptime loadavg meminfo; do
     if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi

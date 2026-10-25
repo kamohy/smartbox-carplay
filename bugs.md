@@ -1,7 +1,9 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:55 CET
+Version: 0.8.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 12:14 CET
+
+Die ergänzte Telefon-Messstelle 0.8.1 ist ausschließlich offline geprüft und nicht im 0.8.0-Image enthalten. Hardware-/Loglöschendpunkte und LED-Schalter sind weiterhin erst nach erfolgreicher Geräteinstallation verifizierbar.
 
 0.8.0 ist offline geprüft, noch nicht auf dem Gerät verifiziert. Es behebt die falsche Mikrofoneinheit im Webparser und die ausschließliche Anzeige eines einzelnen Netzwerkinterfaces. Die nachfolgenden Einträge zu UI 0.7.0 bleiben bis zum echten Versionsvergleich gültig.
 

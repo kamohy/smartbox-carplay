@@ -1,7 +1,9 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:55 CET
+Version: 0.8.1 (Analysewerkzeuge; Geräte-UI 0.7.0, UI-Kandidat 0.8.0)  
+Stand: 2026-10-25 12:14 CET
+
+Aktuell: Der erste 0.8.0-Upload wurde bestätigt, blieb aber im Vorbereitungszustand. Nach kontrolliertem Neustart läuft weiterhin 0.7.0; der öffentliche 0.8.0-Updateeintrag ist bis zum Gerätetest deaktiviert. Logs sind lokal gesichert, Löschung auf dem Gerät noch offen. Für die Audioanalyse ist zusätzlich eine [eng begrenzte Offline-Messstelle](phone_probe.md) vorbereitet: Fähigkeitsmaske und Versionsprüfwert werden protokolliert, ohne die Audioauswahl zu ändern. Kein neues Geräteimage 0.8.1 und kein Flash dieses Diagnosekandidaten.
 
 0.8.0 ergänzt verständliche Einstellungen: LED-Ein/Aus-Schalter, erklärte Telefonpuffer-Profile, Verbindungsstart mit belegter 20-Sekunden-Option und klar benannter ungeklärter Herstelleralternative. Hardware-/Grenzenkarte, feste Hardwareabfrage, korrigierte Mikrofoneinheit, getrennte Netzwerkzähler und begrenzte Loglöschung sind ergänzt. Zwei identische Builds und 27 Pythonprüfungen sowie drei JavaScript-Prüfprogramme bestehen. Geräteinstallation und Löschprüfung stehen für diese Version noch aus. Aktuelle Logs wurden zuvor separat CRC-/SHA-256-geprüft lokal gesichert.
 

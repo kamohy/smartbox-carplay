@@ -1,7 +1,17 @@
 # Aufgaben
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:55 CET
+Version: 0.8.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 12:14 CET
+
+## Gezielte Telefonmessung 0.8.1
+
+- [x] Zwei bestehende Logstellen im gepinnten rcpservice für Fähigkeitswort und Versionsprüfwert lokalisieren.
+- [x] Offlinekandidat mit exakt drei begrenzten Änderungsregionen, gleicher Dateigröße und unveränderter Audioauswahl erzeugen.
+- [x] Neue komprimierte RISC-V-Instruktionen unabhängig dekodieren; drei lokale Regressionen bestanden.
+- [ ] Kandidat nach gesichertem Updateweg gezielt integrieren und Runtimewirkung prüfen; derzeit ausdrücklich nicht installiert.
+- [ ] Die reale BH_HU-Ausgabe beim Fahrzeugstart sichern und erst danach einen Audioformat-Versuch ableiten.
+
+0.8.0-Geräteinstallation bleibt nach gescheiterter Vorbereitung offen; Bestätigung des Netzteilwechsels steht aus. Bereits gesicherte Logs wurden auf dem Dongle noch nicht gelöscht.
 
 ## Verständliche Einstellungen und Hardwareprüfung 0.8.0
 

@@ -1,9 +1,17 @@
 # Projektdokumentation
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:55 CET
+Version: 0.8.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 12:14 CET
 
 ## 2026-10-25
+
+### 12:11–12:14 CET – Offline-Messstelle für die 8-/16-kHz-Auswahl
+
+Der vorherige Arbeitsblock war Fortschritt: Einstellungen und Löschung gebaut/geprüft, Updatezustand untersucht und normaler Betrieb wiederhergestellt. Aktueller Read-only-Abgleich bestätigt Updatezustand 0, UI 0.7.0, aud=3, LED=0, delay=0 und unveränderte Herstellerbasis. Bestätigung des angeforderten Netzteilwechsels fehlt; es wurde kein weiterer Upload gestartet. Kein Beobachtungsprozess wird als weiterlaufender Flash ausgegeben.
+
+Unabhängig davon wurden die erhaltenen Fahrzeuglogs erneut auf vollständige Radio-/Plugin-/Fähigkeitsdaten geprüft. Sie enthalten die gewählte audioFormat=4 und 8-kHz-Strecke, aber weiterhin keine verwendete vollständige Maske/Plugin-Version. Die zwei bestehenden Logstellen bei 0x2BF80/0x2C088 erlauben eine eng begrenzte Beobachtung dieser Eingänge. Je ein vier Byte langer Logargumentaufbau wird durch c.lwsp a2,Offset(sp) und c.mv a3,s2 ersetzt; der vorhandene Formattext wird in-place zu BH_HU mask=%08x gate=%u. Dadurch unterscheiden sich exakt 38 Byte in drei Regionen; Audioauswahl, Branches, Logaufrufe und Dateigröße bleiben erhalten.
+
+Das neue tools/prepare_phone_probe.py prüft zuerst den gepinnten Quellhash, alle ursprünglichen Bytes und anschließend jeden geänderten Dateioffset. Capstone dekodiert die neuen Instruktionen unabhängig; drei lokale Tests bestehen. Kandidat: 209.188 Byte, SHA-256 2cbbaf825e8b3038ac9c53153b5ca6bd8800e121ce89d9526808846f2842fb40. Output nur unter dist/phone-probe-0.8.1, nicht integriert, nicht ausgeführt und nicht geflasht. phone_probe.md beschreibt Grenzen, insbesondere gate=0 als möglicherweise ungeparsten Versionswert. Projektanalyseversion 0.8.1 ist von installiertem UI 0.7.0 und gesperrtem UI-Kandidaten 0.8.0 getrennt.
 
 ### 11:52–12:08 CET – Updatevorbereitung hängt, kontrollierter Normalstart, erneuter Test vorbereitet
 

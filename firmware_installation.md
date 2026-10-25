@@ -1,6 +1,8 @@
 # Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.8.0 / 2026-10-25 11:55 CET
+Dokumentstand: 0.8.1 / 2026-10-25 12:14 CET
+
+Aktueller Geräteabgleich: UI 0.7.0, Updatezustand 0 nach kontrolliertem Neustart der festhängenden 0.8.0-Vorbereitung. 0.8.0 ist nicht als installiert verifiziert und im öffentlichen Manifest deaktiviert. 0.8.1 ist ausschließlich ein Offline-Diagnosewerkzeugstand; dessen gepatchtes rcpservice ist weder integriert noch geflasht. Loglöschung und neuer LED-Schalter bleiben bis erfolgreicher Geräteinstallation offen.
 
 0.8.0 ist zweimal identisch gebaut und lokal geprüft: 6.199.341 Byte, SHA-256 `47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46`. Elf erlaubte Imagepfade, unveränderter Kernel und erhaltene übrige Originaldateien sind unabhängig geprüft. LED-Schalter, erklärte Einstellungen, Hardwareabfrage und begrenzte Loglöschung sind enthalten. Installation/Runtimeprüfung stehen noch aus; das Gerät hat bislang UI 0.7.0. Aktuelle Logs sind zusätzlich unter `evidence/log-backups/2026-10-25-114454/` gesichert.
 

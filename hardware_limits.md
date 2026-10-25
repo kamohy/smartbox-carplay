@@ -1,7 +1,7 @@
 # Hardware, Reserven und sinnvolle Verbesserungen
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:57 CET
+Version: 0.8.1  
+Stand: 2026-10-25 12:14 CET
 
 ## Was auf diesem Adapter belegt ist
 
@@ -40,6 +40,8 @@ Ein [RTL8733BS-Modul von Fn-Link](https://fr.fn-link.com/amp/Module-Wi-Fi-6233A-
 2. Beim nächsten Fahrzeugstart die frühe Radio-/Plugin-/Formatauswahl erhalten. 0.8.0 bewahrt passende Anfangsmeldungen zusätzlich begrenzt auf; die vollständigen Fähigkeitsmasken müssen gegebenenfalls noch gezielt instrumentiert werden.
 3. Erst daraus eine auf tatsächlich unterstützte Telefonformate beschränkte Änderung ableiten.
 4. Direkten Kabelbetrieb und Adapterbetrieb hörbar sowie, soweit erfassbar, anhand ihrer Formate vergleichen. Keine Musikratenänderung als Telefon-Fix ausgeben.
+
+Für Schritt 2 ist inzwischen eine [Offline-Messstelle](phone_probe.md) vorbereitet, die das verwendete Fähigkeitswort und den Versionsprüfwert an bestehenden Logstellen ausgeben kann. Sie ist noch nicht installiert und ändert die Audioauswahl selbst nicht.
 
 ## Emulator als zusätzlicher Prüfstand
 

@@ -1,7 +1,9 @@
 # Portierung und Updateweg
 
-Version: 0.8.0  
-Stand: 2026-10-25 11:55 CET
+Version: 0.8.1 (Analyse; Geräte-UI 0.7.0)  
+Stand: 2026-10-25 12:14 CET
+
+0.8.1 ergänzt ein rein offline arbeitendes Diagnose-Patchwerkzeug für genau das gepinnte stabile rcpservice. Es verändert 38 Byte in drei Regionen für Logargumente/-format, erhält Dateigröße, Logaufrufstellen und Audioauswahl. Die Ausgabe ist noch nicht im lylink-Paket oder einem Startoverlay integriert und wurde nicht ausgeführt. Öffentliche Firmwaredatei bleibt 0.8.0 und ist nach festhängender Vorbereitung deaktiviert; installiert ist 0.7.0.
 
 0.8.0 ergänzt einen elften freigegebenen Imagepfad `/ota/www/js/bh-settings.js`. Die bestehende CGI erhält feste GET-Hardwareabfrage und ausschließlich `POST id=clear` zur Loglöschanforderung. Der Recorder führt diese im selben Hintergrundprozess seriell aus, löscht nur seine festen sechs gzip-/Metadaten-/Pending-Namen sowie eigene RAM-Snapshots und bewahrt Bootzähler und fremde Dateien. Keine freie Pfad-/Befehlseingabe. Die Aufzeichnung läuft weiter; unmittelbar nach dem Löschen bleiben für etwa eine Minute keine neuen gespeicherten Logs. Installation und reale Löschprüfung stehen noch aus.
 

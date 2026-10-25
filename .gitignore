@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+target/
+build/
+dist/
+.env
+.env.*
+*.token
+# Original images, device logs and downloaded references remain local.
+evidence/*
+!evidence/SHA256SUMS.txt
+!evidence/audio_code_findings.md
+!evidence/logs/
+evidence/logs/*
+!evidence/logs/README.md
+!evidence/ui-preview/
+evidence/ui-preview/*
+!evidence/ui-preview/verification.json

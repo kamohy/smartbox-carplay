@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="expires" content="0">
+	<title>Bad-Hippo | SmartBox Einstellungen</title>
+	<link rel="stylesheet" href="/css/weui.min.css">
+	<script src="/js/weui.min.js"></script>
+	<script src="/js/aliyun-oss-sdk.min.js"></script>
+	<script src="/js/cpbox.js"></script>
+	<style>
+		.title { margin-top: .77em; margin-bottom: .3em; padding-left: 15px; padding-right:
+		15px; background: #ddd; font-size: 1.6rem; } 
+		#txt11 { font-size: 1.2rem; color: #999999 } 
+		input::-webkit-input-placeholder {color: #ccc; } 
+		input::input-placeholder { color: #ccc; }
+		textarea::-webkit-input-placeholder { color: #ccc; }
+		textarea::input-placeholder { color: #ccc; }
+		.hide {display: none;}
+	</style>
+	<link rel="stylesheet" href="/css/bad-hippo-dark.css">
+</head>
+<body ontouchstart>
+<header class="bh-header">
+	<div class="bh-brand">
+		<img class="bh-logo" src="/css/bad-hippo-logo.svg" alt="Bad-Hippo" width="112" height="74">
+		<div class="bh-brand-copy">
+			<p class="bh-eyebrow">BAD-HIPPO.COM</p>
+			<h1>SmartBox <span>Einstellungen</span></h1>
+			<p class="bh-subtitle">Deine Verbindung. Deine Einstellungen.</p>
+		</div>
+	</div>
+	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.5.0</div>
+</header>
+<div class="container" id="container"></div>
+<script type="text/html" id="tpl_home">
+<div class="page">
+	<div class="cells">
+		<div class="title" id="txt0"></div>
+		<div class="weui-cell">
+			<div class="weui-cell__bd"><p id="txt1"></p></div>
+			<div class="weui-cell__ft" id="fw_no"></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__bd"><p id="txt21"></p></div>
+			<div class="weui-cell__ft" id="time"></div>
+		</div>
+	</div>
+	<div class="cells">
+		<div class="title" id="txt2"></div>
+		<a class="weui-cell weui-cell_access" id="div_mod" href="javascript:onSelModel();">
+			<div class="weui-cell__bd"><p id="txt3"></p></div>
+			<div class="weui-cell__ft" id="model"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_rst" href="javascript:onRst();">
+			<div class="weui-cell__bd"><p id="txt19"></p></div>
+			<div class="weui-cell__ft" id="rst"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_wif" href="javascript:onWiFi();">
+			<div class="weui-cell__bd"><p>WiFi AP</p></div>
+			<div class="weui-cell__ft" id="wifi"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="ly1301" href="javascript:onSelFunction();">
+			<div class="weui-cell__bd"><p>功能切换</p></div>
+			<div class="weui-cell__ft" id="func"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_mic" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p>录音方式</p></div>
+			<div class="weui-cell__ft" id="mic">默认</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_mouse" href="javascript:onSelMouse();">
+			<div class="weui-cell__bd"><p>鼠标模式</p></div>
+			<div class="weui-cell__ft" id="mouse">默认</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_vid" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p id="txt17"></p></div>
+			<div class="weui-cell__ft" id="vid">Default</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_aud" href="javascript:" onclick="onSelVals(this,audlb)">
+			<div class="weui-cell__bd"><p id="txt18"></p></div>
+			<div class="weui-cell__ft" id="aud">Default</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_icon" href="javascript:onSelIcon();">
+			<div class="weui-cell__bd"><p>车标选择</p></div>
+			<div class="weui-cell__ft" id="icon">HOME</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_conn" href="javascript:onSelConn();">
+			<div class="weui-cell__bd"><p>连接方式</p></div>
+			<div class="weui-cell__ft" id="conn">默认</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_delay" href="javascript:" onclick="onSelVals(this,dlylb)">
+			<div class="weui-cell__bd"><p id="txt20"></p></div>
+			<div class="weui-cell__ft" id="delay"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_gps" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p>GPS</p></div>
+			<div class="weui-cell__ft" id="gps"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_hi" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p>HiCar布局</p></div>
+			<div class="weui-cell__ft" id="hicar">默认</div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_led" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p>LED</p></div>
+			<div class="weui-cell__ft" id="led"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_led2" href="javascript:" onclick="onSelVals(this,ledlb,'led')">
+			<div class="weui-cell__bd"><p>LED</p></div>
+			<div class="weui-cell__ft" id="led2"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_dis" href="javascript:" onclick="onSelVals(this,miclb)">
+			<div class="weui-cell__bd"><p>自适应模式</p></div>
+			<div class="weui-cell__ft" id="display"></div>
+		</a>
+		<a class="weui-cell weui-cell_access" id="div_aa" href="javascript:onSelAA();">
+			<div class="weui-cell__bd"><p id="aav"></p></div>
+			<div class="weui-cell__ft" id="aa"></div>
+		</a>
+	</div>
+	<div class="cells">
+		<div class="title" id="txt4"></div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt5"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_brand"></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt6"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_model"></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt7"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_year"></div>
+		</div>
+		<div class="weui-cell log7">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt14"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_hu"></div>
+		</div>
+		<div class="weui-cell log7">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt15"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_hut"></div>
+		</div>
+		<div class="weui-cell log7">
+			<div class="weui-cell__hd"><label class="weui-label" id="txt16"></label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="txt_email"></div>
+		</div>
+		<div class="weui-cells__title" style="color: #111;"><label id="txt8"></label><label>:</label></div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<textarea class="weui-textarea" rows="5" id="txt_desc"></textarea>
+				</div>
+			</div>
+		</div>
+		<a href="javascript:onCommit();" class="weui-btn weui-btn_primary" id="txt9"></a>
+	</div>
+	<div class="cells">
+		<div class="title" id="txt10"></div>
+		<div class="page__bd">
+			<div class="weui-loadmore">
+				<i class="weui-loading" id="fw_sta"></i>
+				<span class="weui-loadmore__tips" id="txt11"></span>
+				<div class="page__bd page__bd_spacing" id="fw_prog_bd" style="display:none">
+					<div class="weui-progress">
+						<div class="weui-progress__bar">
+							<div class="weui-progress__inner-bar js_progress" style="width: 0%;" id="fw_prog"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-panel" id="fw_sec" style="display: none">
+				<a href="javascript:onUpdate();" class="weui-btn weui-btn_warn" id="txt12"></a>
+				<div class="weui-panel__bd">
+					<div class="weui-media-box weui-media-box_text">
+						<section><h3 id="txt13"></h3><p id="fw_desc"></p></section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="weui-footer">
+		<p class="weui-footer__text"></br>Copyright©2020 - 2028</p>
+	</div>
+</div>
+</script>
+<script>
+	var mData = { model: {}, icon: {}};
+	var miclb = ['Default', 'Mode 1'];
+	var ledlb = ['开启', '关闭'];
+	var audlb = ['Default', 'Mode 1', 'Mode 2', 'Mode 3'];
+	var dlylb = ['Default', 'Mode 1', 'Mode 2'];
+	window.onload = my_onload;
+
+	function si(i,n) {
+		var d = document.getElementById(i);
+		if (d) d.innerHTML = n;
+	}
+
+	function hd(n,v,a,h) {
+		var d = document.getElementById(n);
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					h = !h;
+					break;
+				}
+			}
+			if (h) d.style.display = 'none';
+		}
+	}
+
+	function hp(i) {
+		var d = document.getElementById(i);
+		if (d) d.parentElement.className = 'hide';
+	}
+
+	function hdaud(v) {
+		var a = '1284,1502,1334,1301,1335,1501,1344,1345,1119,1260,1263,1348,1350,1510,1511,1517,1518,1533,1534,1535,1537,1538,1539,1543,2344,2345,2348,2539,2517,1503,2562,3301,3303,2726,2863,2864,2865,2866,2869';
+		var d = document.getElementById('div_aud');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			
+			if((v > '5000' && v < '5061')) {
+				return;
+			}
+			else if((v > '5100' && v < '5300')) {
+				return;
+			}
+			else if((v > '6000' && v < '6051')) {
+				return;
+			} 
+			else if(v > '6070') {
+				return;
+			}
+			
+			d.style.display = 'none';
+		}
+	}
+
+	function hdwif(v) {
+		var a = '1501,1512,1506,1533,1534,1535,1536,1537,1538,1503,2562';
+		var d = document.getElementById('div_wif');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			
+			if((v > '5001' && v < '5300')) {
+				return;
+			}
+			else if(v > '6000') {
+				return;
+			} 
+			
+			d.style.display = 'none';
+		}
+	}
+
+	function hdmic(v) {
+		var a = '1332,1333,1302,1343,1349,1520,2343,2860,2862,2871,2873,3302,3304,2867,2859,3305';
+		var d = document.getElementById('div_mic');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			if (v > '2650' && v < '2660') {
+				return;
+			}
+			d.style.display = 'none';
+		}
+	}
+
+	function hdvid(v) {
+		var a = '1284,1502,1333,1301,1335,1343,1332,1119,1349,1350,1520,2343,2860,2862,2861,2866,3301,3302,2865,3303,3304,2869,2867,2859,3305,2726';
+		var d = document.getElementById('div_vid');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			if (v > '2650' && v < '2660') {
+				return;
+			}
+			d.style.display = 'none';
+		}
+	}
+
+	function hdconn(v) {
+		var a = '1333,1343,1332,1349,1520,2343,2860,2862,3302,3304,2867,2859,3305';
+		var d = document.getElementById('div_conn');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			if (v > '2650' && v < '2660') {
+				return;
+			}
+			d.style.display = 'none';
+		}
+	}
+
+	function hdgps(v) {
+		var a = '1333,1501,1344';
+		var d = document.getElementById('div_gps');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			
+			if((v > '5000' && v < '5061')) {
+				return;
+			}
+			else if((v > '5100' && v < '5300')) {
+				return;
+			}
+			else if((v > '6000' && v < '6051')) {
+				return;
+			} 
+			else if(v > '6070') {
+				return;
+			}
+			d.style.display = 'none';
+		}
+	}
+
+	function hdled(v) {
+		var a = '2721,2723,2724,2865,2806,2807,2808,2810,2812,2814,2772';
+		var d = document.getElementById('div_led');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			if((v > '5001')) {
+				return;
+			}
+			d.className = 'hide';
+		}
+	}
+
+	function hdled2(v) {
+		var a = '2859,2734,2872,2873,3301,3302,3303,3304,3305';
+		var d = document.getElementById('div_led2');
+		if (d) {
+			for (var i of a.split(',')) { 
+				if (i == v) {
+					return;
+				}
+			}
+			d.className = 'hide';
+		}
+	}
+
+	function setValue(v,n,hd=false) {
+		if (v != null) {
+			si(n, v);
+		} else if (hd) {
+			hp(n);
+		}
+	}
+
+	function setIndex(i,n,a=miclb,hd=false) {
+		if (i != null && i < a.length) {
+			si(n,a[i]);
+		} else if (hd) {
+			hp(n);
+		}
+	}
+
+	var appver = "";
+	function my_onload() {
+		go_tpl("tpl_home");
+		fetch("/cgi-bin/index.cgi?id=host").then(r => r.json()).then(j => {
+			var rs = j.res;
+			if (j.sys != null && j.sys.appver != null) {
+				if (j.update == 4) {
+					mData.appver = '00000000' + j.sys.appver.substr(8);
+				} else {
+					mData.appver = j.sys.appver;
+				}
+				appver = j.sys.appver.slice(-6, -2);
+			} else {
+				mData.appver = "0";
+			}
+			hd('ly1301',appver,'1301',true);
+			if (appver != '1260') { document.styleSheets[0].addRule('.log7', 'display: none'); }
+			//hd('div_mic',appver,'1332,1333,1302,1343,1349,1520,2343',true);
+			hd('div_mouse',appver,'1350,2861,2866,3301,3303,2869,2865',true);
+			hd('div_icon',appver,'1349,2871,2873',true);
+			//hd('div_vid',appver,'1284,1502,1333,1301,1335,1343,1332,1119,1349,1350,1520,2343,2860',true);
+			//hd('div_conn',appver,'1333,1343,1332,1349,1520,2343',true);
+			hdaud(appver);
+			hdwif(appver);
+			hdmic(appver);
+			hdvid(appver);
+			hdconn(appver);
+			hdgps(appver);
+			hdled(appver);
+			hdled2(appver);
+			hd('div_dis',appver,'2870,2872',true);
+			document.getElementById('div_mod').style.display = "none";
+			si("fw_no", mData.appver);
+			for (var i = 0; i < rs.txt.length; i++) { si("txt" + i, rs.txt[i]); }
+			for (var key in rs.fix) {
+				var ele = document.getElementById('txt_' + key);
+				if (ele) { ele.placeholder = rs.fix[key]; }
+			}
+			if (rs.model != null) { mData.model = rs.model; }
+			if (rs.icon != null) { mData.icon = rs.icon; }
+			if (j.sn == null) {
+				mData.sn = '##';
+			} else {
+				mData.sn = j.sn;
+			}
+			if (j.bt != null) { mData.bt = j.bt; }
+			if (j.wifi != null) { mData.wifi = j.wifi; }
+			if (j.model != null) {
+				var model = '';
+				if (j.model in mData.model) {
+					model = mData.model[j.model]; 
+				} else if ('NA' in mData.model) {
+					model = mData.model['NA']; 
+				}
+				si('model', model);
+			}
+			if (j.mic != null && j.mic < miclb.length) { 
+				si('mic', miclb[j.mic]); 
+				si('mouse', miclb[j.mic]); 
+			}
+			if (j.icon == null) {
+				document.getElementById('div_icon').style.display = "none";
+			} else {
+				var icon = '';
+				if (j.icon in mData.icon) {
+					icon = mData.icon[j.icon]; 
+				} else if ('home' in mData.icon) {
+					icon = mData.icon['home']; 
+				}
+				si('icon', icon);
+			}
+			setValue(j.otp, "time", true);
+			setIndex(j.vid, "vid");
+			setIndex(j.aud, "aud", audlb);
+			setIndex(j.delay, "delay", dlylb);
+			setIndex(j.gps, "gps");
+			setValue(j.sig, "wifi");
+			if (j.conn === "adb") { si('conn', "ADB"); }
+			setIndex(j.hicar, "hicar", miclb, true);
+			setIndex(j.led, "led");
+			setIndex(j.led, "led2", ledlb);
+			setIndex(j.display, "display");
+			cpbox_init(j);
+			if ('aa' in j) {
+				si('aav', rs.txt[17]);
+				setaa(j);
+			} else {
+				hp('aa');
+			}
+			queryNewVer();
+		}).catch(e => {
+			si("container", e);
+			setTimeout(my_onload, 3000);
+		});
+	}
+
+	function setaa(j) {
+		if (j.aa.length == 8 && j.aa[0] == '2') {
+            si('aa', miclb[0]);
+		} else {
+            si('aa', miclb[1]);
+        }
+        if (j.aa.length > 0) {
+            var t = '2' + j.aa.substr(1);
+            var now = new Date();
+            var B = '';
+            var C = '';
+            if (now.getUTCMonth() == 11) {
+                B += (now.getUTCFullYear() + 1) * 10000 + 100 + now.getUTCDate();
+            } else {
+                B += now.getUTCFullYear() * 10000 + (now.getUTCMonth() + 2) * 100 + now.getUTCDate();
+            }
+            C += (now.getUTCFullYear() + 1) * 10000 + (now.getUTCMonth() + 1) * 100 + now.getUTCDate();
+            if (t < B || t > C) {
+                aa_update();
+            }
+        }
+	}
+
+	function heart() {
+		fetch("/cgi-bin/index.cgi?id=host").then(r => r.json()).then(j => {
+			if (j.model != null) { 
+				si('model', mData.model[j.model]); 
+			} else {
+				setTimeout(heart, 3000);
+			}
+		}).catch(e => {
+			si('model', e.name);
+			setTimeout(heart, 3000);
+		});
+	}
+
+	async function queryNewVer() {
+		try {
+			await fetch(cpbox_geturl(), {headers: {'Cache-Control': 'no-cache'}}).then(r => {
+				if (r.status == 200) {
+					return r.json();
+				} 
+				throw "st=" + r.status;
+			}).then(j => setfwurl(j));
+		} catch(e) {
+			console.log("qv: " + e);
+			setTimeout(queryNewVer, 3000);
+		}
+	}
+
+	function showNewVer(j) {
+		if (j.url != null) {
+			mData.url = j.url;
+			si("txt11", findVer() + "</br>" + j.appver);
+			document.getElementById("fw_sec").style.display = "block";
+			si("fw_desc", j.msg);
+		} else {
+			si("txt11", lastedVer());
+		}
+		document.getElementById("fw_sta").style.display = "none";
+	}
+
+	function setfwurl(j) {
+		if (j.test != null && mData.sn != null && mData.wifi != null) {
+			var str = mData.sn + mData.wifi.replace(/:/g, '');
+			for (var test of j.test) {
+				if (test.sn != null) {
+					for (var sn of test.sn.split(',')) {
+						if (sn == str.slice(- sn.length)) {
+							if (test.appver > mData.appver) {
+								console.log("test version: " + test.appver);
+								showNewVer(test);
+							} else {
+								showNewVer({});
+							}
+							return;
+						}
+					}
+				}
+			}
+		}
+		if (j.appver > mData.appver) {
+			console.log("new ver: " + j.appver);
+			showNewVer(j);
+		} else {
+			showNewVer({});
+		}
+	}
+
+	function go_tpl(n) {
+		var c = document.getElementById("container");
+		var h = document.getElementById(n);
+		c.innerHTML = h.innerHTML;
+	}
+
+	function onSelAA() {
+		var aa = [
+			{label: miclb[0], value: 1},
+			{label: miclb[1], value: 0}
+		];
+		weui.picker(aa, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&aa=" + result[0].value;
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si('aa', "errcode=" + j.code);
+					} else {
+						fetch('/cgi-bin/index.cgi?id=host').then(r => r.json()).then(j => 
+							setaa(j)).catch(e => alert(e));
+					}
+				}).catch(e => {
+					si('aa', 'errname=' + e.name);
+				});
+			}
+		});
+	}
+
+	function onSelModel() {
+		var models = [];
+		for (var m in mData.model) {
+			models.push({
+				label: mData.model[m],
+				value: m
+			});
+		}
+		weui.picker(models, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&model=" + result[0].value;
+				si("model", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("model", "fail (" + j.code + ")");
+						setTimeout(heart, 3000);
+					}
+				}).catch(e => {
+					si("model", e.name);
+					setTimeout(heart, 3000);
+				});
+			}
+		});
+	}
+
+	function onRst() {
+		var funcs = [
+			{label: document.getElementById("txt19").innerHTML, value: "1"},
+		];
+		weui.picker(funcs, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&rst=" + result[0].value;
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("rst", "fail (" + j.code + ")");
+					} else {
+						si("rst", "OK");
+					}
+				}).catch(e => {
+					si("rst", e.name);
+				});
+			}
+		});
+	}
+
+	function onWiFi() {
+		var sig = [6,36,149,161];
+		var funcs = [];
+		for (var s of sig) {
+			funcs.push({label: s});
+		}
+		weui.picker(funcs, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&wifi=" + result[0].label;
+				si("wifi", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("wifi", "fail (" + j.code + ")");
+					}
+				}).catch(e => {
+					si("wifi", e.name);
+				});
+			}
+		});
+	}
+
+	function onSelFunction() {
+		var funcs = [
+			{label: "HiCar", value: "hicar"},
+			{label: "CarPlay", value: "carplay"}
+		];
+		weui.picker(funcs, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&func=" + result[0].value;
+				si("func", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("func", "fail (" + j.code + ")");
+					}
+				}).catch(e => {
+					si("func", e.name);
+				});
+			}
+		});
+	}
+
+	function onSelMouse() {
+		var mics = [];
+		for (var i = 0; i < miclb.length; i++) {
+			mics.push({label: miclb[i], value: i});
+		}
+		weui.picker(mics, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&mic=" + result[0].value;
+				si("mouse", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("mouse", "fail (" + j.code + ")");
+					}
+				}).catch(e => {
+					si("mouse", e.name);
+				});
+			}
+		});
+	}
+
+	function onSelIcon() {
+		var icon = [];
+		for (var m in mData.icon) {
+			icon.push({
+				label: mData.icon[m],
+				value: m
+			});
+		}
+		weui.picker(icon, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&icon=" + result[0].value;
+				si("icon", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("icon", "fail (" + j.code + ")");
+					}
+				}).catch(err => {
+					si("icon", "");
+				});
+			}
+		});
+	}
+
+	function onSelConn() {
+		var conn = [{label: "默认", value: "aoa"}, {label: "ADB", value: "adb"}];
+		weui.picker(conn, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&conn=" + result[0].value;
+				si("conn", result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si("conn", "fail (" + j.code + ")");
+					}
+				}).catch(err => {
+					si("conn", "");
+				});
+			}
+		});
+	}
+
+	function onSelVals(a,opts,ky=null) {
+		var vals = [];
+		var name = a.children[1].id;
+		for (var i = 0; i < opts.length; i++) {
+			vals.push({label: opts[i], value: i});
+		}
+		if (ky == null) ky = name;
+		weui.picker(vals, {
+			onChange: function(result) {
+				console.log(JSON.stringify(result));
+			},
+			onConfirm: function(result) {
+				var url = "/cgi-bin/index.cgi?id=set&" + ky + "=" + result[0].value;
+				si(name, result[0].label);
+				fetch(url).then(r => r.json()).then(j => {
+					if (j.code != 0) {
+						si(name, "fail (" + j.code + ")");
+					}
+				}).catch(e => {
+					si(name, e.name);
+				});
+			}
+		});
+	}
+
+	function onCommit() {
+		var j = {
+			appver: mData.appver,
+			sn: mData.sn,
+			wifi: mData.wifi,
+			bt: mData.bt
+		};
+		var ns = ['brand', 'model', 'year', 'hu', 'hut', 'email', 'desc'];
+		for (var n of ns) {
+			var d = document.getElementById("txt_" + n);
+			if (d) {
+				j[n] = d.value;
+			}
+		}
+		
+		console.log(j);
+		update_log(j);
+	}
+
+	function onUpdate() {
+		if (mData.url != null) {
+			update_fw(mData.url + "?t=" + Math.random());
+		} else {
+			alert("unknown: " + mData.url);
+		}
+	}
+</script>
+<script src="/js/bh-sha256.js"></script>
+<script src="/js/bh-update.js"></script>
+</body>
+</html>

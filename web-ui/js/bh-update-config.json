@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "provider": "github-public",
+  "repository": "kamohy/smartbox-carplay",
+  "ref": "main",
+  "manifest_path": "ota/5234/version.json",
+  "api_url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json",
+  "ui_version": "0.5.0",
+  "platform": "5234",
+  "base_appver": "26011517.5234.2"
+}

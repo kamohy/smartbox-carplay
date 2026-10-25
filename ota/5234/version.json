@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "platform": "5234",
+  "base_appver": "26011517.5234.2",
+  "version": "0.5.0",
+  "enabled": false,
+  "status": "candidate-not-device-verified",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.5.0.img",
+  "size": 6187053,
+  "sha256": "3b1d45b1ca75b9462bfc53974b5d34c6f28aef9b4f0761c746f1cb0923074581",
+  "notes": "Dunkle Einstellungen mit Bad-Hippo-Logo und dauerhaftem GitHub-Updatekanal. Erstinstallation und Recovery noch nicht verifiziert."
+}

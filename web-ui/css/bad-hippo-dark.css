@@ -1,0 +1,98 @@
+/* Bad-Hippo SmartBox UI 0.5.0 — appearance only; vendor handlers are unchanged. */
+:root {
+  color-scheme: dark;
+  --bh-bg: #0c0f14;
+  --bh-panel: #161b23;
+  --bh-raised: #1d2430;
+  --bh-line: #2a3442;
+  --bh-text: #edf2f8;
+  --bh-muted: #a3afc0;
+  --bh-accent: #ff7900;
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--bh-bg); }
+body {
+  margin: 0;
+  color: var(--bh-text);
+  background: radial-gradient(ellipse at 12% 0%, #ff790010, transparent 45%), var(--bh-bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; -webkit-tap-highlight-color: #ff790020; }
+.bh-header, .container { width: min(100% - 40px, 920px); margin-inline: auto; }
+.bh-header { padding: 42px 0 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.bh-brand { display: flex; align-items: center; gap: 22px; }
+.bh-logo { display: block; width: 112px; height: 74px; object-fit: contain; flex-shrink: 0; }
+.bh-eyebrow { color: var(--bh-accent); font-size: 11px; font-weight: 750; letter-spacing: .17em; margin: 0 0 7px; }
+.bh-brand h1 { margin: 0; color: var(--bh-text); font-size: 27px; line-height: 1.25; font-weight: 700; letter-spacing: -.025em; }
+.bh-brand h1 span { font-weight: 400; color: var(--bh-muted); }
+.bh-subtitle { margin: 8px 0 0; font-size: 13px; color: var(--bh-muted); }
+.bh-version { white-space: nowrap; display: flex; align-items: center; gap: 8px; border: 1px solid var(--bh-line); padding: 8px 12px; border-radius: 99px; font-size: 11px; color: #c3cedc; background: #161b2399; }
+.bh-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bh-accent); }
+.page { padding-bottom: 28px; }
+.cells { margin: 0 0 20px; overflow: hidden; background: var(--bh-panel); border: 1px solid var(--bh-line); border-radius: 16px; box-shadow: 0 10px 28px #00000018; }
+.title { margin: 0; padding: 16px 22px; background: #1a202a; color: #e9eff8; font-size: 13px; line-height: 1.5; font-weight: 700; letter-spacing: .025em; border-bottom: 1px solid var(--bh-line); }
+.weui-cell { padding: 15px 22px; color: var(--bh-text); font-size: 14px; line-height: 1.6; min-height: 54px; }
+.weui-cell:before { left: 22px; right: 22px; border-top-color: var(--bh-line); opacity: .7; }
+.weui-cell_access:active, .weui-cell_access:hover { background: #ff79000a; }
+.weui-cell__ft { color: var(--bh-muted); font-size: 13px; padding-left: 18px; }
+.weui-cell_access .weui-cell__ft:after { border-color: #7c899d; right: 2px; }
+#fw_no { color: #ffc08b; font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+.weui-label { color: #c6d0df; width: 115px; }
+.weui-input, .weui-textarea { color: var(--bh-text); background: transparent; font-size: 14px; caret-color: var(--bh-accent); }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #76849a; }
+input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
+.weui-input:focus, .weui-textarea:focus { outline: none; }
+.weui-cell:focus-within { background: #ffffff03; box-shadow: inset 3px 0 var(--bh-accent); }
+.weui-cells, .weui-panel, .weui-media-box { background: transparent; color: var(--bh-text); }
+.weui-cells { margin-top: 0; }
+.weui-cells:before, .weui-cells:after, .weui-panel:before, .weui-panel:after { border-color: var(--bh-line); }
+.weui-cells__title { margin: 0; padding: 16px 22px 5px; font-size: 12px; color: var(--bh-muted) !important; }
+.weui-textarea { min-height: 96px; resize: vertical; }
+.weui-btn { margin: 16px 22px 22px; font-size: 13px; line-height: 42px; font-weight: 650; border-radius: 9px; }
+.weui-btn:after { border: none; }
+.weui-btn_primary { color: #1b1007; background: var(--bh-accent); }
+.weui-btn_primary:not(.weui-btn_disabled):active { background: #e86e00; color: #1b1007; }
+.weui-btn_warn { color: #fff; background: #b9473d; }
+.weui-btn_disabled { color: #a3afc0 !important; background: #333c49 !important; }
+.weui-loadmore { margin: 24px auto; color: var(--bh-muted); }
+#txt11 { color: var(--bh-muted); font-size: 13px; }
+.weui-progress__bar { background: #303b4c; border-radius: 4px; overflow: hidden; }
+.weui-progress__inner-bar { background: var(--bh-accent); }
+.weui-media-box__desc, .weui-footer, .weui-footer__text { color: #7e8ba0; }
+.weui-footer { padding: 0 0 18px; font-size: 11px; }
+.weui-media-box:before { border-color: var(--bh-line); }
+.weui-dialog, .weui-toast { background: #202733; color: var(--bh-text); border-radius: 14px; }
+.weui-dialog__bd { color: var(--bh-muted); }
+.weui-dialog__ft:after, .weui-dialog__btn:after { border-color: var(--bh-line); }
+.weui-dialog__btn_primary { color: var(--bh-accent); }
+.weui-picker__hd, .weui-picker__bd, .weui-actionsheet, .weui-actionsheet__menu, .weui-actionsheet__action { background: #1b222d; color: var(--bh-text); }
+.weui-picker__hd:after, .weui-actionsheet__cell:before { border-color: var(--bh-line); }
+.weui-picker__action { color: #bac6d6; }
+.weui-picker__action:last-child { color: var(--bh-accent); }
+.weui-picker__item { color: var(--bh-text); }
+.weui-picker__indicator:before, .weui-picker__indicator:after { border-color: #46536a; }
+.weui-picker__mask { background-image: linear-gradient(180deg, #1b222df2, #1b222d88), linear-gradient(0deg, #1b222df2, #1b222d88); }
+.weui-mask { background: #000000a8; }
+.weui-actionsheet__cell:active { background: #293243; }
+.bh-preview-banner { width: min(100% - 40px, 920px); margin: 0 auto 18px; padding: 11px 15px; border: 1px solid #7d511f; border-radius: 9px; background: #2b2116; color: #ffd1a0; font-size: 12px; line-height: 1.6; }
+:focus-visible { outline: 2px solid var(--bh-accent); outline-offset: -3px; }
+@media (max-width: 600px) {
+  .bh-header, .container, .bh-preview-banner { width: calc(100% - 24px); }
+  .bh-header { padding: 25px 0 22px; gap: 8px; flex-wrap: wrap; }
+  .bh-brand { gap: 12px; }
+  .bh-logo { width: 74px; height: 50px; }
+  .bh-brand h1 { font-size: 20px; }
+  .bh-brand h1 span { display: block; font-size: 15px; margin-top: 2px; }
+  .bh-eyebrow { font-size: 9px; margin-bottom: 4px; }
+  .bh-subtitle { display: none; }
+  .bh-version { font-size: 10px; padding: 5px 9px; margin-left: auto; }
+  .cells { border-radius: 12px; margin-bottom: 14px; }
+  .title { padding: 14px 16px; }
+  .weui-cell { padding: 14px 16px; font-size: 13px; }
+  .weui-cell:before { left: 16px; right: 16px; }
+  .weui-cell__ft { font-size: 12px; }
+  .weui-label { width: 92px; }
+  .weui-cells__title { padding-inline: 16px; }
+  .weui-btn { margin: 14px 16px 18px; }
+}

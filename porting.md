@@ -1,0 +1,24 @@
+# Portierung und Updateweg
+
+Version: 0.5.0  
+Stand: 2026-10-25 09:36 CET
+
+Der erste Kandidat gilt ausschließlich für Plattform `ly5234` und die bytegenau geprüfte Herstellerbasis `26011517.5234.2`. Kein Crossflash auf andere Plattformen, keine Übernahme der widersprüchlich bezeichneten Testfirmware. Audio-Bibliotheken werden in dieser Version nicht geändert.
+
+Die Startdatei `app/lyUpdate.sh` setzt den aktiven Webroot unter `/tmp/ota/www` aus der Systemoberfläche und dem Customer-Overlay zusammen. Sie bindet `index.html`, CGI und die Ordner `css`, `js`, `lan` ein. Das neue SVG liegt deshalb unter `css/bad-hippo-logo.svg`, die Updatekonfiguration unter `js/bh-update-config.json`.
+
+Das Logo wird lokal mitgeliefert; im Fahrzeug ist kein Abruf von fdn.bad-hippo.com nötig. Originalquelle: https://fdn.bad-hippo.com/assets/logo.svg. SVG-SHA-256: `410ba4061bf6e9b8cee1ccda855285dd888ce8fd4e420a9bfdd143248aab7fe2`.
+
+Herstellerquelle: https://cpbox-abroad.oss-us-west-1.aliyuncs.com/5234/version.json. Die dort angebotene stabile Datei ist https://cpbox-abroad.oss-us-west-1.aliyuncs.com/5234/update.img. DNS am 25.10.2026: `47.254.114.108`; diese IP ist kein dauerhaft stabiler Vertrag.
+
+Die Herstelleroberfläche lädt Manifest und Image **im Browser**. Danach sendet `upload_fw()` die Datei als multipart/FormData an `POST /cgi-bin/index.cgi?id=upload` des Adapters. Deshalb ist kein transparenter HTTPS-/DNS-Eingriff erforderlich, um eine andere Datei zuzuführen. Der Transferweg allein sagt nichts über weitere Prüfungen im Gerät aus.
+
+Eigene permanente Manifestadresse: https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json. Die Firmware enthält dazu Plattform, Herstellerbasis und eigene UI-Version getrennt. Der Browser prüft Projektversion numerisch, Plattform/Basis, Freigabestatus, Downloadpfad, Länge und SHA-256. Diese SHA-256 ist eine Transport-/Integritätsprüfung, keine unabhängige Signatur gegen ein kompromittiertes Repository.
+
+Das Flashformat bleibt Hersteller-XOR, davor MD5 über die SWUpdate-Nutzlast, darin CRC-CPIO und SquashFS 4.0/XZ mit 256-KiB-Blöcken. Der Kernel und die originale `sw-description` sind byteidentisch übernommen. Dadurch würde der ursprüngliche Updateablauf weiterhin auch die Bootpartition beschreiben; ein UI-Update ist nicht automatisch ein risikoloser Dateiupload.
+
+Backhand 0.25.5 dient als Dateisystemschreiber; Dissect SquashFS 1.12 liest das Ergebnis unabhängig. Dateiinhalte, Modus, Eigentümer, Zeitstempel und Gerätedatei werden abgeglichen. Der komplette Quellcontainer lässt sich vor Änderungen byteidentisch wiederherstellen. Zwei Kandidatenbuilds ergaben dasselbe SHA-256.
+
+`.gitattributes` schaltet Zeilenendennormalisierung für die eingebetteten Webdateien aus. Dadurch stimmen Repositorybytes, lokale Overlaydateien und das gebaute Image auch bei einem Windows-Checkout überein.
+
+Noch offen: vollständiger individueller 16-MiB-Dump, Wiederherstellung über einen verifizierten Hardware-/Recoveryweg, Geräte-Updater-Prüfungen, erster Boot und echter Browser-/CORS-Updateversuch. Die vorhandenen öffentlichen Herstellerdateien enthalten keine vollständige Sicherung von U-Boot, Rootfs, Recovery, Environment oder privaten Gerätedaten.

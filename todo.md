@@ -1,7 +1,7 @@
 # Aufgaben
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:36 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 ## Oberfläche und eigener Updatekanal
 
@@ -11,11 +11,11 @@ Stand: 2026-10-25 09:36 CET
 - [x] Dauerhafte GitHub-Updateadresse in eigene Firmware aufnehmen; keine DNS-/TLS-Umleitung nötig.
 - [x] UI-Kandidat 0.5.0 bauen, zweimal reproduzieren und alle originalen Inodes sowie Kernel unabhängig abgleichen.
 - [x] Eigenen Updater gegen falsche Plattform, falschen Downloadpfad, beschädigte Nutzlast und nicht freigegebene Pakete prüfen.
-- [ ] Vollbackup und Recovery verifizieren, bevor der bislang ungeprüfte Kandidat geflasht wird.
+- [ ] Vollbackup und Recovery verifizieren. Nutzer hat den ersten UI-Updateversuch ausdrücklich ohne diese Voraussetzung und mit möglichem Geräteverlust freigegeben.
 - [ ] Den eigenen `/sbin/update`-/Recovery-Prüfpfad vollständig untersuchen; neu berechnete MD5/CPIO-Prüfsummen allein beweisen keine Annahme durch den Geräte-Updater.
-- [ ] Erstinstallation, anschließenden Start und dauerhafte Auslieferung der neuen Oberfläche direkt am Adapter verifizieren.
+- [x] Erstinstallation, anschließenden Normalstart und Auslieferung aller sechs UI-Dateien direkt am Adapter per SHA-256 verifiziert.
 - [ ] GitHub-/CORS-Download unter Safari und unter der echten Geräte-HTTP-Origin end-to-end prüfen.
-- [ ] Nach Geräteprüfung eine installierbare Version über `enabled: true` freigeben.
+- [x] Nach Geräteprüfung UI-Version 0.5.0 im eigenen Manifest freigeben; kein Audio-/Fahrzeugerfolg behauptet.
 
 ## Nächster sicherer Schritt
 
@@ -33,13 +33,17 @@ Stand: 2026-10-25 09:36 CET
 
 - [ ] Startskript-Modifikation für einen ausschließlich kontrollierten Offline-Test von `/tmp/ly_force_musicrate` entwerfen.
 - [ ] Musik-Hook erst weiterverfolgen, falls auch Musik betroffen ist; für Teams den Telefon-/Mikrofonpfad priorisieren.
-- [ ] Einen deterministischen SWUpdate-/CPIO-/SquashFS-Repacker bauen und ausschließlich offline gegen entpackte Kopien prüfen.
+- [x] Deterministischen SWUpdate-/CPIO-/SquashFS-Repacker gebaut und zweimal offline mit identischem Ergebnis geprüft (0.5.0).
 - [ ] Signatur-, Prüfsummen- und Bootphasenverhalten vollständig dokumentieren.
 - [ ] Flash-Chip-Backup und Hardware-Recoveryverfahren entwickeln und verifizieren.
 - [ ] Erst danach eine modifizierte Firmware auf einem zweiten Adapter testen.
 - [ ] Scharfe Fotos beider Platinenseiten erstellen, um Flash-Zugriff, mögliche Recoverykontakte und Spannungspegel zu bestimmen.
 
 ## Erledigt
+
+- [x] 2026-10-25 10:03 CET: Echte UI-Firmware über den normalen Updateweg erfolgreich installiert; Originale, Uploadquittung, Zwischenzustände und Nachher-Dateivergleich lokal archiviert.
+- [x] 2026-10-25 10:03 CET: Windows-xfel 1.4.0 samt SHA-256 geprüft; kein FEL-Gerät erreichbar. Ein unabhängiger Rückweg wurde damit nicht bestätigt.
+- [x] 2026-10-25 10:03 CET: Lesendes Zwei-Pass-Backupwerkzeug und eng begrenzten Einmal-Uploader mit unabhängiger MIME-Payloadprüfung ergänzt.
 
 - [x] 2026-10-25 08:25 CET: USB-Identität und Windows-Treiberstatus erfasst.
 - [x] 2026-10-25 08:36 CET: 5-GHz-WLAN und lokalen Verwaltungszugang identifiziert.

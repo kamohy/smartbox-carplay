@@ -1,12 +1,11 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:36 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 ## Offen
 
-- Der gebaute UI-Kandidat 0.5.0 ist noch nicht auf dem Adapter installiert; Annahme durch den separaten Updater, Recovery und Bootfähigkeit sind unbestätigt. Die lokale Vorschau ist kein Nachweis einer Geräteinstallation.
-- Die GitHub-Updateadresse ist in den neuen Webdateien hinterlegt, erreicht das Gerät aber erst mit einer erfolgreichen Erstinstallation. Das erste Manifest ist absichtlich nicht zur Installation freigegeben.
+- Die neue Oberfläche ist auf einem eigenen Adapter installiert und geprüft. Vollbackup, Hardware-Recovery und Fahrzeug-/Teams-Test stehen weiterhin aus.
 - Browser-/CORS-Endprüfung des späteren echten Firmware-Downloads auf der Geräte-Origin steht aus.
 
 - Teams-Anrufe im Hyundai i30 Kombi (2018) sind über den Adapter in beiden Richtungen blechern. Derselbe Teams-Anwendungsfall auf demselben iPhone klingt über direktes USB-Kabel deutlich besser. Ein entsprechender Fehler bei Musik ist nicht bestätigt.
@@ -19,6 +18,11 @@ Stand: 2026-10-25 09:36 CET
 - Die im Webfrontend vorhandene ADB-Umschaltung wird für Plattform 5234 ausgeblendet und wurde nicht erzwungen.
 
 ## Behoben oder geklärt
+
+- 2026-10-25 10:03 CET: Firmware 0.5.0 angenommen, Updaterzustand 2→3 beobachtet, anschließend mit `id=set&conn=cp` normal neu gestartet. Alle sechs neuen/geänderten Webdateien stimmen per SHA-256 mit dem Build überein. Einstellungen `aud=2`, `mic=0`, `sig=149` erhalten; `conn=cp` ist der protokollierte Neustart-/CarPlayaufruf.
+- 2026-10-25 10:03 CET: Während des Updates läuft nur die Recovery-Verwaltung mit Versionsanzeige `00000000.5234.2`; fehlende statische Dateien und `no QUERY STRING` waren in dieser Phase kein endgültiger Installationsbefund.
+- 2026-10-25 10:03 CET: PC-WLAN musste von APIPA auf eine passende feste Clientadresse umgestellt werden. Eine zusätzlich verbliebene Adresse und zeitweise unbrauchbare Route behinderten den Preflight. Nach Nutzerkorrektur auf `.104` war der Transfer erfolgreich. Kein fehlgeschlagener Preflight hat Firmwarebytes übertragen.
+- 2026-10-25 10:03 CET: Funkchip-Aussage korrigiert: Bluetooth-Profil `RTL8723FS`, WLAN-Treiber im Kernel `RTL8733BS`; Platinenbestückung bleibt unbestätigt.
 
 - 2026-10-25 09:36 CET: Logo und dunkles Design implementiert; Firmwarecontainer bytegenau rückverpackt und zweimal identisch gebaut. Kernel, `sw-description`, alle 66 ursprünglichen Dateisystemeinträge und `/dev/console` bleiben erhalten; exakt sechs UI-Dateien ändern sich/kommen hinzu.
 - 2026-10-25 09:36 CET: Logo liegt unter `/css/`, weil `lyUpdate.sh` beim Start nur `index.html`, `css`, `js`, `lan` und CGI in den aktiven Webroot einbindet. Ein neuer Ordner `/assets/` allein wäre dort nicht erreichbar.

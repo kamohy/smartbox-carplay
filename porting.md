@@ -1,7 +1,7 @@
 # Portierung und Updateweg
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:36 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 Der erste Kandidat gilt ausschließlich für Plattform `ly5234` und die bytegenau geprüfte Herstellerbasis `26011517.5234.2`. Kein Crossflash auf andere Plattformen, keine Übernahme der widersprüchlich bezeichneten Testfirmware. Audio-Bibliotheken werden in dieser Version nicht geändert.
 
@@ -22,3 +22,7 @@ Backhand 0.25.5 dient als Dateisystemschreiber; Dissect SquashFS 1.12 liest das 
 `.gitattributes` schaltet Zeilenendennormalisierung für die eingebetteten Webdateien aus. Dadurch stimmen Repositorybytes, lokale Overlaydateien und das gebaute Image auch bei einem Windows-Checkout überein.
 
 Noch offen: vollständiger individueller 16-MiB-Dump, Wiederherstellung über einen verifizierten Hardware-/Recoveryweg, Geräte-Updater-Prüfungen, erster Boot und echter Browser-/CORS-Updateversuch. Die vorhandenen öffentlichen Herstellerdateien enthalten keine vollständige Sicherung von U-Boot, Rootfs, Recovery, Environment oder privaten Gerätedaten.
+
+Aktualisierung 0.5.1: Nach ausdrücklicher Nutzerfreigabe trotz möglichen Geräteverlusts wurde das geprüfte 0.5.0-Paket erfolgreich geflasht. Auf Updaterzustand 3 folgte der normale Neustart mit `id=set&conn=cp`; die sechs Webdateien stimmen anschließend direkt auf dem Gerät mit dem Build überein. Damit ist der Erststart auf genau diesem Adapter belegt. Vollbackup, Restore und Fahrzeug-/Audiotest bleiben offen. Der Windows-xfel-Probeversuch war negativ; kein FEL-Modus vorhanden. CatPlay-`cpbox2fel` ist selbst ein vorgeschalteter Flash und enthält im geprüften Stand keinen ly5234-Preset.
+
+Quellen: [xfel V821-Code](https://github.com/xboot/xfel/blob/445e8aefe6914c85817cc9bd1d201629364b0ec6/chips/v821.c), [CatPlay cpbox2fel](https://github.com/catplay-labs/catplay-firmware/blob/aca307bb24efc7b1bcf624625e609a6666970761/meta-sunxi/recipes-kernel/sunxi-flasher/files/cpbox2fel.py). Windowsarchiv-SHA-256: `f00c3ab96149ee63abe3e5f015a1f69aae9fdadf35e999cf110d1d5a36923fbc`.

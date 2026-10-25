@@ -1,7 +1,7 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:36 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 ## Projektvorstellung
 
@@ -17,15 +17,14 @@ Fahrzeug laut Nutzer: Hyundai i30 Kombi, Baujahr 2018. Konkret bestätigtes Fehl
 
 - Öffentliches Repository: https://github.com/kamohy/smartbox-carplay
 - Eigene Oberfläche 0.5.0: dunkles Design und eingebettetes Bad-Hippo-Logo.
-- Echte modifizierte Firmware gebaut: `ota/5234/firmware-0.5.0.img`. **Offline geprüfter Kandidat, nicht auf dem Gerät installiert oder als bootfähig bestätigt.**
+- Eigene Firmware `ota/5234/firmware-0.5.0.img` erfolgreich über den Geräte-Updater installiert. Normalstart und alle sechs Webdateien am realen Gerät per SHA-256 geprüft. CarPlay-/Teams-Audio wurde mit dieser UI-Version noch nicht im Fahrzeug geprüft.
 - Dauerhafte neue Update-API: https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json
-- Der eigene Updatekanal ist in der Kandidaten-Firmware hinterlegt. Das unveränderte Gerät verwendet weiterhin die Herstelleradresse.
-- `enabled: false` verhindert das Angebot des noch ungeprüften Erstpakets im neuen Updater.
+- Der eigene Updatekanal ist jetzt auf dem Adapter installiert; Firmware-UI 0.5.0 und Projekt-/Werkzeugstand 0.5.1 sind getrennt versioniert.
 
 - Installierte Firmware: `26011517.5234.2`
 - Plattform direkt im CRC-geprüften Gerätelog bestätigt: Allwinner V821B, 32-Bit RISC-V
 - Arbeitsspeicher laut Kernel: 64 MiB
-- Funkchip laut Startprotokoll: Realtek `RTL8723FS`
+- Bluetooth-Initialisierung: Profil `RTL8723FS`; der Kernel enthält den WLAN-Treiber `RTL8733BS`. Physische Bestückung noch nicht geprüft.
 - Flash laut geprüftem Startprotokoll: `xt25p1288`, 16 MiB SPI-NOR
 - WLAN: 5 GHz, 802.11n; zuerst Kanal 36 beobachtet, aktuelle Konfiguration meldet Kanal 149
 - Lokale Verwaltung: `http://192.168.1.101`
@@ -52,7 +51,7 @@ Der ebenfalls gefundene Hook `/tmp/ly_force_musicrate` akzeptiert 44.100 oder 48
 
 ## Sicherheitsgrenze
 
-Keine modifizierte oder Testfirmware wird auf das Gerät geschrieben, bis ein vollständiger Backupweg, ein reproduzierbarer Recoveryweg und vorzugsweise ein zweiter Adapter vorhanden sind. Die Cloud-Testfirmware wird nur offline analysiert.
+Vollbackup und verifizierter Recoveryweg fehlen weiterhin. Der Nutzer hat am 25.10.2026 Platinenzugang ausgeschlossen und ausdrücklich den Updateweg auch bei möglichem Geräteverlust freigegeben. Auf dieser Grundlage wurde der gezielte UI-Updateversuch erfolgreich durchgeführt. Ein erfolgreicher UI-Flash ist kein Beweis für einen funktionierenden Vollrestore oder eine Audioverbesserung. Die Cloud-Testfirmware wird weiterhin nur offline analysiert.
 
 ## Dokumente
 
@@ -71,6 +70,8 @@ Keine modifizierte oder Testfirmware wird auf das Gerät geschrieben, bis ein vo
 - `tools/build_ui_firmware.py`: UI-Kandidat vollständig offline bauen und unabhängig prüfen
 - `tools/smartbox-squashfs`: eng begrenzter SquashFS-Patcher auf Basis von Backhand 0.25.5
 - `tools/preview_settings.py`: lokale Vorschau; Gerätestatus lesen, Schreibzugriffe sperren
+- `tools/capture_fel_backup.py`: nur lesende FEL-Probe und optional zwei volle 16-MiB-Reads; kein realer Backup-/Restoreerfolg vorhanden
+- `tools/upload_ui_candidate.py`: einmaliger, gepinnter Upload mit Preflight und explizitem Risiko-Opt-in; kein automatischer Wiederholungsversuch
 - `tools/extract_squashfs.py`: SquashFS ohne unsichere Symlink-Erstellung extrahieren
 - `tools/extract_lypack.py`: sechs im `lylink`-Pack enthaltene Programme/Bibliotheken CRC-geprüft extrahieren
 - `tools/unpack_android_boot.py`: Android-Boot-v2-Abbild in Kernel und DTB zerlegen

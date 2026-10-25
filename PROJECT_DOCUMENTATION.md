@@ -1,9 +1,25 @@
 # Projektdokumentation
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:37 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 ## 2026-10-25
+
+### 09:39–10:03 CET – Rückweg untersucht, ausdrückliche Risikofreigabe, echte Installation, Version 0.5.1
+
+Die vorherige Fortsetzung war Fortschritt: echter Kandidat und öffentliches Repository waren vorhanden. Upstream-xfel 1.4.0 wurde aus der originalen Windowsfreigabe geladen, gegen den Releasehash und zusätzlich EXE-/DLL-Hashes geprüft. Die reale Probe meldet kein FEL-Gerät. Ein lesendes Zwei-Pass-Backupwerkzeug wurde ergänzt und gegen kurze, abweichende und beschädigte Daten getestet. Diese synthetischen Prüfungen behaupten weder einen realen Dump noch einen Restore. Der aktuelle CatPlay-Weg `cpbox2fel.py` wurde nur gelesen: Er flasht zuerst ein modifiziertes OTA und hat keinen ly5234-Preset. Deshalb ist er kein unabhängiger Backupweg vor dem ersten Flash.
+
+Die Hardwarebewertung wurde präzisiert: `RTL8723FS` stammt aus dem Bluetooth-Initialisierungspfad, der eigene Kernel enthält `8733bs`/`RTL8733B` als WLAN-Treiber. Frühere historische Formulierungen „Funkchip RTL8723FS“ sind damit eingeschränkt, kein physischer WLAN-Chipnachweis.
+
+Der Nutzer schloss Platinenzugang aus und wies ausdrücklich an, den Updatepfad zu verwenden; einen möglichen zerstörten Dongle und Ersatzkauf akzeptiert er. Damit wurde die ursprüngliche Backup-Voraussetzung für den ersten gezielten Updateversuch aufgehoben. Es erfolgte keine erneute Nachfrage nach dieser Risikofreigabe.
+
+Der Adapter war zeitweise abgesteckt; nach erneutem Anschluss bekam Windows zunächst nur APIPA. Die WLAN-IP-Änderung scheiterte im Agentprozess an fehlenden Administratorrechten. Der Nutzer setzte eine statische Adresse und korrigierte sie später auf `.104`; eine alte zusätzliche `.2` wurde entfernt. Zwischenzeitlich wurden USB-Netzteilversorgung und erneute WLAN-Verbindung getestet. Sämtliche bis dahin gescheiterten Versuche brachen im lesenden Preflight ab. Es gab nur einen echten Firmwareupload.
+
+Um 09:59:44 CET wurde das vollständig geprüfte 6.187.053-Byte-Image einmal per multipart hochgeladen und mit `code=0 / upload successful` bestätigt. Original und Kandidat nutzen XZ-CRC32 (Check-ID 1). Danach wurden Geräteidentität und Updaterzustände 2 und 3 beobachtet. Im Recoveryzustand meldete der CGI `00000000.5234.2` und lieferte keine normale statische Oberfläche. Das Gerät wurde erst nach bestätigtem Zustand 3 über den dokumentierten Herstelleraufruf `id=set&conn=cp` neu gestartet.
+
+Nach dem Normalstart meldet das eigene Gerät wieder `26011517.5234.2`, Updater 0, `aud=2`, `mic=0`, `sig=149`, `conn=cp`. Alle sechs UI-Dateien wurden direkt über `192.168.1.101` abgerufen und per SHA-256 mit dem Build abgeglichen. Die echte Geräteoberfläche wurde im Browser geöffnet. Die eigene Firmware-UI bleibt 0.5.0; Projekt-/Werkzeugfixstand ist 0.5.1. Audio-/Fahrzeugfunktion und Wiederherstellung bleiben ungetestet.
+
+Lokale individuelle Belege liegen unter `evidence/updates/2026-10-25-095944/` und bleiben vom öffentlichen Repository ausgeschlossen. Der öffentliche Nachweis enthält nur Dateihashes, Status und erhaltene Einstellungen. Der Nutzer beauftragte anschließend einen eigenen lesenden Diagnosebereich; diese Erweiterung wird getrennt versioniert.
 
 ### 09:20–09:37 CET – Eigene Oberfläche, Firmwarekandidat und GitHub, Version 0.5.0
 

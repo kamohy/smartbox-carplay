@@ -1,8 +1,8 @@
 # Firmware 0.5.0: Build und Installationsstatus
 
-Stand: 2026-10-25 09:36 CET
+Dokumentstand: 0.5.1 / 2026-10-25 10:03 CET
 
-**Status: gebaut und offline validiert, nicht geflasht.** Diese Datei beschreibt keinen bestätigten Installationserfolg. Die bisher vereinbarte Voraussetzung eines verifizierten Backups und Recoverywegs ist nicht erfüllt.
+**Status: auf dem eigenen ly5234-Adapter installiert und im Normalstart geprüft.** Der Nutzer hat den Versuch ausdrücklich ohne vollständiges Backup/Recovery und mit akzeptiertem Geräteverlust freigegeben. Das ist kein geprüfter Rückweg und kein bestätigter Audio-Fix.
 
 Kandidat: `ota/5234/firmware-0.5.0.img`, 6.187.053 Byte. SHA-256: `3b1d45b1ca75b9462bfc53974b5d34c6f28aef9b4f0761c746f1cb0923074581`.
 
@@ -21,6 +21,6 @@ node tests/test_update.js
 
 Der Builder verändert ausschließlich eine Kopie. Er implementiert keinen Upload. Der erzeugte Bericht nennt alle sechs geänderten/ergänzten Webdateien, Original-/Zielhash, Partitionsgrenzen und die fehlende Geräteprüfung. Er bricht bei unerwarteten Änderungen außerhalb der Oberfläche ab.
 
-Der normale Ersttransfer wäre ein multipart-Upload des Images an den bekannten lokalen CGI-Uploadendpunkt. Dieser Schritt kann unmittelbar einen Flash-/Neustartablauf auslösen und wurde noch nicht ausgeführt. Ohne individuellen Dump und getesteten Rückweg würde ein Fehler den Adapter möglicherweise nur mit Hardwarezugriff wiederherstellbar machen.
+Der Ersttransfer war ein einmaliger multipart-Upload an den bekannten lokalen CGI-Uploadendpunkt. Um 09:59:44 CET bestätigte der Adapter `upload successful`. Es folgten Zustand 2, Zustand 3 und erst danach der normale Neustart. Alle sechs Webdateien wurden anschließend direkt vom Gerät per SHA-256 geprüft. `aud=2`, `mic=0` und `sig=149` blieben erhalten; der Neustart setzt `conn=cp`. Individuelle Originalbelege liegen lokal unter `evidence/updates/2026-10-25-095944/`.
 
-Für spätere Updates wird das GitHub-Manifest dauerhaft eingebettet. Der erste Eintrag ist `enabled: false`; das ist ein echter gesperrter Kandidat, keine erfundene aktuelle Herstellerfreigabe. Erst Geräteprüfung und anschließende bewusste Manifestfreigabe machen daraus ein regulär angebotenes Update.
+Das GitHub-Manifest ist dauerhaft eingebettet. Der erste Eintrag wurde nach dem Gerätevergleich für die eigene Oberfläche freigegeben. Der eigene Updater vergleicht die separate UI-Version; die unveränderte Herstellerbasis bleibt `26011517.5234.2`. Eine zukünftige Erweiterung benötigt einen neuen Build, ein neues SHA-256 und eine höhere UI-Version.

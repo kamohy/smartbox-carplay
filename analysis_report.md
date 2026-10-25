@@ -1,7 +1,7 @@
 # Technischer Analysebericht – SmartBox 5234
 
-Version: 0.5.0  
-Stand: 2026-10-25 09:36 CET
+Version: 0.5.1  
+Stand: 2026-10-25 10:03 CET
 
 ## Kurzurteil
 
@@ -13,7 +13,7 @@ Backup und Recovery fehlen, und die verfügbare Testfirmware ist intern widerspr
 
 ## Eingrenzung auf Teams und Telefonie
 
-Seit 0.5.0 ist zusätzlich ein echter UI-Firmwarekandidat mit Logo, dunklem Design und eigenem GitHub-Updatekanal gebaut. Er verändert keine Audiobibliotheken und ist noch nicht auf dem Adapter installiert. Container, Dateisystem und Partitionsgrößen sind offline geprüft; Geräte-Updater und Boot sind unbestätigt. Einzelheiten: `firmware_installation.md`, `porting.md` und `ota/5234/build-report.json`.
+UI-Firmware 0.5.0 mit Logo, dunklem Design und eigenem GitHub-Updatekanal wurde nach ausdrücklicher Freigabe des Geräteverlustrisikos installiert. Normalstart und sechs UI-Dateien sind direkt auf dem Gerät geprüft. Audiobibliotheken wurden nicht verändert; der Teams-Befund bleibt offen. Einzelheiten: `firmware_installation.md`, `porting.md` und `ota/5234/build-report.json`.
 
 `lylinkapp::AudioPlayerCreate` behandelt Telefon-Audiotyp 8 getrennt. Ab `0x1D50C` liest die Software die Telefonrate und Kanalzahl des Radios aus und übergibt sie mit 16 Bit an den USB-Dienst. Die Logmeldung `phone call rate=%d, sz=%d` zeigt dabei Rate und fest vorgegebene Bittiefe; `sz` ist hier keine Pufferlänge.
 
@@ -33,7 +33,7 @@ Als allgemeiner Architekturkontext: Microsoft unterstützt [Teams-Audioanrufe ü
 - SoC direkt im CRC-geprüften eigenen Gerätelog: Allwinner V821B, 32-Bit RISC-V
 - Kernel: Linux `5.4.220`
 - RAM laut Kerneladressraum: 64 MiB
-- Funkchip laut Startprotokoll: Realtek `RTL8723FS`
+- Bluetooth-Profil im Startlog: `RTL8723FS`; im eigenen Kernel vorhandener WLAN-Treiber: `RTL8733BS`. Kein physischer Chipnachweis.
 - Flash: `xt25p1288`, 16 MiB SPI-NOR
 - USB-Emulation: Apple `VID_05AC/PID_12A8`
 - Webverwaltung: `http://192.168.1.101`, nur TCP-Port 80 beobachtet

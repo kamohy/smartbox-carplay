@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "version": "0.8.2",
+  "base_appver": "26011517.5234.2",
+  "image_sha256": "546416e4d2c3279142d1aa29a3e51e13780e36c0537e7459f9d3b55dc9e02cd4",
+  "image_size": 3034669,
+  "upload_accepted": true,
+  "observed_states": [
+    1
+  ],
+  "completion_state_3_observed": false,
+  "installation_verified": false,
+  "installed_ui_version_last_read": "0.7.0",
+  "log_backup_crc_verified": true,
+  "log_deletion_http_status": 405,
+  "logs_deleted": false,
+  "controlled_normal_reboot_requested": true,
+  "full_backup_verified": false,
+  "recovery_verified": false,
+  "next_step": "full power cycle before any further test"
+}

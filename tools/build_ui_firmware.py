@@ -59,7 +59,7 @@ class Member:
     header: bytes
     payload: bytes
 
-def read_cpio(data: bytes) -> list[Member]:
+def read_cpio(data: bytes, *, customer_only: bool = False) -> list[Member]:
     entries, seen, offset = [], set(), 0
     while offset + 110 <= len(data):
         header = data[offset:offset+110]
@@ -86,7 +86,8 @@ def read_cpio(data: bytes) -> list[Member]:
         if name == 'TRAILER!!!':
             if size or any(data[offset:]):
                 raise ValueError('nonzero CPIO trailer')
-            if [m.name for m in entries] != ['sw-description','customer','kernel','TRAILER!!!']:
+            expected = ['sw-description','customer','TRAILER!!!'] if customer_only else ['sw-description','customer','kernel','TRAILER!!!']
+            if [m.name for m in entries] != expected:
                 raise ValueError('unexpected archive order/members')
             return entries
     raise ValueError('missing CPIO trailer')

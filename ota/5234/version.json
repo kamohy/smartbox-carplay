@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "enabled": false,
-  "status": "device-test-preparation-stalled",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.0.img",
-  "size": 6199341,
-  "sha256": "47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46",
-  "notes": "0.8.0: LED-Schalter, erklärte Einstellungen, Hardwareabfrage und Loglöschung. Offline geprüft. Erster Geräteversuch blieb nach bestätigtem Upload im Vorbereitungszustand; normaler Neustart hat 0.7.0 erhalten. Weitere Geräteprüfung vor Freigabe erforderlich."
+  "status": "maintenance-preparation-stalled",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.2.img",
+  "size": 3034669,
+  "sha256": "546416e4d2c3279142d1aa29a3e51e13780e36c0537e7459f9d3b55dc9e02cd4",
+  "notes": "Minimaler Wartungszwischenstand: RAM-/Dateisystemplatz einschließlich /tmp, Fehlerauszug und Löschen eigener Logs. Customer-only-Paket. Upload angenommen, aber Zustand 1 ohne Abschluss; weiterhin UI 0.7.0 und Loglöschung nicht verfügbar. Bis erfolgreicher Geräteprüfung gesperrt."
 }

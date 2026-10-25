@@ -2,4 +2,5 @@
 # UI bytes are embedded in the verified firmware; never normalize them.
 web-ui/** -text
 firmware-overlay/** -text
+maintenance-overlay/** -text
 *.img binary

@@ -1,9 +1,27 @@
 # Projektdokumentation
 
-Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 13:24 CET
+Version: 0.8.3 (Wartungskandidat; installierte Geräte-UI zuletzt 0.7.0)
+Stand: 2026-10-25 14:07 CET
 
 ## 2026-10-25
+
+### 14:07 CET – Abschließender Stand nach freigegebener Log-/Kopplungslöschung
+
+Beide gezielt geänderten 0.8.3-Versuche (vor und nach dem freigegebenen Datenreset) blieben nach angenommenem Upload in Zustand 1. Nach jeweils kontrolliertem Neustart ist UI 0.7.0/Updatezustand 0 bestätigt. Die neue Oberfläche ist nicht installiert; es erfolgt kein weiterer unveränderter Upload. Letzte freie Kapazität nach neuer Aufzeichnung: 276/512 KiB; direkt nach dem Reset waren es 304 KiB. Die alten erreichbaren Logs sind entfernt und alle ursprünglichen Fahrzeuglogs lokal gesichert.
+
+Der Kundenwunsch zur Logbereinigung ist nach zusätzlicher ausdrücklicher Freigabe erledigt. Die neue Speicher-/Fehlerseite bleibt wegen des nicht abgeschlossenen Firmwareupdates offen. Der mögliche Mount-/Logger-Zusammenhang ist anhand eines verwandten Updaters nachvollzogen, aber am eigenen laufenden Prozess noch nicht abschließend nachgewiesen. Die Korrektur liegt als 0.8.3 vor und ist lokal geprüft. Alle temporären Verbindungswerte sind auf cp zurückgestellt; USB-Verifikation war am PC erfolgreich, keine Windows-Treiber geändert. Kein Flash-/Beobachtungsprozess läuft weiter.
+
+### 14:03 CET – Referenz-Updater, RAM-Startkorrektur und freigegebene Datenlöschung
+
+Aktueller Stand 0.8.3: Der Wartungskandidat startet den Recorder aus RAM mit Arbeitsverzeichnis / und beendet ihn bei aktivem Update. Das originale vollständige Updateformat einschließlich bytegleichem Kernel und unveränderter Beschreibung bleibt erhalten. Zwei Builds sind identisch; 34 lokale Pythonprüfungen und die drei bisherigen JS-Prüfprogramme bestehen. Geräteinstallation ist noch nicht bestätigt; installiert bleibt zuletzt UI 0.7.0. Nach ausdrücklicher Zustimmung wurde der gesamte UDISK-Inhalt einschließlich Kopplungen über rst=1 gelöscht. Alte erreichbare Logs sind entfernt und lokal gesichert; 304 statt 224 KiB frei. Neun verglichene Einstellungen sind unverändert. Der Logger legt bereits neue Dateien an.
+
+Aus dem öffentlich verlinkten verwandten 5190-Flashdump wurden offline /sbin/update und Startskripte extrahiert. Es ist ausdrücklich kein Backup unseres 5234. Die Referenz enthält vor SWUpdate eine unbegrenzte Customer-Unmount-Schleife bei 0x116A4 mit wiederholten Killskripten. Das passt zum Zustand 1 und weiter laufenden 0.7-Logger, beweist aber nicht die exakte Ursache auf unserem Gerät. Der eigene 0.7-Start führt den Recorder direkt aus Customer aus. Die Korrektur kopiert ihn nach /tmp/bh-recorder.sh, startet mit cwd /, verwendet die RAM-CGI und beendet sich bei nichtnull Updatezustand. Tests prüfen echten laufenden Recorder samt PID-Aufräumen bei Zustandswechsel.
+
+USB am PC wurde live bestätigt: 05ac:12a8, bcdDevice 0901, WinUSB an MI_01. Die gespeicherten Verbindungswerte aa und adb aktivierten keinen MTP-/ADB-Dateizugang; cp wurde wiederhergestellt und die neun übrigen Werte verglichen. Ein standardisierter lesender AOA-GetProtocol-Aufruf über vorhandenes WinUSB wurde abgewiesen. Keine Treiber wurden ersetzt. MediaDevices 2.0.0 aus NuGet wurde als lokaler, isolierter Helfer geprüft; PyUSB 1.3.1 nur in der Projekt-venv ergänzt. Kein fremdes Telefon wurde geöffnet.
+
+Das erste vollständige 0.8.3-Paket blieb nach bestätigtem Upload in Zustand 1; kontrollierter Neustart stellte 0.7.0/Update 0 wieder her. Anschließend wurde die native Löschfunktion im eigenen CGI nachgewiesen: rst=1 löscht alle UDISK-Dateien und startet neu; nur rst=2 würde zusätzlich private Konfigurationsdaten löschen. Die Datenpartition enthält laut eigenen Programmpfaden auch btapp.db. Dieser zusätzliche Verlust wurde dem Nutzer konkret erklärt und ausdrücklich freigegeben. Sechs aktuelle Logs plus RAM-Log wurden erneut CRC-/SHA-geprüft gesichert. rst=1 wurde genau einmal gesendet (code=0). Nachher: UI 0.7.0, Update 0, neun Werte unverändert, kein alter Loghash, neuer Bootzähler 1, frei 304 statt 224 KiB. Private Belege: evidence/updates/2026-10-25-approved-udisk-reset-140040.
+
+Ein einzelner weiterer Test des gleichen geprüften 0.8.3-Pakets wurde nach dieser tatsächlichen Zustandsänderung gestartet; Beobachtung läuft. Das ist keine Wiederholung nach unklarem Upload. Keine Audioänderung oder erfolgreiche neue Geräteinstallation behauptet. Originale Fahrzeuglogs bleiben lokal erhalten.
 
 ### 13:24 CET – Kaltstart geprüft, USB-Kennung abgeglichen
 

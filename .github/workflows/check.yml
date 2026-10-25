@@ -22,4 +22,5 @@ jobs:
       - run: sh -n firmware-overlay/app/bh-log-recorder.sh
       - run: sh -n maintenance-overlay/ota/www/cgi-bin/bh-diagnostics.cgi
       - run: sh -n maintenance-overlay/app/bh-log-recorder.sh
+      - run: sh -n maintenance-overlay/app/lyLink.sh
       - run: node --check maintenance-overlay/ota/www/js/bh-maintenance.js

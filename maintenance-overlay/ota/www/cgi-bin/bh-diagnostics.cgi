@@ -2,7 +2,8 @@
 # Fixed diagnostic operations, plus one bounded recorder-save request.
 PROC=${BH_PROC_ROOT:-/proc}
 SYS=${BH_SYS_ROOT:-/sys}
-RECORDER=${BH_RECORDER:-/mnt/customer/app/bh-log-recorder.sh}
+RECORDER=${BH_RECORDER:-/tmp/bh-recorder.sh}
+if [ -z "${BH_RECORDER:-}" ] && [ ! -r "$RECORDER" ]; then RECORDER=/mnt/customer/app/bh-log-recorder.sh; fi
 header() {
   printf 'Content-Type: %s; charset=utf-8\r\nCache-Control: no-store\r\n' "$1"
 }
@@ -59,7 +60,7 @@ case "${QUERY_STRING:-}" in
     done
     printf ']}\n';;
   id=errors)
-    header text/plain; printf '\r\nBad-Hippo error report 0.8.2\n'
+    header text/plain; printf '\r\nBad-Hippo error report 0.8.3\n'
     printf '\n=== Update status ===\n'
     path="$SYS/class/misc/ly_misc_dev/ly/update"
     if [ -r "$path" ]; then cat "$path"; else printf 'unavailable\n'; fi

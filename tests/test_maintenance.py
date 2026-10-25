@@ -1,5 +1,5 @@
 """Maintenance-only descriptor, real CGI space/error output, and deletion scope."""
-import json,os,subprocess,unittest
+import json,os,subprocess,unittest,time
 from pathlib import Path
 from tools.build_maintenance_firmware import customer_only_description
 from tools.build_ui_firmware import read_cpio,write_cpio
@@ -20,6 +20,35 @@ class Maintenance(unittest.TestCase):
         data=write_cpio([member('sw-description',result),member('customer',b'data'),member('TRAILER!!!',b'')])
         self.assertEqual(len(read_cpio(data,customer_only=True)),3)
         with self.assertRaises(ValueError):read_cpio(data)
+
+    @unittest.skipUnless(SHELL,'POSIX shell required')
+    def test_recorder_does_not_start_when_native_update_is_active(self):
+        fixture=recorder_tests.PersistentRecorder();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        fixture.env['BH_RECORDER']=shellpath(ROOT/'maintenance-overlay/app/bh-log-recorder.sh')
+        update=fixture.root/'absent/class/misc/ly_misc_dev/ly/update';update.parent.mkdir(parents=True)
+        update.write_bytes(b'ly_update_status=1\n')
+        fixture.run_script('run')
+        self.assertEqual(fixture.status()['state'],'paused_for_update')
+        self.assertFalse(fixture.status()['running'])
+        self.assertFalse((fixture.base/'bh-logs').exists())
+
+    @unittest.skipUnless(SHELL,'POSIX shell required')
+    def test_running_recorder_exits_when_native_update_begins(self):
+        fixture=recorder_tests.PersistentRecorder();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        fixture.env['BH_RECORDER']=shellpath(ROOT/'maintenance-overlay/app/bh-log-recorder.sh')
+        fixture.env['BH_STATUS_CGI']=shellpath(ROOT/'maintenance-overlay/ota/www/cgi-bin/bh-diagnostics.cgi')
+        update=fixture.root/'absent/class/misc/ly_misc_dev/ly/update';update.parent.mkdir(parents=True)
+        update.write_bytes(b'ly_update_status=0\n')
+        process=subprocess.Popen([SHELL,'-c','PATH="$BH_TEST_BIN:$PATH"; export PATH; exec sh "$BH_RECORDER" run'],env=fixture.env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        self.addCleanup(lambda:process.terminate() if process.poll() is None else None)
+        until=time.monotonic()+8
+        while not list((fixture.base/'bh-logs').glob('log-*.gz')) and time.monotonic()<until:time.sleep(.05)
+        self.assertTrue(list((fixture.base/'bh-logs').glob('log-*.gz')))
+        self.assertTrue((fixture.ram/'pid').exists())
+        update.write_bytes(b'ly_update_status=1\n')
+        self.assertEqual(process.wait(timeout=12),0)
+        self.assertFalse((fixture.ram/'pid').exists())
+        self.assertEqual(fixture.status()['state'],'paused_for_update')
 
     @unittest.skipUnless(SHELL,'POSIX shell required')
     def test_real_space_error_cgi_and_owned_log_clear(self):

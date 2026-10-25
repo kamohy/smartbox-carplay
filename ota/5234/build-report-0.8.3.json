@@ -1,0 +1,81 @@
+{
+  "kernel_unchanged": true,
+  "sw_description_unchanged": true,
+  "original_inodes_preserved": 74,
+  "console_device_preserved": {
+    "mode": 8576,
+    "uid": 0,
+    "gid": 0,
+    "mtime": "2025-12-18T08:02:03+00:00",
+    "rdev": 1281
+  },
+  "original_filesystem": {
+    "version": "4.0",
+    "block_size": 262144,
+    "compression": 4,
+    "bytes_used": 3027451,
+    "mkfs_time": "2026-01-15T09:41:24+00:00"
+  },
+  "candidate_filesystem": {
+    "version": "4.0",
+    "block_size": 262144,
+    "compression": 4,
+    "bytes_used": 3029215,
+    "mkfs_time": "2026-01-15T09:41:24+00:00"
+  },
+  "customer_size": 3031040,
+  "customer_partition_capacity": 3801088,
+  "kernel_size": 3164160,
+  "changes": [
+    {
+      "path": "/ota/www/index.html",
+      "action": "replace",
+      "sha256": "708257ef1ca99c9f342117f7170dc236e70561300be400aa0886d777524ac3cf",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/ota/www/js/bh-update-config.json",
+      "action": "replace",
+      "sha256": "ad19f5e9728596a4efdfe2474a94aa3002b2efadc4de47e8c27d8893c24bca32",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-maintenance.js",
+      "action": "add",
+      "sha256": "958f239c83b85c9e54750c149fa7403ed8fd672b09764193df52e7c208402bdc",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/cgi-bin/bh-diagnostics.cgi",
+      "action": "replace",
+      "sha256": "5ad1a062fea3bbcd73c7bf2ddac9bac6d82090a5089e562b7e4cc5e89b379349",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/app/bh-log-recorder.sh",
+      "action": "replace",
+      "sha256": "881c216754dd4a0ca1a375fab38a4dde7ad72308db3f37a995d282a4aa0d30ee",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/app/lyLink.sh",
+      "action": "replace",
+      "sha256": "b0b0aa5229d5f9adb6c0c71a0c52b6ee8233b0b1ba389eb257b2430d42349d6c",
+      "mode": "0o100755"
+    }
+  ],
+  "source_sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
+  "candidate_sha256": "6537c1c1c9c899439dc5c485d5037f29e46c1ec13c75aefab897a79369b76adb",
+  "candidate_size": 6199341,
+  "device_tested": false,
+  "flashed": false,
+  "updater_authentication_fully_verified": false,
+  "version": "0.8.3",
+  "package_kind": "original-container-maintenance",
+  "baseline_ui": "0.7.0",
+  "kernel_included": true,
+  "kernel_write_requested": true,
+  "bootenv_sequence_unchanged": true,
+  "descriptor_change": "none",
+  "source_roundtrip_byte_identical": true
+}

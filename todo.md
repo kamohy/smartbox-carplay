@@ -1,11 +1,22 @@
 # Aufgaben
 
-Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 13:24 CET
+Version: 0.8.3 (Wartungskandidat; installierte Geräte-UI zuletzt 0.7.0)
+Stand: 2026-10-25 14:07 CET
 
-Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
+Abschließender Gerätestand: Beide gezielt geänderten 0.8.3-Versuche (vor und nach dem freigegebenen Datenreset) blieben nach angenommenem Upload in Zustand 1. Nach jeweils kontrolliertem Neustart ist UI 0.7.0/Updatezustand 0 bestätigt. Die neue Oberfläche ist nicht installiert; es erfolgt kein weiterer unveränderter Upload. Letzte freie Kapazität nach neuer Aufzeichnung: 276/512 KiB; direkt nach dem Reset waren es 304 KiB. Die alten erreichbaren Logs sind entfernt und alle ursprünglichen Fahrzeuglogs lokal gesichert.
 
-## Vom Nutzer begrenzter Wartungszwischenstand 0.8.2
+Aktueller Stand 0.8.3: Der Wartungskandidat startet den Recorder aus RAM mit Arbeitsverzeichnis / und beendet ihn bei aktivem Update. Das originale vollständige Updateformat einschließlich bytegleichem Kernel und unveränderter Beschreibung bleibt erhalten. Zwei Builds sind identisch; 34 lokale Pythonprüfungen und die drei bisherigen JS-Prüfprogramme bestehen. Geräteinstallation ist noch nicht bestätigt; installiert bleibt zuletzt UI 0.7.0. Nach ausdrücklicher Zustimmung wurde der gesamte UDISK-Inhalt einschließlich Kopplungen über rst=1 gelöscht. Alte erreichbare Logs sind entfernt und lokal gesichert; 304 statt 224 KiB frei. Neun verglichene Einstellungen sind unverändert. Der Logger legt bereits neue Dateien an.
+
+
+## Wartungszwischenstand 0.8.3
+
+- [x] Loggerstart nach RAM verlegen und bei Updatebeginn beenden; laufenden Zustandswechsel testen.
+- [x] Vollständiges ursprüngliches Containerlayout wiederherstellen; Kernel/Beschreibung bytegleich, sechs erlaubte Pfade.
+- [x] Nach ausdrücklicher Zustimmung UDISK einschließlich Kopplungen einmal leeren; alte Logs entfernt, 80 KiB zusätzlich frei, neun Einstellungen erhalten.
+- [x] Einzelnen Wartungstest nach bereinigtem Datenspeicher auswerten: Zustand 1, kein Abschluss; Normalstart 0.7.0/Update 0 wiederhergestellt.
+- [ ] Speicher-/Fehler-/begrenzte Löschfunktionen am neu installierten Gerät verifizieren.
+
+## Historie Wartungszwischenstand 0.8.2
 
 - [x] Netzteilwechsel vom Nutzer bestätigt; zweiter Vollpaketversuch protokolliert. Er blieb ebenfalls in Zustand 1; kontrollierter Neustart stellte 0.7.0/Updatezustand 0 wieder her.
 - [x] Aktuelle sechs Logs erneut lokal mit gültiger gzip-CRC und SHA-256 sichern.
@@ -17,7 +28,7 @@ Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand 
 - [x] Vollständigen Stromreset und anschließenden einzelnen Upload prüfen: erneut Zustand 1 ohne Abschluss.
 - [ ] Vorbereitungsfehler lösen und Wartungsinstallation abschließen; keine weiteren unveränderten Uploads.
 - [ ] Echte `/tmp`-Kapazität und Fehler-/Updaterauszüge lesen.
-- [ ] Nach vollständiger aktueller Sicherung Logs am Gerät löschen, leere Liste und freien Platz belegen.
+- [x] Nach ausdrücklicher weitergehender Zustimmung alte Logs durch OEM-UDISK-Reset entfernen; neue Aufzeichnung und freien Platz nachweisen.
 
 ## Gezielte Telefonmessung 0.8.1
 

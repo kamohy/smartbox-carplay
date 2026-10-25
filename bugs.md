@@ -1,11 +1,16 @@
 # Bugs und Auffälligkeiten
 
-Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 13:24 CET
+Version: 0.8.3 (Wartungskandidat; installierte Geräte-UI zuletzt 0.7.0)
+Stand: 2026-10-25 14:07 CET
 
-Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
+Abschließender Gerätestand: Beide gezielt geänderten 0.8.3-Versuche (vor und nach dem freigegebenen Datenreset) blieben nach angenommenem Upload in Zustand 1. Nach jeweils kontrolliertem Neustart ist UI 0.7.0/Updatezustand 0 bestätigt. Die neue Oberfläche ist nicht installiert; es erfolgt kein weiterer unveränderter Upload. Letzte freie Kapazität nach neuer Aufzeichnung: 276/512 KiB; direkt nach dem Reset waren es 304 KiB. Die alten erreichbaren Logs sind entfernt und alle ursprünglichen Fahrzeuglogs lokal gesichert.
 
-Der Nutzer begrenzt den aktuellen Schritt auf Speichermessung, Fehlerprotokoll und Loglöschung. Der zweite 0.8.0-Vollpaketversuch nach bestätigtem Netzteilanschluss wurde ebenfalls angenommen, blieb aber in Zustand 1. Normaler API-Neustart stellte 0.7.0/Updatezustand 0 wieder her. Kein Beleg für ein Netzteilproblem. Zuletzt vor diesem Neustart: 23.820 KiB RAM verfügbar, 204/512 KiB im Logspeicher frei. Freier temporärer Dateisystemplatz ist damit noch nicht gemessen. Der Wartungskandidat 0.8.2 soll diese Lücke mit einem deutlich kleineren Customer-only-Paket schließen; Auch dieses Paket blieb vier Minuten in Zustand 1 ohne Abschluss. Nach kontrolliertem Neustart wurde UI 0.7.0/Updatezustand 0 direkt bestätigt. Der Löschaufruf wird mit HTTP 405 abgewiesen; Loglöschung ist noch offen.
+Aktueller Stand 0.8.3: Der Wartungskandidat startet den Recorder aus RAM mit Arbeitsverzeichnis / und beendet ihn bei aktivem Update. Das originale vollständige Updateformat einschließlich bytegleichem Kernel und unveränderter Beschreibung bleibt erhalten. Zwei Builds sind identisch; 34 lokale Pythonprüfungen und die drei bisherigen JS-Prüfprogramme bestehen. Geräteinstallation ist noch nicht bestätigt; installiert bleibt zuletzt UI 0.7.0. Nach ausdrücklicher Zustimmung wurde der gesamte UDISK-Inhalt einschließlich Kopplungen über rst=1 gelöscht. Alte erreichbare Logs sind entfernt und lokal gesichert; 304 statt 224 KiB frei. Neun verglichene Einstellungen sind unverändert. Der Logger legt bereits neue Dateien an.
+
+
+## Historie vor der Datenlöschung
+
+Der Nutzer begrenzte den damaligen Schritt auf Speichermessung, Fehlerprotokoll und Loglöschung. Der zweite 0.8.0-Vollpaketversuch nach bestätigtem Netzteilanschluss wurde ebenfalls angenommen, blieb aber in Zustand 1. Normaler API-Neustart stellte 0.7.0/Updatezustand 0 wieder her. Kein Beleg für ein Netzteilproblem. Zuletzt vor diesem Neustart: 23.820 KiB RAM verfügbar, 204/512 KiB im Logspeicher frei. Freier temporärer Dateisystemplatz ist damit noch nicht gemessen. Der Wartungskandidat 0.8.2 soll diese Lücke mit einem deutlich kleineren Customer-only-Paket schließen; Auch dieses Paket blieb vier Minuten in Zustand 1 ohne Abschluss. Nach kontrolliertem Neustart wurde UI 0.7.0/Updatezustand 0 direkt bestätigt. Der Löschaufruf wird mit HTTP 405 abgewiesen; Loglöschung ist noch offen.
 
 Die HTTP-Beobachtung erhielt einmal eine fehlerhafte Statuszeile. Das belegt keinen Firmwarefehler oder fehlgeschlagenen Upload; anschließende direkte Abfragen meldeten weiter Zustand 1. Die Beobachtung wurde ohne erneuten POST fortgesetzt.
 

@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "version": "0.8.3",
+  "base_appver": "26011517.5234.2",
+  "image_sha256": "6537c1c1c9c899439dc5c485d5037f29e46c1ec13c75aefab897a79369b76adb",
+  "image_size": 6199341,
+  "original_container_descriptor_and_kernel_unchanged": true,
+  "upload_accepted": true,
+  "attempts": 2,
+  "test_conditions": [
+    "PC USB after restored connection settings",
+    "PC USB after user-approved full UDISK reset"
+  ],
+  "observed_states": [
+    1
+  ],
+  "completion_state_3_observed": false,
+  "installation_verified": false,
+  "installed_ui_version_last_read": "0.7.0",
+  "normal_boot_after_test_verified": true,
+  "update_after_test": 0,
+  "conn_after_test": "cp",
+  "old_logs_removed_after_explicit_reset": true,
+  "new_recording_continues": true,
+  "current_free_kib_last_read": 276,
+  "full_backup_verified": false,
+  "recovery_verified": false
+}

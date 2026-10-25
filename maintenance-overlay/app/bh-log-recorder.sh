@@ -3,14 +3,22 @@
 # Only bh-logs/ is modified. No mount, format, raw flash or audio configuration.
 BASE=${BH_LOG_MOUNT:-/mnt/UDISK}
 PROC=${BH_PROC_ROOT:-/proc}
+SYS=${BH_SYS_ROOT:-/sys}
 RAM=${BH_LOG_RAM:-/tmp/bh-log-recorder}
 DIR=$BASE/bh-logs
-STATUS_CGI=${BH_STATUS_CGI:-/mnt/customer/ota/www/cgi-bin/bh-diagnostics.cgi}
+STATUS_CGI=${BH_STATUS_CGI:-/tmp/ota/www/cgi-bin/bh-diagnostics.cgi}
 RESERVE_KIB=64
 MAX_BYTES=24576
 PERIOD=60
 num() { case "$1" in ''|*[!0-9.]*) printf null;; *) printf '%s' "$1";; esac; }
 integer() { case "$1" in ''|*[!0-9]*) return 1;; *) return 0;; esac; }
+update_active() {
+  line=
+  [ -r "$SYS/class/misc/ly_misc_dev/ly/update" ] || return 1
+  IFS= read -r line < "$SYS/class/misc/ly_misc_dev/ly/update"
+  case "$line" in ly_update_status=*) value=${line#ly_update_status=};; *) return 1;; esac
+  integer "$value" && [ "$value" -gt 0 ]
+}
 read_value() { v=; if [ -r "$1" ]; then read -r v ignored < "$1"; fi; if integer "$v"; then printf '%s' "$v"; else printf 0; fi; }
 now() { value=0; if [ -r "$PROC/uptime" ]; then read -r value ignored < "$PROC/uptime"; fi; printf '%s' "${value%%.*}"; }
 probe() {
@@ -45,7 +53,7 @@ status() {
   active=false; running && active=true
   label=$REASON
   if [ -r "$RAM/state" ]; then read -r label < "$RAM/state"; fi
-  case "$label" in cleared|ready|saved|collecting|no_space|snapshot_too_large|storage_probe_failed|mount_unavailable|not_running|write_failed|initializing) :;; *) label=unknown;; esac
+  case "$label" in paused_for_update|cleared|ready|saved|collecting|no_space|snapshot_too_large|storage_probe_failed|mount_unavailable|not_running|write_failed|initializing) :;; *) label=unknown;; esac
   printf '{"schema":1,"supported":%s,"running":%s,"state":"%s","total_kib":' "$supported" "$active" "$label"; num "$TOTAL"
   printf ',"available_kib":'; num "$FREE"
   printf ',"reserve_kib":%s,"max_snapshot_bytes":%s,"period_seconds":%s,"retained_boots_max":3,"files":[' "$RESERVE_KIB" "$MAX_BYTES" "$PERIOD"
@@ -71,7 +79,7 @@ metrics() {
 }
 collect() {
   lines=$1
-  printf 'Bad-Hippo persistent system log 0.7.0\nBoot counter: %s\nSaved uptime: %s\nLogcat tail lines: %s\n' "$BOOT" "$(now)" "$lines"
+  printf 'Bad-Hippo persistent system log 0.8.3\nBoot counter: %s\nSaved uptime: %s\nLogcat tail lines: %s\n' "$BOOT" "$(now)" "$lines"
   printf '\n=== proc snapshots ===\n'
   for name in version uptime loadavg meminfo; do
     if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
@@ -167,11 +175,13 @@ case "${1:-}" in
     running && exit 0
     printf '%s\n' "$$" > "$RAM/pid"
     trap 'rm -f "$RAM/pid"' EXIT INT TERM
+    if update_active; then state paused_for_update; exit 0; fi
     state initializing
     tries=0
     until initialize; do tries=$((tries + 1)); [ "$tries" -lt 12 ] || exit 1; sleep 5; done
     last=-60
     while :; do
+      if update_active; then state paused_for_update; exit 0; fi
       if [ -f "$RAM/clear-request" ]; then
         rm -f "$RAM/clear-request"; clear_logs; last=$(now)
       fi

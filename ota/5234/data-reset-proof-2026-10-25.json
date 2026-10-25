@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "performed_at": "2026-10-25T14:00:40+01:00",
+  "action": "OEM rst=1, entire UDISK including pairing data",
+  "user_explicitly_approved": true,
+  "response_code": 0,
+  "firmware_ui_after": "0.7.0",
+  "update_after": 0,
+  "old_accessible_logs_removed": true,
+  "log_backups_crc_verified": true,
+  "settings_compared": 9,
+  "settings_unchanged": true,
+  "free_before_kib": 224,
+  "free_after_kib": 304,
+  "new_log_boot_counter": 1,
+  "new_recording_continues": true,
+  "pairing_again_expected": true,
+  "full_udisk_backup_available": false
+}

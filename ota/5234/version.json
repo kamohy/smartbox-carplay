@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "enabled": false,
-  "status": "maintenance-preparation-stalled",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.2.img",
-  "size": 3034669,
-  "sha256": "546416e4d2c3279142d1aa29a3e51e13780e36c0537e7459f9d3b55dc9e02cd4",
-  "notes": "Minimaler Wartungszwischenstand: RAM-/Dateisystemplatz einschließlich /tmp, Fehlerauszug und Löschen eigener Logs. Customer-only-Paket. Upload angenommen, aber Zustand 1 ohne Abschluss; weiterhin UI 0.7.0 und Loglöschung nicht verfügbar. Bis erfolgreicher Geräteprüfung gesperrt."
+  "status": "preparation-stalled-after-data-reset",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.3.img",
+  "size": 6199341,
+  "sha256": "6537c1c1c9c899439dc5c485d5037f29e46c1ec13c75aefab897a79369b76adb",
+  "notes": "Wartung 0.8.3: RAM-Start und Update-Ende des Loggers, originales Containerformat, Speicher-/Fehleranzeige und begrenzte Loglöschung. Lokal geprüft. Beide Geräteversuche blieben in Zustand 1; weiter 0.7.0. Alte Logs nach ausdrücklichem UDISK-Reset entfernt, Kopplungen mitgelöscht. Paket bleibt gesperrt."
 }

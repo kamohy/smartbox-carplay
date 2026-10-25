@@ -17,7 +17,14 @@
   "controlled_normal_reboot_requested": true,
   "full_backup_verified": false,
   "recovery_verified": false,
-  "next_step": "full power cycle before any further test",
+  "next_step": "Resolve preparation-stage failure; power-cycle-only test did not resolve it",
   "normal_boot_after_test_verified": true,
-  "update_after_test": 0
+  "update_after_test": 0,
+  "cold_power_cycle_verified": true,
+  "cold_boot_uptime_seconds": 67.54,
+  "cold_test_upload_accepted": true,
+  "cold_test_observed_states": [
+    1
+  ],
+  "early_boot_observation_additional_uploads": 0
 }

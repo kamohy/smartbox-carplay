@@ -1,9 +1,17 @@
 # Projektdokumentation
 
 Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 12:56 CET
+Stand: 2026-10-25 13:24 CET
 
 ## 2026-10-25
+
+### 13:24 CET – Kaltstart geprüft, USB-Kennung abgeglichen
+
+Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
+
+Der Kaltstart-Preflight zeigte 67,54 Sekunden Laufzeit und 35.032 KiB verfügbaren RAM. Fünf zu diesem Zeitpunkt vorhandene Logs wurden vor dem Upload CRC-/SHA-geprüft gesichert; weitere vollständige Sicherungen erfolgten vor den Startbeobachtungen. Der Logger schrieb während Zustand 1 weiter. Ein Herstellerdienst wurde nachweislich beendet. Das begründet eine zu untersuchende Ablauf-/Mount-Hypothese, aber keinen bewiesenen Loggerfehler. Die frühe WLAN-Beobachtung war nicht aussagekräftig; Windows protokolliert automatische Trennung wegen einer Richtlinie. Keine Windows-Richtlinie wurde geändert.
+
+Auf Nutzerfrage USB lesend abgeglichen: aktuell kein passendes PnP-Gerät präsent, nur gespeicherte Einträge VID_05AC/PID_12A8; Dongle meldet USB not attached. Die Apple-Kennung beschreibt USB-Emulation, keinen physischen SoC-Nachweis. Private Belege: evidence/updates/2026-10-25-maintenance082-cold-131225 und die beiden maintenance082-early-Verzeichnisse. Kein weiterer Flash läuft. Der bereits ausgeführte Stromreset wird nicht erneut als offene Voraussetzung geführt.
 
 ### 12:56 CET – Normalbetrieb bestätigt, weiterer Versuch wartet auf Stromreset
 

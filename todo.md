@@ -1,7 +1,9 @@
 # Aufgaben
 
 Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 12:56 CET
+Stand: 2026-10-25 13:24 CET
+
+Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
 
 ## Vom Nutzer begrenzter Wartungszwischenstand 0.8.2
 
@@ -12,7 +14,8 @@ Stand: 2026-10-25 12:56 CET
 - [x] Kleineres Customer-only-Paket erstellen; unveränderte Bootenv-Phasen und sämtliche übrigen 0.7.0-Dateien unabhängig prüfen. Zwei Builds bytegleich, 32 Pythonprüfungen erfolgreich.
 - [x] Wartungsupload einmal durchführen: angenommen, danach vier Minuten Zustand 1 ohne Abschluss.
 - [x] Kontrollierter Neustart und normale Wiederkehr mit UI 0.7.0/Updatezustand 0 direkt verifiziert.
-- [ ] Nach vollständigem Stromreset einen weiteren Abgrenzungstest durchführen; erfolgreiche Wartungsinstallation noch offen.
+- [x] Vollständigen Stromreset und anschließenden einzelnen Upload prüfen: erneut Zustand 1 ohne Abschluss.
+- [ ] Vorbereitungsfehler lösen und Wartungsinstallation abschließen; keine weiteren unveränderten Uploads.
 - [ ] Echte `/tmp`-Kapazität und Fehler-/Updaterauszüge lesen.
 - [ ] Nach vollständiger aktueller Sicherung Logs am Gerät löschen, leere Liste und freien Platz belegen.
 

@@ -1,7 +1,9 @@
 # Portierung und Updateweg
 
 Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 12:56 CET
+Stand: 2026-10-25 13:24 CET
+
+Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
 
 0.8.2 ist ein getrennter Minimalzweig auf gepinntem 0.7.0-Image. Exakt fünf Customer-Pfade ändern sich: HTML, Updatekonfiguration, zusätzliches Wartungs-JavaScript, vorhandene Diagnose-CGI und eigener Recorder. Audio, Einstellungen und sämtliche anderen 0.7.0-Dateien bleiben bytegleich. Der Container enthält `sw-description`, `customer` und Trailer. Aus der Beschreibung wird ausschließlich der eine Kernel-Imageblock entfernt; alle Bootenv-Phasen bleiben bytegleich. Damit wird `/dev/by-name/boot` nicht als Schreibziel angefordert. Der bestehende vollständige Paketleser bleibt standardmäßig streng; Customer-only muss ausdrücklich ausgewählt werden.
 

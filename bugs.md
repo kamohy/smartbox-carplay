@@ -1,7 +1,9 @@
 # Bugs und Auffälligkeiten
 
 Version: 0.8.2 (Wartungszwischenstand; Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 12:56 CET
+Stand: 2026-10-25 13:24 CET
+
+Aktueller Gerätestand: Der zehnsekündige Stromreset ist bestätigt und anhand der Laufzeit verifiziert. Der anschließende einzelne Wartungsupload blieb erneut vier Minuten in Zustand 1; kein Abschluss. Nach normalem Neustart sind UI 0.7.0 und Updatezustand 0 direkt bestätigt. Zwei zeitlich begrenzte Startbeobachtungen führten mangels früher WLAN-Erreichbarkeit zu keinem weiteren Upload. Logs sind lokal gesichert, auf dem Gerät aber noch nicht gelöscht; Wartungs- und Fehleranzeige sind noch nicht installiert.
 
 Der Nutzer begrenzt den aktuellen Schritt auf Speichermessung, Fehlerprotokoll und Loglöschung. Der zweite 0.8.0-Vollpaketversuch nach bestätigtem Netzteilanschluss wurde ebenfalls angenommen, blieb aber in Zustand 1. Normaler API-Neustart stellte 0.7.0/Updatezustand 0 wieder her. Kein Beleg für ein Netzteilproblem. Zuletzt vor diesem Neustart: 23.820 KiB RAM verfügbar, 204/512 KiB im Logspeicher frei. Freier temporärer Dateisystemplatz ist damit noch nicht gemessen. Der Wartungskandidat 0.8.2 soll diese Lücke mit einem deutlich kleineren Customer-only-Paket schließen; Auch dieses Paket blieb vier Minuten in Zustand 1 ohne Abschluss. Nach kontrolliertem Neustart wurde UI 0.7.0/Updatezustand 0 direkt bestätigt. Der Löschaufruf wird mit HTTP 405 abgewiesen; Loglöschung ist noch offen.
 

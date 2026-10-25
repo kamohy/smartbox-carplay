@@ -1,7 +1,9 @@
 # Portierung und Updateweg
 
-Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 11:41 CET
+Version: 0.8.0  
+Stand: 2026-10-25 11:55 CET
+
+0.8.0 ergänzt einen elften freigegebenen Imagepfad `/ota/www/js/bh-settings.js`. Die bestehende CGI erhält feste GET-Hardwareabfrage und ausschließlich `POST id=clear` zur Loglöschanforderung. Der Recorder führt diese im selben Hintergrundprozess seriell aus, löscht nur seine festen sechs gzip-/Metadaten-/Pending-Namen sowie eigene RAM-Snapshots und bewahrt Bootzähler und fremde Dateien. Keine freie Pfad-/Befehlseingabe. Die Aufzeichnung läuft weiter; unmittelbar nach dem Löschen bleiben für etwa eine Minute keine neuen gespeicherten Logs. Installation und reale Löschprüfung stehen noch aus.
 
 0.7.1 ergänzt ausschließlich Offlineauswertung und Feldtestdokumentation. Es gibt kein neu angebotenes oder installiertes 0.7.1-Geräteimage. Der Feldtest zeigt den 8-kHz-Telefonpfad; `rcpservice` wählt 8/16 kHz anhand von HU-Fähigkeiten und Plugin-Version. Vor einem gezielten Audioexperiment müssen die konkreten Auswahlwerte erfasst werden. Ein 16-kHz-Codezweig ist kein Beweis, dass dieses Radio ihn unterstützt. Details: `field_test_2026-10-25.md`.
 

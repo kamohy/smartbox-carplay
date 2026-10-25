@@ -26,11 +26,12 @@ audio_dump() {
     printf '%s\n' 'logcat unavailable'
   fi
 }
-if [ "${REQUEST_METHOD:-GET}" = POST ] && [ "${QUERY_STRING:-}" = id=save ]; then
+if [ "${REQUEST_METHOD:-GET}" = POST ] && { [ "${QUERY_STRING:-}" = id=save ] || [ "${QUERY_STRING:-}" = id=clear ]; }; then
   case "${HTTP_ORIGIN:-}" in ''|'http://192.168.1.101') :;; *)
     printf 'Status: 403 Forbidden\r\n'; header application/json; printf '\r\n{"error":"Local origin required"}\n'; exit 0;;
   esac
-  if [ -r "$RECORDER" ] && sh "$RECORDER" request; then
+  action=request; [ "$QUERY_STRING" != id=clear ] || action=clear
+  if [ -r "$RECORDER" ] && sh "$RECORDER" "$action"; then
     printf 'Status: 202 Accepted\r\n'; header application/json; printf '\r\n{"queued":true}\n'
   else
     printf 'Status: 503 Service Unavailable\r\n'; header application/json; printf '\r\n{"error":"Recorder/storage unavailable"}\n'
@@ -42,6 +43,21 @@ if [ "${REQUEST_METHOD:-GET}" != GET ]; then
   printf '\r\n{"error":"GET only"}\n'; exit 0
 fi
 case "${QUERY_STRING:-}" in
+  id=hardware)
+    header text/plain; printf '\r\nBad-Hippo hardware probe 0.8.0\n'
+    for name in cpuinfo meminfo mtd partitions mounts; do
+      if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
+    done
+    for path in "$SYS"/devices/system/cpu/cpu0/cpufreq/*freq* "$SYS"/class/net/*/device/modalias "$SYS"/class/net/*/device/vendor "$SYS"/class/net/*/device/device "$SYS"/bus/usb/devices/*/idVendor "$SYS"/bus/usb/devices/*/idProduct "$SYS"/bus/usb/devices/*/product; do
+      if [ -f "$path" ] && [ -r "$path" ]; then printf '\n%s: ' "$path"; cat "$path"; fi
+    done
+    for command in lsusb hciconfig; do
+      if command -v "$command" >/dev/null 2>&1; then
+        printf '\n=== %s ===\n' "$command"
+        if [ "$command" = hciconfig ]; then hciconfig -a 2>&1; else lsusb 2>&1; fi
+      fi
+    done
+    ;;
   id=storage)
     header application/json; printf '\r\n'
     if [ -r "$RECORDER" ]; then sh "$RECORDER" status; else printf '{"supported":false,"running":false,"state":"not_running","files":[]}\n'; fi
@@ -101,7 +117,18 @@ case "${QUERY_STRING:-}" in
     for metric in rx_bytes tx_bytes rx_dropped tx_dropped rx_errors tx_errors; do
       printf ',"%s":' "$metric"; read_number "$SYS/class/net/$iface/statistics/$metric"
     done
-    printf '}}\n'
+    printf '},"networks":['
+    separator=
+    for path in "$SYS"/class/net/*; do
+      [ -d "$path" ] || continue
+      name=${path##*/}; case "$name" in lo|*[!a-zA-Z0-9_.:-]*) continue;; esac
+      printf '%s{"interface":"%s"' "$separator" "$name"
+      for metric in rx_bytes tx_bytes rx_dropped tx_dropped rx_errors tx_errors; do
+        printf ',"%s":' "$metric"; read_number "$path/statistics/$metric"
+      done
+      printf '}'; separator=,
+    done
+    printf ']}\n'
     ;;
   id=audio)
     header text/plain; printf '\r\n'; audio_dump
@@ -109,7 +136,7 @@ case "${QUERY_STRING:-}" in
   id=logs)
     header text/plain
     printf 'Content-Disposition: attachment; filename="smartbox-diagnostics.txt"\r\n\r\n'
-    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.7.0 - fresh read, no log buffer clear'
+    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.8.0 - fresh read, no log buffer clear'
     for name in version uptime loadavg meminfo stat; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done

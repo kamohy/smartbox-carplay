@@ -20,7 +20,7 @@
     "version": "4.0",
     "block_size": 262144,
     "compression": 4,
-    "bytes_used": 3027451,
+    "bytes_used": 3030367,
     "mkfs_time": "2026-01-15T09:41:24+00:00"
   },
   "customer_size": 3031040,
@@ -30,13 +30,13 @@
     {
       "path": "/ota/www/index.html",
       "action": "replace",
-      "sha256": "ac8fa5ad444ae1ff2f0b727f0bdeb8f035c1da0ad17c0bb486fdf13c2346770d",
+      "sha256": "063cd24ddfc01b16ad2de91d89db83a01578efea0ef749bea6a3419172ab9523",
       "mode": "0o100755"
     },
     {
       "path": "/ota/www/css/bad-hippo-dark.css",
       "action": "add",
-      "sha256": "9a473f60aa4523fef3db69699b37e109ceaeabd7c39f635ef523480dee17a13a",
+      "sha256": "4aeb486a7ca7b1e5a0d8507e770e5cd59c7688bf4f8ef6e8a4b1eda8138c8bef",
       "mode": "0o100644"
     },
     {
@@ -60,19 +60,25 @@
     {
       "path": "/ota/www/js/bh-update-config.json",
       "action": "add",
-      "sha256": "df20d95e3cf86e6db1bb1969878e9937f8bc702618f35a7a0806361a4c0bdcad",
+      "sha256": "8eca43be901d3d70610e4715955145e403c9d3c650b0792245d3cd61b37ad453",
       "mode": "0o100644"
     },
     {
       "path": "/ota/www/js/bh-diagnostics.js",
       "action": "add",
-      "sha256": "2bb75ca497c4446faacff7aa17f40c1dbf6677ca16a9c928b2ed76a0d21b98d5",
+      "sha256": "3909e7746c7b92d72b645426734c9cf8289e3e385334525ab6b070c8099d0591",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-settings.js",
+      "action": "add",
+      "sha256": "c10a43cec14a81c35f8780a45c7779b1697e2724494f8278845d48befa7b6ac6",
       "mode": "0o100644"
     },
     {
       "path": "/ota/www/cgi-bin/bh-diagnostics.cgi",
       "action": "add",
-      "sha256": "65a6e8946b90d462ae28ff9950635895a7779b050b863127609c1a329d575e5c",
+      "sha256": "e0c3b4065a335f93a9add48d6b88f9a060ce6c3fb5771509c31e9dfc006c546a",
       "mode": "0o100755"
     },
     {
@@ -84,18 +90,18 @@
     {
       "path": "/app/bh-log-recorder.sh",
       "action": "add",
-      "sha256": "62b146eb0410bf2507be2cc31af40005da85155dee0f4bd5430fd76993892ff2",
+      "sha256": "2d9b95bfa32b26b45290ab3a4cbf50f0754d4c2044f542c7d1f089b1d9cf2ae2",
       "mode": "0o100755"
     }
   ],
   "source_sha256": "7afff8e6a6387662aa10d84d5f8745e8406b91fb704aa4942f6e416393b10f63",
-  "candidate_sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
+  "candidate_sha256": "47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46",
   "candidate_size": 6199341,
   "device_tested": false,
   "flashed": false,
   "updater_authentication_fully_verified": false,
   "source_roundtrip_byte_identical": true,
-  "version": "0.7.0",
+  "version": "0.8.0",
   "squashfs_writer": "backhand 0.25.5",
-  "squashfs_writer_sha256": "1aa8f227abadd43a2df2a913a8419e81ea759def10e19e412a980db058893958"
+  "squashfs_writer_sha256": "015a62b415c6733c0acf7f271e802a5f87fec95673887bf2c07411246b33341a"
 }

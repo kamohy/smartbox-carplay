@@ -124,3 +124,8 @@ input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
   .bh-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .bh-diag-rows > div { grid-template-columns: minmax(105px,1fr) minmax(0,1.4fr); gap: 10px; }
 }
+.bh-setting-note{font-size:.82rem;line-height:1.45;color:#a9b5c8;margin:5px 0 0;max-width:650px;white-space:normal}
+.bh-switch{appearance:none;width:54px;height:30px;border:1px solid #697588;border-radius:20px;background:#475264;position:relative;cursor:pointer;vertical-align:middle}
+.bh-switch:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;border-radius:50%;background:#fff;transition:transform .15s}
+.bh-switch:checked{background:#ff8700;border-color:#ff8700}.bh-switch:checked:before{transform:translateX(24px)}.bh-switch:focus-visible{outline:3px solid #83bcff;outline-offset:3px}.bh-switch:disabled{opacity:.5;cursor:wait}
+.bh-led-row{gap:20px}.bh-clear-logs{margin:6px 0;color:#ffb5a8!important}

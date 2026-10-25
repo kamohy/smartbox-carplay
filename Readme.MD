@@ -1,7 +1,9 @@
 # SmartBox CarPlay Adapter Analysis
 
-Version: 0.7.1 (Analysewerkzeuge; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 11:41 CET
+Version: 0.8.0  
+Stand: 2026-10-25 11:55 CET
+
+0.8.0 ergänzt verständliche Einstellungen: LED-Ein/Aus-Schalter, erklärte Telefonpuffer-Profile, Verbindungsstart mit belegter 20-Sekunden-Option und klar benannter ungeklärter Herstelleralternative. Hardware-/Grenzenkarte, feste Hardwareabfrage, korrigierte Mikrofoneinheit, getrennte Netzwerkzähler und begrenzte Loglöschung sind ergänzt. Zwei identische Builds und 27 Pythonprüfungen sowie drei JavaScript-Prüfprogramme bestehen. Geräteinstallation und Löschprüfung stehen für diese Version noch aus. Aktuelle Logs wurden zuvor separat CRC-/SHA-256-geprüft lokal gesichert.
 
 Erster Fahrzeuglog ausgewertet: Bei Teams fordert das iPhone in Mode 2 und Mode 3 16 kHz an, der Telefonpfad zum Radio läuft jedoch mit 8 kHz. Die Mikrofonumwandlung 8 → 16 kHz ist ebenfalls protokolliert. Der Moduswechsel verbessert laut Nutzer den Klang, die Dämpfung bleibt. Eine feste Hardwaregrenze ist noch nicht bewiesen; die Firmware besitzt eine von Radiofähigkeiten und Plugin-Version abhängige 16-kHz-Auswahl. [Feldtest und Grenzen](field_test_2026-10-25.md). Kein neuer Flash in diesem Analyseblock.
 

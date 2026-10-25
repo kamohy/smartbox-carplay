@@ -24,7 +24,7 @@ CUSTOMER_CAPACITY = 0x3A0000
 BOOT_CAPACITY = 0x310000
 WEB_OVERLAY = ('index.html', 'css/bad-hippo-dark.css', 'css/bad-hippo-logo.svg',
            'js/bh-sha256.js', 'js/bh-update.js', 'js/bh-update-config.json',
-           'js/bh-diagnostics.js','cgi-bin/bh-diagnostics.cgi')
+           'js/bh-diagnostics.js','js/bh-settings.js','cgi-bin/bh-diagnostics.cgi')
 OVERLAY = tuple('/ota/www/'+p for p in WEB_OVERLAY) + ('/app/lyLink.sh','/app/bh-log-recorder.sh')
 
 def overlay_source(path: str, web_root: Path) -> Path:

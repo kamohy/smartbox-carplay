@@ -33,7 +33,7 @@
 			<p class="bh-subtitle">Deine Verbindung. Deine Einstellungen.</p>
 		</div>
 	</div>
-	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.7.0</div>
+	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.8.0</div>
 </header>
 <div class="container" id="container"></div>
 <script type="text/html" id="tpl_home">
@@ -103,10 +103,10 @@
 			<div class="weui-cell__bd"><p>HiCar布局</p></div>
 			<div class="weui-cell__ft" id="hicar">默认</div>
 		</a>
-		<a class="weui-cell weui-cell_access" id="div_led" href="javascript:" onclick="onSelVals(this,miclb)">
-			<div class="weui-cell__bd"><p>LED</p></div>
-			<div class="weui-cell__ft" id="led"></div>
-		</a>
+		<div class="weui-cell bh-led-row" id="div_led">
+			<div class="weui-cell__bd"><label for="bh_led_switch">Status-LED</label><p class="bh-setting-note">Leuchte am Adapter ein- oder ausschalten.</p><p class="bh-setting-note" id="bh_led_state">Wird gelesen …</p></div>
+			<div class="weui-cell__ft"><input type="checkbox" role="switch" class="bh-switch" id="bh_led_switch" aria-label="Status-LED einschalten" disabled><span id="led" hidden></span></div>
+		</div>
 		<a class="weui-cell weui-cell_access" id="div_led2" href="javascript:" onclick="onSelVals(this,ledlb,'led')">
 			<div class="weui-cell__bd"><p>LED</p></div>
 			<div class="weui-cell__ft" id="led2"></div>
@@ -143,6 +143,7 @@
 			</div>
 			<p class="bh-diag-note" id="bh_diag_recording">Aufzeichnung bleibt im Browser, maximal 30 Minuten.</p>
 			<div class="bh-audio-head"><h3>Protokolle auf dem Adapter</h3><button type="button" id="bh_store_save">Jetzt auf Adapter speichern</button></div>
+			<button type="button" class="bh-clear-logs" id="bh_store_clear">Gespeicherte Logs löschen</button>
 			<p class="bh-diag-note" id="bh_store_status">Speicher wird geprüft …</p>
 			<p class="bh-diag-note">Datenpartition: <span id="bh_store_space">—</span>. Komprimierter Ringpuffer, etwa jede Minute, bis zu drei Gerätestarts. Die letzten Sekunden vor Stromverlust können fehlen.</p>
 			<div id="bh_store_files" class="bh-store-files"></div>
@@ -159,6 +160,16 @@
 			<details class="bh-raw"><summary>Audio-Rohdaten anzeigen</summary><pre id="bh_diag_audio_raw">Noch nicht geladen.</pre></details>
 			<a class="bh-log-link" href="/cgi-bin/bh-diagnostics.cgi?id=logs" download="smartbox-diagnostics.txt">Frisches Geräteprotokoll speichern</a>
 			<p class="bh-diag-note">Direkter Logexport ohne den alten CGI-Cache. Die Datei bleibt lokal und kann Gerätekennungen enthalten.</p>
+		</div>
+	</section>
+	<section class="cells bh-diagnostics" aria-labelledby="bh_hardware_title">
+		<h2 class="title" id="bh_hardware_title">Hardware und Grenzen</h2>
+		<div class="bh-diag-content">
+			<dl class="bh-diag-rows"><div><dt>Prozessor</dt><dd>Allwinner V821B · RISC-V</dd></div><div><dt>Arbeitsspeicher</dt><dd>64 MiB eingebaut · rund 56,8 MiB für Linux sichtbar</dd></div><div><dt>Flash</dt><dd>XT25P1288 · 16 MiB, davon 512 KiB Datenpartition</dd></div><div><dt>WLAN</dt><dd>RTL8733BS-Treiber · 5 GHz im Betrieb bestätigt</dd></div><div><dt>Bluetooth</dt><dd>Realtek-Profil RTL8723FS · genaue Chipvariante noch offen</dd></div></dl>
+			<p class="bh-diag-note">Bestätigte Software-/Startlogdaten. Die Platine wurde nicht geöffnet. Ein Treibername beweist nicht jede Bauteilvariante.</p>
+			<p class="bh-diag-note">Teams-Feldtest: iPhone fordert 16 kHz, Telefonpfad zum Radio läuft mit 8 kHz. Die Firmware kennt auch 16 kHz; die Unterstützung dieses Radios ist noch zu prüfen. Ein Qualitätsgewinn in Prozent ist daraus nicht seriös berechenbar.</p>
+			<button type="button" id="bh_hardware_refresh">Hardwaredaten vom Gerät lesen</button>
+			<details class="bh-raw"><summary>Gelesene Hardwaredaten</summary><pre id="bh_hardware_raw">Noch nicht gelesen.</pre></details>
 		</div>
 	</section>
 	<div class="cells">
@@ -514,6 +525,7 @@
 				hp('aa');
 			}
 			queryNewVer();
+			if (window.BHSettings) window.BHSettings.apply(j);
 		}).catch(e => {
 			si("container", e);
 			setTimeout(my_onload, 3000);
@@ -862,5 +874,6 @@
 <script src="/js/bh-sha256.js"></script>
 <script src="/js/bh-update.js"></script>
 <script src="/js/bh-diagnostics.js"></script>
+<script src="/js/bh-settings.js"></script>
 </body>
 </html>

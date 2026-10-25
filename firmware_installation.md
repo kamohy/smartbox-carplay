@@ -1,6 +1,8 @@
 # Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.7.1 / 2026-10-25 11:41 CET
+Dokumentstand: 0.8.0 / 2026-10-25 11:55 CET
+
+0.8.0 ist zweimal identisch gebaut und lokal geprüft: 6.199.341 Byte, SHA-256 `47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46`. Elf erlaubte Imagepfade, unveränderter Kernel und erhaltene übrige Originaldateien sind unabhängig geprüft. LED-Schalter, erklärte Einstellungen, Hardwareabfrage und begrenzte Loglöschung sind enthalten. Installation/Runtimeprüfung stehen noch aus; das Gerät hat bislang UI 0.7.0. Aktuelle Logs sind zusätzlich unter `evidence/log-backups/2026-10-25-114454/` gesichert.
 
 Projektversion 0.7.1 ergänzt ausschließlich Offlineanalyse und Dokumentation des ersten Teams-Feldtests. Installiert und im öffentlichen OTA-Manifest angeboten bleibt UI-Firmware 0.7.0. In diesem Analyseblock erfolgte kein Flash und keine Audio-Konfigurationsänderung.
 

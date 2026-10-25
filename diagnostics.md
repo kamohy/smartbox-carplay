@@ -1,7 +1,9 @@
 # Integrierte Adapter-Diagnose
 
-Version: 0.7.1 (Dokumentation; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 11:41 CET
+Version: 0.8.0  
+Stand: 2026-10-25 11:55 CET
+
+0.8.0 ergänzt LED-Schalter, erklärte Einstellungen, Hardwareabfrage und eine Löschfunktion für gespeicherte Logs. Nach vorheriger Sicherung entfernt sie ausschließlich die sechs eigenen Archivslots, eigene RAM-Messpunkte/Snapshots und zugehörige Metadaten; Bootzähler und fremde Gerätedaten bleiben erhalten. Die automatische Aufzeichnung läuft weiter und erzeugt später neue Logs. Mikrofoneinheit ist korrigiert; alle verfügbaren Netzwerkschnittstellen erscheinen getrennt. Der Livevergleich dieser Version steht noch aus; ältere Hinweise unten betreffen UI 0.7.0.
 
 Feldtesthinweis: Die installierte Webauswertung übernimmt bei Mikrofonraten die falsche Hersteller-Einheit `kHz`. Die reale Zeile `8000kHz -> 16000kHz` bedeutet bei dieser geprüften Firmware 8.000 → 16.000 Hz. Bis zu einem eigenen UI-Fix ist die Offlineauswertung mit `tools/analyze_field_logs.py` maßgeblich. Außerdem sind die RX-/TX-Bytezähler der ausgewählten p2p-Schnittstelle im Feldtest null; daraus keine CarPlay-Verlustrate ableiten. Siehe `field_test_2026-10-25.md`.
 

@@ -20,7 +20,7 @@
       m=line.match(/AudioPlayerCreate sampleRate:\s*(\d+)\s*,\s*sampleSize:\s*(\d+)\s*,\s*channels\s*(\d+)\s*,\s*audioType\s*:\s*(\d+)\s*,\s*hasInput\s*(\d+)/i);
       if(m && Number(m[4])===8) result.phone_request={rate_hz:Number(m[1]),bits:Number(m[2]),channels:Number(m[3]),has_input:Number(m[5])};
       m=line.match(/mic times\s*=\s*\d+\s*,\s*rate\s*=\s*(\d+)kHz\s*->\s*(\d+)kHz/i);
-      if(m) result.microphone_conversion={from_khz:Number(m[1]),to_khz:Number(m[2])};
+      if(m){var from=Number(m[1]),to=Number(m[2]);result.microphone_conversion={from_khz:from>=1000?from/1000:from,to_khz:to>=1000?to/1000:to};}
       if(/\b(?:underrun|overrun|xrun)\b/i.test(line)) result.buffer_warning_lines++;
     });
     return result;
@@ -47,7 +47,7 @@
   async function host(){
     var j=await get('/cgi-bin/index.cgi?id=host',true);
     state.host={base_appver:j.sys&&j.sys.appver,audio_mode:j.aud,microphone_mode:j.mic,wifi_channel:j.sig,connection_mode:j.conn};
-    var mode=j.aud===0?'Default (0)':j.aud==null?'Unbekannt':'Mode '+j.aud;
+    var mode=j.aud===0?'Standardpuffer':j.aud==null?'Unbekannt':'Puffer aktiv · Profil '+j.aud;
     put('bh_diag_mode',mode);
     put('bh_diag_mode_note',j.aud===0?'Telefon-Puffersonderpfad im untersuchten Code aus.':
       j.aud>=1&&j.aud<=3?'Telefon-Puffersonderpfad aktiv. Weitere Unterschiede zwischen 1–3 sind noch nicht vollständig belegt.':'Keine belegte Moduszuordnung.');
@@ -62,7 +62,7 @@
   async function storage(){
     try{
       var j=await get('/cgi-bin/bh-diagnostics.cgi?id=storage',true);
-      var labels={saved:'Automatische Speicherung aktiv',collecting:'Protokoll wird gespeichert',ready:'Speicher bereit',initializing:'Aufzeichnung startet',no_space:'Zu wenig freier Speicher – alte Logs bleiben erhalten',mount_unavailable:'Keine beschreibbare Datenpartition',storage_probe_failed:'Speicherprüfung fehlgeschlagen',not_running:'Aufzeichnung läuft nicht',write_failed:'Speichern fehlgeschlagen',snapshot_too_large:'Protokoll überschreitet Speicherlimit'};
+      var labels={cleared:'Gespeicherte Logs gelöscht. Neue Aufzeichnung läuft weiter.',saved:'Automatische Speicherung aktiv',collecting:'Protokoll wird gespeichert',ready:'Speicher bereit',initializing:'Aufzeichnung startet',no_space:'Zu wenig freier Speicher – alte Logs bleiben erhalten',mount_unavailable:'Keine beschreibbare Datenpartition',storage_probe_failed:'Speicherprüfung fehlgeschlagen',not_running:'Aufzeichnung läuft nicht',write_failed:'Speichern fehlgeschlagen',snapshot_too_large:'Protokoll überschreitet Speicherlimit'};
       put('bh_store_status',labels[j.state]||(j.running?'Aufzeichnung aktiv':'Aufzeichnung nicht verfügbar'));
       put('bh_store_space',j.supported?j.available_kib+' / '+j.total_kib+' KiB frei':'Unbekannt');
       var list=el('bh_store_files'),select=el('bh_diag_source'),selected=select?select.value:'';
@@ -90,8 +90,9 @@
       put('bh_diag_ram',Number.isFinite(total)&&Number.isFinite(available)?((total-available)/1024).toFixed(1)+' / '+(total/1024).toFixed(1)+' MiB':'Unbekannt');
       put('bh_diag_uptime',uptime(j.uptime_seconds));
       put('bh_diag_usb',j.usb_state==='configured'?'Konfiguriert':j.usb_state==='not attached'?'Nicht verbunden':j.usb_state||'Unbekannt');
-      put('bh_diag_net',j.network.interface||'Unbekannt');
-      put('bh_diag_drops',j.network.rx_dropped==null||j.network.tx_dropped==null?'Unbekannt':j.network.rx_dropped+' / '+j.network.tx_dropped);
+      var networks=Array.isArray(j.networks)?j.networks:[j.network];
+      put('bh_diag_net',networks.map(function(n){return n.interface;}).join(' / ')||'Unbekannt');
+      put('bh_diag_drops',networks.map(function(n){return n.interface+': '+(n.rx_dropped==null?'?':n.rx_dropped)+' / '+(n.tx_dropped==null?'?':n.tx_dropped);}).join(' · '));
       put('bh_diag_status','Letzte Abfrage: '+new Date().toLocaleTimeString()+' · CPU über Messintervall');
       state.polls++;if(state.polls%5===0)storage();
       if(state.recording){
@@ -130,12 +131,16 @@
       host().catch(function(){});refresh();startLive();
     };
     el('bh_diag_export').onclick=function(){
-      save(JSON.stringify({schema:1,ui_version:'0.7.0',cpu_source:'uptime-idle',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
+      save(JSON.stringify({schema:1,ui_version:'0.8.0',cpu_source:'uptime-idle',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
     };
     el('bh_diag_audio').onclick=analyze;
     el('bh_store_save').onclick=async function(){
       try{var response=await fetch('/cgi-bin/bh-diagnostics.cgi?id=save',{method:'POST'});if(!response.ok)throw Error('HTTP '+response.status);put('bh_store_status','Speichern angefordert …');setTimeout(storage,6000);}
       catch(error){put('bh_store_status','Speichern nicht möglich: '+error.message);}
+    };
+    el('bh_store_clear').onclick=async function(){
+      if(!root.confirm('Gespeicherte Logs auf dem Adapter löschen? Vorher wichtige Dateien herunterladen. Neue Logs werden anschließend weiter aufgezeichnet.'))return;
+      try{var r=await fetch('/cgi-bin/bh-diagnostics.cgi?id=clear',{method:'POST'});if(!r.ok)throw Error('HTTP '+r.status);put('bh_store_status','Löschen angefordert …');setTimeout(storage,6000);}catch(e){put('bh_store_status','Löschen nicht möglich: '+e.message);}
     };
     el('bh_diag_refresh').onclick();
     storage();startLive();

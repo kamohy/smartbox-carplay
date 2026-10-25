@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "enabled": true,
-  "status": "installed-and-verified",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.7.0.img",
+  "status": "ready-for-device-test",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.0.img",
   "size": 6199341,
-  "sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
-  "notes": "Automatische CPU/RAM/Laufzeit-Anzeige alle 2 Sekunden und begrenzte persistente Systemlogs. Auf einem ly5234 installiert, CPU-Fix sowie Logerhalt nach Neustart und echter Stromtrennung geprüft. Letzte ungespeicherte Minute kann fehlen. Kein Audio-Fix."
+  "sha256": "47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46",
+  "notes": "LED-Ein/Aus-Schalter, erklärte Telefonpuffer und Startverzögerung, Hardwareabfrage, korrigierte Mikrofonraten und begrenzte Loglöschung. Zweimal identisch gebaut und lokal geprüft; Gerätetest dieser Version steht noch aus. Keine Änderung der Audio-Binärdateien."
 }

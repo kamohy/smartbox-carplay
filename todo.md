@@ -1,7 +1,21 @@
 # Aufgaben
 
-Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 11:41 CET
+Version: 0.8.0  
+Stand: 2026-10-25 11:55 CET
+
+## Verständliche Einstellungen und Hardwareprüfung 0.8.0
+
+- [x] Aktuelle sechs Ringlogs und frischen Systemlog vor Änderungen lokal sichern; alle gzip-CRC prüfen.
+- [x] LED-Mapping nach Nutzervorgabe 0=Ein/1=Aus als Schalter abbilden.
+- [x] Telefonpuffer und Verbindungsstart verständlich erklären; ungeklärte Profilwirkung ausdrücklich offen lassen.
+- [x] 20-Sekunden-Verzögerung für delay=2 im Originalcode nachweisen; delay=1 nicht mit einer erfundenen Zeit versehen.
+- [x] Feste Hardwareabfrage und Hardware-/Grenzenkarte ergänzen.
+- [x] Mikrofon-Einheitenfehler korrigieren und Netzwerkinterfaces getrennt ausgeben.
+- [x] Loglöschung ausschließlich eigener sechs Slots, ohne Bootzähler/fremde Daten zu löschen, implementieren und testen.
+- [x] Elf erlaubte Imagepfade unabhängig prüfen und zweimal identisch bauen; 27 Python- und drei JS-Prüfprogramme erfolgreich.
+- [ ] Version installieren, Oberfläche und LED-Schreib-/Lesepfad am Gerät prüfen.
+- [ ] Reale Hardware-/Takt-/Busdaten erfassen; Leistungsreserve und nicht bewiesene Grenzen getrennt dokumentieren.
+- [ ] Nach erneuter Sicherung aktuelle gespeicherte Logs auf dem Gerät löschen und leere Liste verifizieren.
 
 ## Befund aus dem ersten Fahrzeugtest
 

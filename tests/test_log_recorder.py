@@ -60,6 +60,18 @@ class PersistentRecorder(unittest.TestCase):
         self.assertNotEqual(result.returncode,0)
         self.assertEqual(self.status()['state'],'no_space')
         self.assertEqual(before,{p.name:p.read_bytes() for p in (self.base/'bh-logs').iterdir()})
+    def test_clear_only_removes_owned_logs_and_preserves_counter_and_other_data(self):
+        self.run_script('once');self.run_script('once')
+        directory=self.base/'bh-logs';counter=(directory/'boot-counter').read_bytes()
+        (directory/'foreign.txt').write_bytes(b'KEEP TOO')
+        self.run_script('clear-once')
+        self.assertEqual(self.status()['files'],[])
+        self.assertEqual(self.status()['state'],'cleared')
+        self.assertEqual((directory/'boot-counter').read_bytes(),counter)
+        self.assertEqual((directory/'foreign.txt').read_bytes(),b'KEEP TOO')
+        self.assertEqual((self.base/'unrelated').read_bytes(),b'KEEP')
+        self.assertFalse((self.ram/'metrics.jsonl').exists())
+        self.assertFalse((self.ram/'snapshot.gz').exists())
     def test_missing_readonly_or_ram_mount_never_creates_log_directory(self):
         for fs,mode in [('jffs2','ro'),('tmpfs','rw'),('rootfs','rw'),('squashfs','rw')]:
             self.mount(fs,mode);self.assertNotEqual(self.run_script('once',check=False).returncode,0)
@@ -82,6 +94,9 @@ class PersistentRecorder(unittest.TestCase):
         self.assertTrue(cgi('id=stored../etc/passwd').startswith(b'Status: 400'))
         self.assertTrue(cgi('id=audio&source=0a&command=reboot').startswith(b'Status: 400'))
         self.assertTrue(cgi('id=save','POST','https://example.com').startswith(b'Status: 403'))
+        self.assertTrue(cgi('id=clear','POST','https://example.com').startswith(b'Status: 403'))
+        self.assertTrue(cgi('id=clear&path=/mnt/UDISK','POST').startswith(b'Status: 405'))
+        self.assertTrue(cgi('id=clear').startswith(b'Status: 400'))
         self.assertTrue(cgi('id=save','POST').startswith(b'Status: 503')) # no daemon in fixture
 
 if __name__=='__main__':unittest.main()

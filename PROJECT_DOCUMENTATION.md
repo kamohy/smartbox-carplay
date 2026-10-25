@@ -1,9 +1,19 @@
 # Projektdokumentation
 
-Version: 0.7.1 (Analyse; Geräte-UI 0.7.0)  
-Stand: 2026-10-25 11:41 CET
+Version: 0.8.0  
+Stand: 2026-10-25 11:55 CET
 
 ## 2026-10-25
+
+### 11:44–11:55 CET – Verständliche Bedienung, Hardwareabfrage und begrenzte Loglöschung 0.8.0
+
+Der Nutzer bestätigte LED Default=Ein und Mode 1=Aus und beauftragte einen Schalter, verständliche Einstellungsbeschreibungen, Hardware-/Maximalprüfung sowie Sicherung und Löschung der Logs. Vor Änderungen wurden alle sechs aktuellen gzip-Dateien samt Metadaten und frischem Systemlog unter `evidence/log-backups/2026-10-25-114454/` gesichert und CRC-/SHA-256-geprüft. Löschung ist bis zur verfügbaren geprüften Gerätefunktion noch offen.
+
+Das neue Einstellungsmodul zeigt einen echten LED-Schalter, Telefonpuffer mit belegter Wirkung und ausdrücklich ungeklärten Profilfeinheiten sowie Verbindungsstart statt Delayed start. Im Original-rcpservice belegt der Getter 0x21520 und dessen Aufruf bei 0x141D4: delay=2 führt über 0x15068 zu sleep(20). Für delay=1 ist keine feste zusätzliche Sekundenanzahl belegt. Es wurden keine Klangversprechen oder erfundenen Zeitwerte ergänzt.
+
+Die Hardwarekarte trennt bestätigte Startlogdaten von Treiberhinweisen. Eine feste CGI-Abfrage liest CPU-/RAM-/MTD-/Mount-/cpufreq-/USB-/SDIO-Daten und verfügbare lokale Buswerkzeuge. Der Hersteller beschreibt die V821-Familie als heterogenes CPU/MCU-System; die aktuelle Allwinner-Seite bezieht sich ausdrücklich auf V821L2-WXX, also keine ungeprüfte Taktaussage über unseren V821B. Mikrofonraten werden richtig als 8→16 kHz angezeigt, Netzwerkinterfaces getrennt erfasst. Der Recorder bewahrt frühe HU-Auswahllogs im begrenzten RAM-Verlauf auf.
+
+Die neue Löschanforderung darf ausschließlich die sechs eigenen Logslots und eigene RAM-Snapshots entfernen, erhält Bootzähler und fremde Daten und wird seriell vom Recorder abgearbeitet. Tests prüfen diesen Umfang, Origin-/Methodengrenzen, LED-Mapping und reale Mikrofonlogeinheit. 27 Pythonprüfungen und drei JS-Prüfprogramme bestehen. Zwei Builds sind identisch: 6.199.341 Byte, SHA-256 `47276c8e59417f3346d67489f8dd14a0ff6717721797a43b2c139fab49d54f46`. Elf Pfade ändern sich; Audio-Binärdateien, Kernel und übrige Originalinodes bleiben unverändert. Geräteinstallation und reale Hardware-/Löschprüfung stehen bei diesem Eintrag noch aus.
 
 ### 11:29–11:41 CET – Erster Teams-Feldtest, 8-kHz-Engpass, Analyseversion 0.7.1
 

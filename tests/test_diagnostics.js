@@ -22,4 +22,6 @@ assert.equal(result.phone_output.rate_hz,16000);assert.equal(result.phone_output
 assert.equal(result.phone_request.channels,1);assert.equal(result.microphone_conversion.from_khz,48);
 assert.equal(result.microphone_conversion.to_khz,16);assert.equal(result.buffer_warning_lines,2);
 assert.equal(d.parseAudio('phone call rate=unknown, sz=16').phone_output,null);
+const realMic=d.parseAudio('HidClient mic times = 1, rate = 8000kHz -> 16000kHz').microphone_conversion;
+assert.equal(realMic.from_khz,8);assert.equal(realMic.to_khz,16);
 console.log('PASS: CPU deltas/reset and evidence-only phone/microphone log interpretation');

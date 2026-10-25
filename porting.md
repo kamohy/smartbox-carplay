@@ -1,11 +1,11 @@
 # Portierung und Updateweg
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
 0.7.0 erweitert die freigegebenen Buildpfade um exakt `/app/lyLink.sh` und `/app/bh-log-recorder.sh`. Das originale Startskript erhält nur einen Hintergrundstart außerhalb des Updatemodus. Der Recorder prüft den tatsächlichen RW-Datenmount `/mnt/UDISK` und freien Platz, schreibt ausschließlich `bh-logs/` und verändert keine Partitionierung. Das ist mehr als eine Webdateiänderung; alle anderen Originaldateien und der Kernel bleiben erhalten.
 
-Die Liveanzeige benötigt Browser-JavaScript, keinen Node-Server. CPU nutzt wegen angehaltener Idle-Jiffies `/proc/uptime` und CPU-Anzahl. Der Recorder sammelt alle fünf Sekunden Status im RAM und schreibt ungefähr jede Minute einen begrenzten gzip-Snapshot. Reale Mount-/Platz-/Persistenzprüfung steht für 0.7.0 noch aus. Normalboot und Browser-/CORS-Update sind für 0.5.0/0.6.0 bereits belegt; entsprechende offene Aussagen weiter unten sind historisch überholt.
+Die Liveanzeige benötigt Browser-JavaScript, keinen Node-Server. CPU nutzt wegen angehaltener Idle-Jiffies `/proc/uptime` und CPU-Anzahl. Der Recorder sammelt alle fünf Sekunden Status im RAM und schreibt ungefähr jede Minute einen begrenzten gzip-Snapshot. Reale 512-KiB-Datenpartition, freier Platz, Loggerstart sowie bytegleicher Logerhalt nach Software-Neustart und echter Stromtrennung sind für 0.7.0 geprüft. Normalboot und Browser-/CORS-Update sind ebenfalls belegt.
 
 Der erste Kandidat gilt ausschließlich für Plattform `ly5234` und die bytegenau geprüfte Herstellerbasis `26011517.5234.2`. Kein Crossflash auf andere Plattformen, keine Übernahme der widersprüchlich bezeichneten Testfirmware. Audio-Bibliotheken werden in dieser Version nicht geändert.
 
@@ -25,7 +25,7 @@ Backhand 0.25.5 dient als Dateisystemschreiber; Dissect SquashFS 1.12 liest das 
 
 `.gitattributes` schaltet Zeilenendennormalisierung für die eingebetteten Webdateien aus. Dadurch stimmen Repositorybytes, lokale Overlaydateien und das gebaute Image auch bei einem Windows-Checkout überein.
 
-Noch offen: vollständiger individueller 16-MiB-Dump, Wiederherstellung über einen verifizierten Hardware-/Recoveryweg, Geräte-Updater-Prüfungen, erster Boot und echter Browser-/CORS-Updateversuch. Die vorhandenen öffentlichen Herstellerdateien enthalten keine vollständige Sicherung von U-Boot, Rootfs, Recovery, Environment oder privaten Gerätedaten.
+Noch offen: vollständiger individueller 16-MiB-Dump, Wiederherstellung über einen verifizierten Hardware-/Recoveryweg und vollständige Analyse der Geräte-Updater-Prüfungen. Die vorhandenen öffentlichen Herstellerdateien enthalten keine vollständige Sicherung von U-Boot, Rootfs, Recovery, Environment oder privaten Gerätedaten.
 
 Aktualisierung 0.5.1: Nach ausdrücklicher Nutzerfreigabe trotz möglichen Geräteverlusts wurde das geprüfte 0.5.0-Paket erfolgreich geflasht. Auf Updaterzustand 3 folgte der normale Neustart mit `id=set&conn=cp`; die sechs Webdateien stimmen anschließend direkt auf dem Gerät mit dem Build überein. Damit ist der Erststart auf genau diesem Adapter belegt. Vollbackup, Restore und Fahrzeug-/Audiotest bleiben offen. Der Windows-xfel-Probeversuch war negativ; kein FEL-Modus vorhanden. CatPlay-`cpbox2fel` ist selbst ein vorgeschalteter Flash und enthält im geprüften Stand keinen ly5234-Preset.
 

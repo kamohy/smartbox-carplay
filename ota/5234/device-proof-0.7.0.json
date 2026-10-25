@@ -1,0 +1,169 @@
+{
+  "target_version": "0.7.0",
+  "source_ui_version": "0.6.0",
+  "sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
+  "size": 6199341,
+  "browser_update_clicked": true,
+  "observed_states": [
+    {
+      "at": "2026-10-25T10:48:11.011548+01:00",
+      "appver": "26011517.5234.2",
+      "update": 1
+    },
+    {
+      "at": "2026-10-25T10:48:15.513580+01:00",
+      "appver": "00000000.5234.2",
+      "update": 2
+    },
+    {
+      "at": "2026-10-25T10:49:15.854372+01:00",
+      "appver": "00000000.5234.2",
+      "update": 3
+    },
+    {
+      "at": "2026-10-25T10:49:24.998941+01:00",
+      "appver": "26011517.5234.2",
+      "update": 0
+    }
+  ],
+  "flash_completion_state": 3,
+  "reboot_requested": true,
+  "normal_boot_verified": true,
+  "status": "installed-and-verified",
+  "device_installation_verified": true,
+  "verified_at": "2026-10-25T10:55:40.124125+01:00",
+  "verified_web_files": [
+    {
+      "path": "/index.html",
+      "size": 27222,
+      "sha256": "ac8fa5ad444ae1ff2f0b727f0bdeb8f035c1da0ad17c0bb486fdf13c2346770d",
+      "matches": true
+    },
+    {
+      "path": "/css/bad-hippo-dark.css",
+      "size": 9506,
+      "sha256": "9a473f60aa4523fef3db69699b37e109ceaeabd7c39f635ef523480dee17a13a",
+      "matches": true
+    },
+    {
+      "path": "/css/bad-hippo-logo.svg",
+      "size": 19774,
+      "sha256": "410ba4061bf6e9b8cee1ccda855285dd888ce8fd4e420a9bfdd143248aab7fe2",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-sha256.js",
+      "size": 2357,
+      "sha256": "87fd2433a8087b3f63477e9b84f271ac863b4cd3b4fbea2d204e0a035cf50333",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-update.js",
+      "size": 3311,
+      "sha256": "5e5b36b69509c6b97fc8ad6c4bb43b60ff6c5abcbd424382bd9247d0bdb372cb",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-update-config.json",
+      "size": 337,
+      "sha256": "df20d95e3cf86e6db1bb1969878e9937f8bc702618f35a7a0806361a4c0bdcad",
+      "matches": true
+    },
+    {
+      "path": "/js/bh-diagnostics.js",
+      "size": 10293,
+      "sha256": "2bb75ca497c4446faacff7aa17f40c1dbf6677ca16a9c928b2ed76a0d21b98d5",
+      "matches": true
+    }
+  ],
+  "settings_after": {
+    "aud": 2,
+    "mic": 0,
+    "sig": 149,
+    "conn": "cp"
+  },
+  "tested_device_count": 1,
+  "full_backup_verified": false,
+  "recovery_verified": false,
+  "audio_vehicle_tested": false,
+  "automatic_display_interval_seconds": 2,
+  "automatic_display_verified_without_recording": true,
+  "cpu_source": "uptime-idle",
+  "cpu_display_corrected": true,
+  "recorder_running": true,
+  "storage_at_power_test": {
+    "schema": 1,
+    "supported": true,
+    "running": true,
+    "state": "saved",
+    "total_kib": 512,
+    "available_kib": 252,
+    "reserve_kib": 64,
+    "max_snapshot_bytes": 24576,
+    "period_seconds": 60,
+    "retained_boots_max": 3,
+    "files": [
+      {
+        "id": "0a",
+        "bytes": 12924,
+        "boot": 1,
+        "saved_uptime": 8
+      },
+      {
+        "id": "0b",
+        "bytes": 13561,
+        "boot": 1,
+        "saved_uptime": 58
+      },
+      {
+        "id": "1a",
+        "bytes": 12904,
+        "boot": 2,
+        "saved_uptime": 8
+      },
+      {
+        "id": "2a",
+        "bytes": 13550,
+        "boot": 3,
+        "saved_uptime": 129
+      },
+      {
+        "id": "2b",
+        "bytes": 13148,
+        "boot": 3,
+        "saved_uptime": 68
+      }
+    ]
+  },
+  "controlled_reboot_verified": true,
+  "retained_files_after_reboot": [
+    {
+      "id": "0a",
+      "sha256": "602a0283107e59c8cc0a255f4d54620c7307a5c06ad7a0e2c5d2136195a39170",
+      "identical_after_reboot": true,
+      "gzip_crc_valid": true
+    },
+    {
+      "id": "0b",
+      "sha256": "cb2f322d2a980f004c9b0a1dc3120cad96d8ad6fc5aed16ad228b3eb24039f6a",
+      "identical_after_reboot": true,
+      "gzip_crc_valid": true
+    }
+  ],
+  "power_removal_verified": true,
+  "retained_files_after_power_removal": [
+    {
+      "id": "0a",
+      "sha256": "602a0283107e59c8cc0a255f4d54620c7307a5c06ad7a0e2c5d2136195a39170",
+      "identical_after_power_removal": true,
+      "gzip_crc_valid": true
+    },
+    {
+      "id": "0b",
+      "sha256": "cb2f322d2a980f004c9b0a1dc3120cad96d8ad6fc5aed16ad228b3eb24039f6a",
+      "identical_after_power_removal": true,
+      "gzip_crc_valid": true
+    }
+  ],
+  "raw_logs_published": false
+}

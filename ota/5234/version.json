@@ -4,9 +4,9 @@
   "base_appver": "26011517.5234.2",
   "version": "0.7.0",
   "enabled": true,
-  "status": "ready-for-device-test",
+  "status": "installed-and-verified",
   "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.7.0.img",
   "size": 6199341,
   "sha256": "32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4",
-  "notes": "Automatische CPU/RAM/Laufzeit-Anzeige, CPU-Messkorrektur und begrenzte persistente gzip-Systemlogs. Zweimal identisch gebaut und lokal geprüft; Geräte-/Persistenztest dieser Version noch ausstehend. Kein Audio-Fix."
+  "notes": "Automatische CPU/RAM/Laufzeit-Anzeige alle 2 Sekunden und begrenzte persistente Systemlogs. Auf einem ly5234 installiert, CPU-Fix sowie Logerhalt nach Neustart und echter Stromtrennung geprüft. Letzte ungespeicherte Minute kann fehlen. Kein Audio-Fix."
 }

@@ -1,7 +1,7 @@
 # Aufgaben
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
 ## Automatische Werte und persistente Logs 0.7.0
 
@@ -11,9 +11,9 @@ Stand: 2026-10-25 10:47 CET
 - [x] Echter RW-Datenmount, drei Startslots mit je zwei gzip-Dateien bis 24 KiB, mindestens 64 KiB Reserve.
 - [x] CRC, Bootrotation, Platzmangel, übergroße Logs, RAM-/RO-Mounts und fremde Dateien mit echtem Skript prüfen.
 - [x] Zweimal byteidentisch bauen; Kernel und alle nicht freigegebenen Originaldateien erhalten.
-- [ ] Freien Speicher, Daemon, CPU und automatische Anzeige am Gerät prüfen.
-- [ ] Log sichern, neu starten und bisherige Dateien erneut mit gleichem Hash laden.
-- [ ] Erhalt nach echtem Abziehen der Stromversorgung bestätigen.
+- [x] Freien Speicher, Daemon, CPU und automatische Anzeige am Gerät prüfen; 512 KiB gesamt, zunächst 304 KiB frei, sieben Webdateihashes passend.
+- [x] Log sichern, neu starten und beide bisherigen Dateien erneut mit gleichem Hash laden; gzip-CRC gültig.
+- [x] Erhalt nach echtem Abziehen der Stromversorgung und erneutem PC-Anschluss bestätigen; beide Boot-1-Dateien SHA-256-identisch, neue Logs unter Boot 3.
 
 ## Integrierte Diagnose 0.6.0
 

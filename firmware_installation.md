@@ -1,8 +1,8 @@
 # Firmware: Build und Installationsstatus
 
-Dokumentstand: 0.7.0 / 2026-10-25 10:47 CET
+Dokumentstand: 0.7.0 / 2026-10-25 10:55 CET
 
-0.7.0 ergänzt automatische Livewerte und begrenzten nativen Logrecorder. Paket: `ota/5234/firmware-0.7.0.img`, 6.199.341 Byte, SHA-256 `32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4`. Reproduzierbarer Zweitbuild und lokale Prüfungen bestanden; Installation/Persistenztest stehen noch aus. Der Builder erlaubt nun zehn Dateien, darunter exakt zwei native Recorder-Startpfade. Alle anderen Originaldateien bleiben erhalten.
+0.7.0 ergänzt automatische Livewerte und begrenzten nativen Logrecorder. Paket: `ota/5234/firmware-0.7.0.img`, 6.199.341 Byte, SHA-256 `32e395c7ff22fcf40eb019748126e554694786974d261f70ab4fe07171e6aeb4`. Reproduzierbarer Zweitbuild, lokale Prüfungen und Installation per Browser-Updater bestanden. Normalboot, sieben statische Dateihashes, CPU-Fix, Recorder und 512-KiB-Datenpartition sind geprüft. Beide ersten Logs überstanden Software-Neustart und echte Stromtrennung byteidentisch. Der Builder erlaubt zehn Dateien, darunter exakt zwei Recorder-Startpfade; andere Originaldateien bleiben erhalten. Der öffentliche Laufzeitnachweis steht in `ota/5234/device-proof-0.7.0.json`; Rohlogs bleiben lokal.
 
 0.6.0 wurde inzwischen per echtem Browser-Updater installiert. Normalstart, sieben statische Webdateien und CGI-Endpunkte sind geprüft. Die CPU-Jiffies-Anzeige war fehlerhaft; 0.7.0 enthält den anhand realer Messdaten geprüften Fix. Nachfolgend bleibt der historische Ersttransfer 0.5.0 dokumentiert; die alten Angaben zu sechs Dateien betreffen ausschließlich 0.5.0.
 

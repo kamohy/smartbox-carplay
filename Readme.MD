@@ -1,9 +1,9 @@
 # SmartBox CarPlay Adapter Analysis
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
-0.6.0 wurde über den eigenen Browser-Updater installiert: Normalstart, sieben Webdateihashes und echte CGI-Abfragen geprüft. 0.7.0 ergänzt automatische Livewerte alle zwei Sekunden und begrenzte, komprimierte Systemlogs auf der Datenpartition. Zwei identische Builds und Speicherschutztests bestanden; Geräteinstallation und Persistenztest stehen noch aus. Der entdeckte CPU-Zählerfehler wird dabei korrigiert. Details: [diagnostics.md](diagnostics.md).
+0.7.0 ist über den eigenen Browser-Updater installiert und direkt am Gerät geprüft: automatische Livewerte alle zwei Sekunden, korrigierte CPU-Berechnung und begrenzte, komprimierte Systemlogs. Datenpartition: tatsächlich 512 KiB, nach dem ersten Log 304 KiB frei. Logger und Sofortspeicherung funktionieren. Zwei Logs überstanden sowohl einen Software-Neustart als auch tatsächliche Stromtrennung mit erneutem PC-Anschluss byteidentisch. Details: [diagnostics.md](diagnostics.md).
 
 ## Projektvorstellung
 
@@ -18,9 +18,9 @@ Fahrzeug laut Nutzer: Hyundai i30 Kombi, Baujahr 2018. Konkret bestätigtes Fehl
 ## Aktueller Stand
 
 - Öffentliches Repository: https://github.com/kamohy/smartbox-carplay
-- Eigene Oberfläche: dunkles Design und eingebettetes Bad-Hippo-Logo. 0.6.0 ergänzt integrierte Diagnosewerkzeuge.
-- Diagnose 0.6.0: CPU/RAM/Laufzeit/USB, WLAN-Zähler, Aufzeichnung im Browser, frische lokale Logs und Auswertung tatsächlich vorhandener Telefon-/Mikrofonmeldungen. Noch keine Messung der hörbaren Klangqualität.
-- Eigene Firmware `ota/5234/firmware-0.5.0.img` erfolgreich über den Geräte-Updater installiert. Normalstart und alle sechs Webdateien am realen Gerät per SHA-256 geprüft. CarPlay-/Teams-Audio wurde mit dieser UI-Version noch nicht im Fahrzeug geprüft.
+- Eigene Oberfläche: dunkles Design, eingebettetes Bad-Hippo-Logo und integrierte Diagnosewerkzeuge.
+- Diagnose 0.7.0: automatische CPU/RAM/Laufzeit/USB-Anzeige, WLAN-Zähler, optionale Browseraufzeichnung, persistente Systemlogs und Auswertung vorhandener Telefon-/Mikrofonmeldungen. Keine Messung hörbarer Klangqualität.
+- Eigene Firmware `ota/5234/firmware-0.7.0.img` erfolgreich über den Geräte-Updater installiert. Normalstart und sieben statische Webdateihashes sowie CGI/Recorder am realen Gerät geprüft. CarPlay-/Teams-Audio bleibt im Fahrzeug zu prüfen.
 - Dauerhafte neue Update-API: https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/version.json
 - Der eigene Updatekanal ist auf dem Adapter installiert; Herstellerkennung und eigene UI-Version sind getrennt.
 
@@ -84,6 +84,8 @@ Vollbackup und verifizierter Recoveryweg fehlen weiterhin. Der Nutzer hat am 25.
 - `tools/disassemble_riscv_andes.py`: RISC-V/Andes-Codepfade einschließlich `ADDIGP` untersuchen
 
 ## Fahrzeugerfassung
+
+Mit 0.7.0 läuft der native Recorder ohne offene Webseite. Nach dem Teams-Test noch etwa eine Minute eingeschaltet lassen. Logs für bis zu drei Gerätestarts können später am PC von der Einstellungsseite geladen werden. Die letzte ungespeicherte Minute kann beim Abziehen fehlen. Der folgende ältere PC-Erfassungsweg verwendet weiterhin den OEM-Export; die frischen eigenen Downloads sind davon unabhängig.
 
 Wichtig: Der Adapter cached den ersten Export in `/tmp/log.gz`. Für jeden neuen Versuch den Adapter zuerst stromlos machen und neu verbinden. Anschließend den Teams-Anruf mit hörbarem Fehler durchführen und erst danach das Log abrufen. Zwischen Neustart und Telefonat keinen früheren Diagnoseexport auslösen.
 

@@ -1,11 +1,11 @@
 # Bugs und Auffälligkeiten
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
 ## Offen
 
-- 0.7.0 ist offline geprüft. Reale Datenpartition/freier Platz, Recorderstart und Neustartpersistenz müssen am Gerät geprüft werden.
+- Die Wiederverbindung am Windows-PC war nach Stromtrennung verzögert; nach erneutem PC-Anschluss sind WLAN und Gerät wieder erreichbar. Kein fortbestehender Startfehler nachgewiesen.
 - Abrupter Stromverlust kann die letzte ungespeicherte Minute verlieren. Ringlogs sind begrenzte Ausschnitte, kein lückenloses Archiv.
 - Windows hat globale manuelle WLAN-Adressen; `.2` tauchte zusätzlich zu `.104` wieder auf. Nach Gerätetests auf ursprünglichen DHCP-Betrieb zurückstellen.
 - Audioauswertung sieht nur vorhandene Meldungen im letzten passenden Logausschnitt. Fehlende Meldungen sind kein Nachweis eines falschen oder richtigen Audioformats.
@@ -23,6 +23,10 @@ Stand: 2026-10-25 10:47 CET
 - Die im Webfrontend vorhandene ADB-Umschaltung wird für Plattform 5234 ausgeblendet und wurde nicht erzwungen.
 
 ## Behoben oder geklärt
+
+- 2026-10-25 10:55 CET: Auch echte Stromtrennung bestanden. Nutzer bestätigt erneuten PC-Anschluss, Recorder zählt Boot 3. Beide Boot-1-Logs sind weiterhin SHA-256-identisch und gzip-CRC-gültig. Kaltstart und persistente Speicherung damit auf diesem Adapter belegt.
+
+- 2026-10-25 10:53 CET: 0.7.0 normal gestartet, sieben Webdateihashes passend. Reale 512-KiB-Datenpartition mit zunächst 304 KiB frei, Logger aktiv. CPU-Messung liefert plausible 3,4–6 % statt falscher 100 %. Liveanzeige lief ohne Browseraufzeichnung; Sofortspeicherung und Auswertung gespeicherter Logs funktionieren. Beide Boot-1-Logs nach Software-Neustart unverändert und CRC-geprüft.
 
 - 2026-10-25 10:47 CET: 0.6.0 per eingebettetem GitHub-Updater installiert; sieben statische Dateien und funktionaler CGI bestätigt. Idle-Jiffies blieben trotz laufender Idle-Sekunden stehen. 0.7.0 nutzt zwei Laufzeit-/Idle-Messungen; reale Gegenprobe und Rücksetzfälle sind getestet.
 - 2026-10-25 10:47 CET: Liveanzeige startet automatisch, unabhängig von optionaler Browseraufzeichnung.

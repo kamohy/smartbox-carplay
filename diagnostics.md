@@ -1,7 +1,7 @@
 # Integrierte Adapter-Diagnose
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
 ## Neuer Stand 0.7.0
 
@@ -11,7 +11,7 @@ Der native Recorder startet ohne offene Webseite. Ausschließlich `bh-logs/` auf
 
 Die Seite zeigt tatsächlichen Speicherstatus, lokale Downloads und eine begrenzte Sofortspeicher-Anforderung. Für Audioauswertung kann ein früherer Start gewählt werden. Der CGI akzeptiert zusätzlich feste Archiv-/Speicher-GETs und ausschließlich `POST id=save` als Schreibanforderung. Fremde Origins, zusätzliche Parameter und frei wählbare Befehle/Dateipfade werden abgewiesen. Keine automatische Veröffentlichung lokaler Logs.
 
-0.7.0 muss noch realen Mount/Platz, Recorderstart und Erhalt nach Neustart/Stromtrennung bestätigen. 0.6.0 wurde installiert und funktional geprüft; dort waren Logs ausschließlich im RAM. Nach erfolgreicher Recorderprüfung: Teams-Anruf durchführen und noch etwa eine Minute eingeschaltet lassen; gespeicherte Logs später am PC von derselben Seite laden.
+0.7.0 ist installiert: 512-KiB-Datenpartition, zunächst 304 KiB frei, Logger aktiv, gzip-CRC gültig. Zwei Logs überstanden Software-Neustart und tatsächliche Stromtrennung byteidentisch. Beim dritten Start waren fünf Logs aus allen drei Starts vorhanden und 252 KiB frei. 0.6.0 hatte ausschließlich RAM-Logs. Für den Fahrzeugtest: Teams-Anruf durchführen und noch etwa eine Minute eingeschaltet lassen; gespeicherte Logs später am PC von derselben Seite laden.
 
 ## Historischer Bedienumfang 0.6.0
 

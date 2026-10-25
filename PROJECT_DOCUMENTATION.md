@@ -1,9 +1,21 @@
 # Projektdokumentation
 
 Version: 0.7.0  
-Stand: 2026-10-25 10:47 CET
+Stand: 2026-10-25 10:55 CET
 
 ## 2026-10-25
+
+### 10:54–10:55 CET – Echte Stromtrennung bestanden
+
+Der Nutzer bestätigte den erneuten Anschluss diesmal am PC. Nach verzögerter Windows-WLAN-Wiederverbindung ist derselbe Adapter erreichbar, Recorder aktiv und Bootzähler 3. Beide Boot-1-Logs stimmen weiterhin SHA-256-genau mit den vor Software-Neustart und Stromtrennung geladenen Dateien überein; gzip-CRC gültig. Fünf Dateien aus drei Starts sind vorhanden, 252 von 512 KiB frei. Die Liveanzeige aktualisiert sich wieder automatisch, weiterhin ohne Browseraufzeichnung. Der zuvor offene Kaltstartpunkt ist erledigt. Kein weiterer Flash war nötig. Beleg: `persistence.after-power.json` und `installed-diagnostics.png` im lokalen Updateordner; öffentliche Nachweise enthalten keine Rohlogs/Gerätekennungen. Der Fahrzeug-/Teams-Test und jede behauptete Audioverbesserung bleiben ausdrücklich offen.
+
+### 10:48–10:53 CET – Echte Installation und Software-Neustartprüfung 0.7.0
+
+Das öffentlich geladene Image wurde vorab per Größe/SHA-256 geprüft und einmal über den echten Browser-Updater übertragen. Zustand 1→2→3 und anschließender Normalstart sind beobachtet. Sieben statische Webdateien stimmen mit dem Build überein. Der CGI meldet 58.124 KiB nutzbaren RAM, CPU im Messintervall etwa 3,4–6 % und echte 512 KiB Datenspeicher, zunächst 304 KiB frei. Der Logger läuft und erzeugt CRC-gültige 13-KiB-gzip-Dateien mit Messpunkten.
+
+Zwei Browserbeobachtungen im Abstand von 22 Sekunden zeigen aktualisierte Laufzeit/Abfragezeit bei weiterhin null aufgezeichneten Browsermesspunkten: automatische Anzeige ist unabhängig vom Aufzeichnungsstart bestätigt. Sofortspeicherung per Schaltfläche und Audioauswertung aus dem gespeicherten Slot funktionieren. Anschließend blieben beide Boot-1-Dateien über einen kontrollierten Neustart SHA-256-identisch. Der neue Start zählt korrekt auf Boot 2 hoch. GitHub CI 40182107570 erfolgreich.
+
+Der Nutzer trennte auf Anforderung den Strom und bestätigte erneuten Anschluss. Danach ist das Adapter-WLAN bisher nicht wieder sichtbar; der Kaltstartvergleich ist noch offen. Keine weitere Firmwareübertragung wurde wiederholt. Individuelle Belege bleiben lokal unter `evidence/updates/2026-10-25-105000-ui070/`.
 
 ### 10:16–10:47 CET – Geräteprüfung 0.6.0, Liveanzeige und persistente Logs 0.7.0
 

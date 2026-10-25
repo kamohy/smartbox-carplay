@@ -131,7 +131,7 @@
       host().catch(function(){});refresh();startLive();
     };
     el('bh_diag_export').onclick=function(){
-      save(JSON.stringify({schema:1,ui_version:'0.8.0',cpu_source:'uptime-idle',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
+      save(JSON.stringify({schema:1,ui_version:'0.9.0',cpu_source:'uptime-idle',host:state.host,samples:state.samples,audio:state.audio},null,2),'application/json','smartbox-session.json');
     };
     el('bh_diag_audio').onclick=analyze;
     el('bh_store_save').onclick=async function(){

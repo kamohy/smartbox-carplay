@@ -1,7 +1,19 @@
 # Projektdokumentation
 
-Version: 0.8.3 (Wartungskandidat; installierte Geräte-UI zuletzt 0.7.0)
-Stand: 2026-10-25 14:07 CET
+## Aktueller Auftrag: verständliche Oberfläche 0.9.0
+
+Stand: 2026-10-25T14:25:58+01:00
+
+Der Nutzer meldete einen erfolgreichen Updateknopfdruck, vermutlich am Handy. Direkte Prüfung in diesem Arbeitsblock zeigt jedoch noch UI 0.7.0 und Updatezustand 0; id=space ist dort unbekannt. Ein erfolgreich installierter Zwischenstand 0.8.3 ist damit nicht bestätigt. Der genaue Auslöser des bisherigen Vorbereitungsfehlers bleibt offen; der Knopfdruck allein beweist keine abgeschlossene Installation.
+
+0.9.0 führt die vorbereiteten verständlichen Einstellungen und die neueren Wartungskorrekturen zusammen: LED 0=Ein/1=Aus als Schalter mit Rücklesekontrolle, Telefonpuffer statt anonymer Mode-Bezeichnung, erklärte Startverzögerung (20 Sekunden für delay=2 belegt), GPS-Option ehrlich als teilweise ungeklärt. Die drei Telefonprofile bleiben unterscheidbar, ihre noch ungeklärten Unterschiede werden ausdrücklich genannt; es werden keine Qualitätsstufen erfunden. Der Resetknopf beschreibt nun korrekt die Löschung der ganzen Datenpartition einschließlich Kopplungen und verlangt eine Bestätigung.
+
+Technikübersicht: Allwinner V821B/RISC-V, 64 MiB physischer RAM, 16 MiB SPI-NOR, 512 KiB persistente Datenpartition, belegte Realtek-Treiber-/Profilnamen mit Nachweisgrenzen. Die neue feste Liveabfrage trennt freien Datenspeicher, RAM, /tmp und schreibgeschützte Firmwarebereiche. Keine Addition überlappender RAM-/tmp-Kapazitäten. Hardware-Rohabfrage und begrenzter Fehlerauszug sind integriert. Logger läuft aus RAM und beendet sich bei erkanntem Updatebeginn.
+
+Image: 6203437 Byte; SHA-256 `7c72d07dd55e24ac7dc641649f39a81a2624f379f1fdbfa947fbc9734fb95cb8`. Kernel und Updatebeschreibung unverändert; 12 ausdrücklich erlaubte Pfade, alle anderen ursprünglichen Inodes/Daten unabhängig geprüft. Der vollständige Herstellercontainer schreibt den unveränderten Kernel erneut. Keine Änderung an Telefon-Audioalgorithmus, CPU-Takt, Partitionslayout oder WLAN-Konfiguration. Der bestehende öffentliche Kanal bietet 0.9.0 für die ausdrücklich beauftragte Geräteprüfung an; Installation und Bedienung am Dongle sind noch zu verifizieren. Alte Fahrzeuglogs bleiben lokal gesichert. Ältere folgende Abschnitte dokumentieren die Historie.
+
+Version: 0.9.0 (Geräteinstallation noch zu bestätigen)
+Stand: 2026-10-25T14:25:58+01:00
 
 ## 2026-10-25
 

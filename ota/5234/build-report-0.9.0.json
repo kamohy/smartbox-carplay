@@ -1,0 +1,113 @@
+{
+  "kernel_unchanged": true,
+  "sw_description_unchanged": true,
+  "original_inodes_preserved": 66,
+  "console_device_preserved": {
+    "mode": 8576,
+    "uid": 0,
+    "gid": 0,
+    "mtime": "2025-12-18T08:02:03+00:00",
+    "rdev": 1281
+  },
+  "original_filesystem": {
+    "version": "4.0",
+    "block_size": 262144,
+    "compression": 4,
+    "bytes_used": 3005841,
+    "mkfs_time": "2026-01-15T09:41:24+00:00"
+  },
+  "candidate_filesystem": {
+    "version": "4.0",
+    "block_size": 262144,
+    "compression": 4,
+    "bytes_used": 3032531,
+    "mkfs_time": "2026-01-15T09:41:24+00:00"
+  },
+  "customer_size": 3035136,
+  "customer_partition_capacity": 3801088,
+  "kernel_size": 3164160,
+  "changes": [
+    {
+      "path": "/ota/www/index.html",
+      "action": "replace",
+      "sha256": "a197df30ad4eaff27306b499bdb360f4fd76934e1d777f28f21aa1b337275d3c",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/ota/www/css/bad-hippo-dark.css",
+      "action": "add",
+      "sha256": "6bf52a425b115e996cd323e7873e0198031b103ff9712f0e247e1e0d0969a589",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/css/bad-hippo-logo.svg",
+      "action": "add",
+      "sha256": "410ba4061bf6e9b8cee1ccda855285dd888ce8fd4e420a9bfdd143248aab7fe2",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-sha256.js",
+      "action": "add",
+      "sha256": "87fd2433a8087b3f63477e9b84f271ac863b4cd3b4fbea2d204e0a035cf50333",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-update.js",
+      "action": "add",
+      "sha256": "5e5b36b69509c6b97fc8ad6c4bb43b60ff6c5abcbd424382bd9247d0bdb372cb",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-update-config.json",
+      "action": "add",
+      "sha256": "e7d54bb956ef023b67b7bbd519393707f4a83c98eaaa9b602cac8ba94a051e06",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-diagnostics.js",
+      "action": "add",
+      "sha256": "63059eb41ad7b34246b2a2b25cc985a91caebaa3c0ce5c0c0cb17ccaf4487a1c",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-settings.js",
+      "action": "add",
+      "sha256": "ddf2ab1c6d059287b7171705e137a2a889b685474d7717b56a9ac482908c2be6",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/js/bh-capacity.js",
+      "action": "add",
+      "sha256": "d3634ee25bd6f157889a21960993174085ba76d8cd9e2feb4b56a51fd55d4963",
+      "mode": "0o100644"
+    },
+    {
+      "path": "/ota/www/cgi-bin/bh-diagnostics.cgi",
+      "action": "add",
+      "sha256": "6aafb6357e6172d0de280b554c4df7ab2a98eeff33b663914de4c368bdda15ed",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/app/lyLink.sh",
+      "action": "replace",
+      "sha256": "a4d3199f002b2ff1a95a0c15dca7432d8980cfeba9c9fa8408be4551d8296b9c",
+      "mode": "0o100755"
+    },
+    {
+      "path": "/app/bh-log-recorder.sh",
+      "action": "add",
+      "sha256": "b2f1aff7c4906398568cafa553006691f079eabc53afff01a4b8b02cc0e30826",
+      "mode": "0o100755"
+    }
+  ],
+  "source_sha256": "7afff8e6a6387662aa10d84d5f8745e8406b91fb704aa4942f6e416393b10f63",
+  "candidate_sha256": "7c72d07dd55e24ac7dc641649f39a81a2624f379f1fdbfa947fbc9734fb95cb8",
+  "candidate_size": 6203437,
+  "device_tested": false,
+  "flashed": false,
+  "updater_authentication_fully_verified": false,
+  "source_roundtrip_byte_identical": true,
+  "version": "0.9.0",
+  "squashfs_writer": "backhand 0.25.5",
+  "squashfs_writer_sha256": "015a62b415c6733c0acf7f271e802a5f87fec95673887bf2c07411246b33341a"
+}

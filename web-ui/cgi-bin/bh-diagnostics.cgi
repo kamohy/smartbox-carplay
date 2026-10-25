@@ -2,7 +2,8 @@
 # Fixed diagnostic operations, plus one bounded recorder-save request.
 PROC=${BH_PROC_ROOT:-/proc}
 SYS=${BH_SYS_ROOT:-/sys}
-RECORDER=${BH_RECORDER:-/mnt/customer/app/bh-log-recorder.sh}
+RECORDER=${BH_RECORDER:-/tmp/bh-recorder.sh}
+if [ -z "${BH_RECORDER:-}" ] && [ ! -r "$RECORDER" ]; then RECORDER=/mnt/customer/app/bh-log-recorder.sh; fi
 header() {
   printf 'Content-Type: %s; charset=utf-8\r\nCache-Control: no-store\r\n' "$1"
 }
@@ -43,8 +44,41 @@ if [ "${REQUEST_METHOD:-GET}" != GET ]; then
   printf '\r\n{"error":"GET only"}\n'; exit 0
 fi
 case "${QUERY_STRING:-}" in
+  id=space)
+    header application/json; printf '\r\n{"schema":1,"memory_available_kib":'
+    available=$(awk '/^MemAvailable:/ {print $2; exit}' "$PROC/meminfo" 2>/dev/null); number "$available"
+    printf ',"filesystems":['; separator=
+    for path in /tmp /mnt/UDISK /mnt/customer /; do
+      line=$(df -Pk "$path" 2>/dev/null | tail -n 1)
+      set -- $line
+      printf '%s{"path":"%s","total_kib":' "$separator" "$path"; number "$2"
+      printf ',"used_kib":'; number "$3"; printf ',"available_kib":'; number "$4"
+      options=$(awk -v target="$6" '$2 == target {print $4; exit}' "$PROC/mounts" 2>/dev/null)
+      writable=null; case ",$options," in *,rw,*) writable=true;; *,ro,*) writable=false;; esac
+      printf ',"writable":%s}' "$writable"
+      separator=,
+    done
+    printf ']}\n';;
+  id=errors)
+    header text/plain; printf '\r\nBad-Hippo error report 0.9.0\n'
+    printf '\n=== Update status ===\n'
+    path="$SYS/class/misc/ly_misc_dev/ly/update"
+    if [ -r "$path" ]; then cat "$path"; else printf 'unavailable\n'; fi
+    printf '\n=== Filesystem capacity (KiB) ===\n'; df -Pk /tmp /mnt/UDISK /mnt/customer / 2>&1
+    printf '\n=== Current mounts ===\n'; cat "$PROC/mounts" 2>/dev/null
+    printf '\n=== Updater process evidence ===\n'; ps 2>/dev/null | grep -E '(^|[ /])(update|swupdate)( |$)' | head -n 12
+    printf '\n=== Kernel errors (last 80 matching lines) ===\n'
+    dmesg 2>&1 | grep -Ei 'error|fail|no space|out of memory|oom|killed process|read-only' | tail -n 80 | head -c 12288
+    printf '\n=== Application/update errors (last 120 matching lines) ===\n'
+    if command -v logcat >/dev/null 2>&1; then
+      logcat -v threadtime -d 2>&1 | grep -Ei 'update|upload|error|fail|no space|out of memory|oom|killed process' | tail -n 120 | head -c 16384
+    fi
+    for path in /tmp/update.log /tmp/swupdate.log /var/log/messages; do
+      if [ -f "$path" ] && [ ! -L "$path" ]; then printf '\n=== %s (tail) ===\n' "$path"; tail -n 80 "$path" | head -c 8192; fi
+    done
+    printf '\n';;
   id=hardware)
-    header text/plain; printf '\r\nBad-Hippo hardware probe 0.8.0\n'
+    header text/plain; printf '\r\nBad-Hippo hardware probe 0.9.0\n'
     for name in cpuinfo meminfo mtd partitions mounts; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done
@@ -136,7 +170,7 @@ case "${QUERY_STRING:-}" in
   id=logs)
     header text/plain
     printf 'Content-Disposition: attachment; filename="smartbox-diagnostics.txt"\r\n\r\n'
-    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.8.0 - fresh read, no log buffer clear'
+    printf '%s\n' 'Bad-Hippo SmartBox diagnostics 0.9.0 - fresh read, no log buffer clear'
     for name in version uptime loadavg meminfo stat; do
       if [ -r "$PROC/$name" ]; then printf '\n=== /proc/%s ===\n' "$name"; cat "$PROC/$name"; fi
     done

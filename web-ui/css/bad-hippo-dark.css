@@ -129,3 +129,8 @@ input::placeholder, textarea::placeholder { color: #76849a; opacity: 1; }
 .bh-switch:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;border-radius:50%;background:#fff;transition:transform .15s}
 .bh-switch:checked{background:#ff8700;border-color:#ff8700}.bh-switch:checked:before{transform:translateX(24px)}.bh-switch:focus-visible{outline:3px solid #83bcff;outline-offset:3px}.bh-switch:disabled{opacity:.5;cursor:wait}
 .bh-led-row{gap:20px}.bh-clear-logs{margin:6px 0;color:#ffb5a8!important}
+.bh-capacity-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
+.bh-capacity-card{padding:14px;background:#10151d;border:1px solid var(--bh-line);border-radius:10px;font-size:12px}
+.bh-capacity-card p{margin:7px 0;color:var(--bh-muted);line-height:1.6}
+.bh-capacity-card meter{display:block;width:100%;height:12px;accent-color:var(--bh-accent)}
+@media(max-width:600px){.bh-capacity-rows{grid-template-columns:1fr}.bh-setting-note{font-size:12px}.weui-cell__bd{min-width:0}.weui-cell__ft{max-width:40%;white-space:normal}}

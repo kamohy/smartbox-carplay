@@ -2,11 +2,11 @@
   "schema": 1,
   "platform": "5234",
   "base_appver": "26011517.5234.2",
-  "version": "0.8.3",
-  "enabled": false,
-  "status": "preparation-stalled-after-data-reset",
-  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.8.3.img",
-  "size": 6199341,
-  "sha256": "6537c1c1c9c899439dc5c485d5037f29e46c1ec13c75aefab897a79369b76adb",
-  "notes": "Wartung 0.8.3: RAM-Start und Update-Ende des Loggers, originales Containerformat, Speicher-/Fehleranzeige und begrenzte Loglöschung. Lokal geprüft. Beide Geräteversuche blieben in Zustand 1; weiter 0.7.0. Alte Logs nach ausdrücklichem UDISK-Reset entfernt, Kopplungen mitgelöscht. Paket bleibt gesperrt."
+  "version": "0.9.0",
+  "enabled": true,
+  "status": "user-authorized-device-validation-pending",
+  "url": "https://raw.githubusercontent.com/kamohy/smartbox-carplay/main/ota/5234/firmware-0.9.0.img",
+  "size": 6203437,
+  "sha256": "7c72d07dd55e24ac7dc641649f39a81a2624f379f1fdbfa947fbc9734fb95cb8",
+  "notes": "Verständliche Einstellungen: LED Ein/Aus mit Lesekontrolle, Telefonpuffer- und Startoptionen mit belegten Erklärungen. Technikübersicht, freie Daten-/RAM-/Temporärkapazität und Fehlerprotokoll. Logger startet aus RAM und beendet sich bei Updates. Keine Änderung der Audio-Algorithmen. Lokal geprüft; Geräteinstallation noch zu bestätigen."
 }

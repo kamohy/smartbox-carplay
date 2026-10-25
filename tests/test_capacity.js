@@ -1,0 +1,11 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const context={};vm.createContext(context);vm.runInContext(fs.readFileSync('web-ui/js/bh-capacity.js','utf8'),context);
+const c=context.BHCapacity;
+assert.equal(c.size(null),'unbekannt');assert.equal(c.size(512),'512 KiB');assert.equal(c.size(16384),'16.00 MiB');
+let d=c.describe({path:'/mnt/UDISK',total_kib:512,used_kib:248,available_kib:264,writable:true});
+assert.equal(d.percent,48.4375);assert.match(d.name,/Dauerhafter/);assert.equal(d.free,'264 KiB');
+d=c.describe({path:'/mnt/customer',total_kib:4096,used_kib:4096,available_kib:0,writable:false});
+assert.equal(d.readonly,true);assert.equal(d.free,'0 KiB');assert.equal(d.percent,100);
+assert.equal(c.describe({path:'/tmp',total_kib:0,available_kib:null}).percent,null);
+console.log('PASS: real-space formatting, read-only partition distinction, missing values and usage');

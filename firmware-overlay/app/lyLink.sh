@@ -71,9 +71,11 @@ fi
 
 echo 3 > /proc/sys/vm/drop_caches
 
-# Bad-Hippo 0.7.0: bounded persistent diagnostic logs, outside recovery mode.
+# Bad-Hippo 0.9.0: run recorder from RAM, with no working directory on customer.
 if [ "$LY_BOOT_MODE" != update ] && [ -x "$WORKDIR/bh-log-recorder.sh" ]; then
-    "$WORKDIR/bh-log-recorder.sh" run >/dev/null 2>&1 &
+    if cp "$WORKDIR/bh-log-recorder.sh" /tmp/bh-recorder.sh && chmod 755 /tmp/bh-recorder.sh; then
+        (cd / && exec /tmp/bh-recorder.sh run) >/dev/null 2>&1 &
+    fi
 fi
 
 

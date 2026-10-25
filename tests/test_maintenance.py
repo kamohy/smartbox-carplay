@@ -70,5 +70,12 @@ class Maintenance(unittest.TestCase):
         self.assertTrue(query('id=errors&command=reboot').startswith('Status: 400'))
         self.assertTrue(query('id=errors','POST').startswith('Status: 405'))
         self.assertTrue(query('id=clear','POST','https://example.com').startswith('Status: 403'))
+        # The combined settings UI must retain the maintenance endpoints as well.
+        fixture.env['BH_STATUS_CGI']=shellpath(ROOT/'web-ui/cgi-bin/bh-diagnostics.cgi')
+        merged=json.loads(query('id=space').split('\n\n',1)[1])
+        self.assertEqual(merged,space)
+        self.assertIn('No space left on device',query('id=errors'))
+        self.assertIn('=== /proc/meminfo ===',query('id=hardware'))
+        self.assertTrue(query('id=hardware&command=reboot').startswith('Status: 400'))
 
 if __name__=='__main__':unittest.main()

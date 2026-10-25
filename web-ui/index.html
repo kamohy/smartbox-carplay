@@ -33,7 +33,7 @@
 			<p class="bh-subtitle">Deine Verbindung. Deine Einstellungen.</p>
 		</div>
 	</div>
-	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.8.0</div>
+	<div class="bh-version"><span class="bh-dot" aria-hidden="true"></span> UI 0.9.0</div>
 </header>
 <div class="container" id="container"></div>
 <script type="text/html" id="tpl_home">
@@ -55,10 +55,7 @@
 			<div class="weui-cell__bd"><p id="txt3"></p></div>
 			<div class="weui-cell__ft" id="model"></div>
 		</a>
-		<a class="weui-cell weui-cell_access" id="div_rst" href="javascript:onRst();">
-			<div class="weui-cell__bd"><p id="txt19"></p></div>
-			<div class="weui-cell__ft" id="rst"></div>
-		</a>
+
 		<a class="weui-cell weui-cell_access" id="div_wif" href="javascript:onWiFi();">
 			<div class="weui-cell__bd"><p>WiFi AP</p></div>
 			<div class="weui-cell__ft" id="wifi"></div>
@@ -119,6 +116,10 @@
 			<div class="weui-cell__bd"><p id="aav"></p></div>
 			<div class="weui-cell__ft" id="aa"></div>
 		</a>
+		<a class="weui-cell weui-cell_access" id="div_rst" href="javascript:onRst();">
+			<div class="weui-cell__bd"><p id="txt19"></p></div>
+			<div class="weui-cell__ft" id="rst"></div>
+		</a>
 	</div>
 	<section class="cells bh-diagnostics" aria-labelledby="bh_diag_title">
 		<h2 class="title" id="bh_diag_title">Adapter-Diagnose <span class="bh-readonly">Live · automatisch</span></h2>
@@ -163,12 +164,18 @@
 		</div>
 	</section>
 	<section class="cells bh-diagnostics" aria-labelledby="bh_hardware_title">
-		<h2 class="title" id="bh_hardware_title">Hardware und Grenzen</h2>
+		<h2 class="title" id="bh_hardware_title">Technik und Speicher</h2>
 		<div class="bh-diag-content">
 			<dl class="bh-diag-rows"><div><dt>Prozessor</dt><dd>Allwinner V821B · RISC-V</dd></div><div><dt>Arbeitsspeicher</dt><dd>64 MiB eingebaut · rund 56,8 MiB für Linux sichtbar</dd></div><div><dt>Flash</dt><dd>XT25P1288 · 16 MiB, davon 512 KiB Datenpartition</dd></div><div><dt>WLAN</dt><dd>RTL8733BS-Treiber · 5 GHz im Betrieb bestätigt</dd></div><div><dt>Bluetooth</dt><dd>Realtek-Profil RTL8723FS · genaue Chipvariante noch offen</dd></div></dl>
 			<p class="bh-diag-note">Bestätigte Software-/Startlogdaten. Die Platine wurde nicht geöffnet. Ein Treibername beweist nicht jede Bauteilvariante.</p>
 			<p class="bh-diag-note">Teams-Feldtest: iPhone fordert 16 kHz, Telefonpfad zum Radio läuft mit 8 kHz. Die Firmware kennt auch 16 kHz; die Unterstützung dieses Radios ist noch zu prüfen. Ein Qualitätsgewinn in Prozent ist daraus nicht seriös berechenbar.</p>
-			<button type="button" id="bh_hardware_refresh">Hardwaredaten vom Gerät lesen</button>
+			<h3>Speicher direkt vom Adapter</h3>
+            <p class="bh-diag-note">16 MiB Flash insgesamt. Für veränderliche Dateien steht nur die kleine Datenpartition zur Verfügung. RAM und /tmp sind flüchtig und kein zusätzlicher dauerhafter Speicher.</p>
+            <div id="bh_capacity_rows" class="bh-capacity-rows" aria-live="polite">Speicherwerte werden geladen …</div>
+            <div class="bh-tools"><button type="button" id="bh_capacity_refresh">Speicher aktualisieren</button><button type="button" id="bh_errors_refresh">Fehlerprotokoll lesen</button></div>
+            <p id="bh_capacity_status" class="bh-diag-note"></p>
+            <details class="bh-raw"><summary>Fehlerprotokoll</summary><pre id="bh_errors_raw">Noch nicht gelesen.</pre></details>
+            <button type="button" id="bh_hardware_refresh">Hardwaredaten vom Gerät lesen</button>
 			<details class="bh-raw"><summary>Gelesene Hardwaredaten</summary><pre id="bh_hardware_raw">Noch nicht gelesen.</pre></details>
 		</div>
 	</section>
@@ -241,8 +248,8 @@
 	var mData = { model: {}, icon: {}};
 	var miclb = ['Default', 'Mode 1'];
 	var ledlb = ['开启', '关闭'];
-	var audlb = ['Default', 'Mode 1', 'Mode 2', 'Mode 3'];
-	var dlylb = ['Default', 'Mode 1', 'Mode 2'];
+	var audlb = ['Standard · Sonderpuffer aus', 'Telefonpuffer · Profil 1', 'Telefonpuffer · Profil 2', 'Telefonpuffer · Profil 3'];
+	var dlylb = ['Normal starten', 'Hersteller-Alternative · ungeklärt', '20 Sekunden warten'];
 	window.onload = my_onload;
 
 	function si(i,n) {
@@ -875,5 +882,6 @@
 <script src="/js/bh-update.js"></script>
 <script src="/js/bh-diagnostics.js"></script>
 <script src="/js/bh-settings.js"></script>
+<script src="/js/bh-capacity.js"></script>
 </body>
 </html>

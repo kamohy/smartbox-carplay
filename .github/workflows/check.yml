@@ -18,6 +18,8 @@ jobs:
       - run: node tests/test_update.js
       - run: node tests/test_diagnostics.js
       - run: node tests/test_settings.js
+      - run: node tests/test_capacity.js
+      - run: sh -n firmware-overlay/app/lyLink.sh
       - run: sh -n web-ui/cgi-bin/bh-diagnostics.cgi
       - run: sh -n firmware-overlay/app/bh-log-recorder.sh
       - run: sh -n maintenance-overlay/ota/www/cgi-bin/bh-diagnostics.cgi

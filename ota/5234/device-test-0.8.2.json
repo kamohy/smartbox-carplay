@@ -17,5 +17,7 @@
   "controlled_normal_reboot_requested": true,
   "full_backup_verified": false,
   "recovery_verified": false,
-  "next_step": "full power cycle before any further test"
+  "next_step": "full power cycle before any further test",
+  "normal_boot_after_test_verified": true,
+  "update_after_test": 0
 }

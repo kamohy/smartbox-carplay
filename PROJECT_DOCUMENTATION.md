@@ -5,6 +5,14 @@ Stand: 2026-10-25 11:55 CET
 
 ## 2026-10-25
 
+### 11:52–12:08 CET – Updatevorbereitung hängt, kontrollierter Normalstart, erneuter Test vorbereitet
+
+0.8.0 wurde einmal über den vorhandenen Browser-Updater übertragen. Geräte-CGI bestätigte den Upload nach rund zwei Sekunden. Der Status blieb anschließend bei 1 und Herstellerbasis 26011517.5234.2; keine Recoveryphase 2 und kein Abschluss 3 beobachtet. Die Fortschrittsanzeige oberhalb 70 % ist im ursprünglichen cpbox.js zeitbasiert und belegt keine übertragenen Bytes oder Flashfortschritte. Der normale Oberflächen-Code wurde deshalb nach bestätigtem Upload verlassen, um automatische Abfragen zu stoppen. Kein zweiter Upload wurde automatisch gestartet.
+
+Aktuelle Logdaten und beide Beobachtungsintervalle liegen unter `evidence/updates/2026-10-25-ui080/`. Nach länger unveränderter Vorbereitung wurde der vorhandene normale API-Neustart gezielt einmal aufgerufen. Danach läuft dasselbe Gerät wieder mit Updatezustand 0 und weiterhin UI 0.7.0. Installation und Loglöschung sind damit noch nicht erreicht. Das öffentliche 0.8.0-Manifest wurde bis zum erfolgreichen Gerätetest deaktiviert. Für einen kontrollierten neuen Versuch wurde der Nutzer gebeten, wie bei den bisherigen erfolgreichen Updates ein USB-Netzteil zu verwenden.
+
+Parallel fragte der Nutzer nach einem Emulator als Prüfstand. Apples eigenständiger Mac-Simulator mit echtem iPhone wurde von seinem Xcode-Simulationsfenster unterschieden; LIVI/Linux setzt zusätzliche CarPlay-Authentifizierung voraus. Ein Windows-/Hyundai-Prüfstand für diesen Dongle ist noch nicht verifiziert. Es wurde keine Emulatorsoftware installiert. `hardware_limits.md` dokumentiert bestätigte Bauteile, Reserven und Grenzen. Der originale DTB wurde zusätzlich geprüft: ein Linux-CPU-Knoten, 16-KiB-I-/D-Caches, zunächst referenzierte 360–960-MHz-Tabelle und alternative Tabellen bis 1.200 MHz. Laufzeitauswahl/Takt bleiben bis zum Gerätezugriff offen.
+
 ### 11:44–11:55 CET – Verständliche Bedienung, Hardwareabfrage und begrenzte Loglöschung 0.8.0
 
 Der Nutzer bestätigte LED Default=Ein und Mode 1=Aus und beauftragte einen Schalter, verständliche Einstellungsbeschreibungen, Hardware-/Maximalprüfung sowie Sicherung und Löschung der Logs. Vor Änderungen wurden alle sechs aktuellen gzip-Dateien samt Metadaten und frischem Systemlog unter `evidence/log-backups/2026-10-25-114454/` gesichert und CRC-/SHA-256-geprüft. Löschung ist bis zur verfügbaren geprüften Gerätefunktion noch offen.

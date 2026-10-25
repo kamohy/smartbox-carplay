@@ -7,6 +7,8 @@ Stand: 2026-10-25 11:55 CET
 
 ## Offen
 
+- 0.8.0-Erstversuch: Upload bestätigt, aber Zustand 1 blieb bestehen; keine Recovery-/Abschlussphase beobachtet. Kontrollierter API-Neustart führte zurück zu normaler UI 0.7.0. Öffentlicher 0.8.0-Kanal bis erneuter Geräteprüfung deaktiviert. LED-Schalter und Löschfunktion noch nicht live verifiziert; Logs sind lokal gesichert.
+
 - Teams-Feldtest belegt 8-kHz-Telefonpfad trotz 16-kHz-iPhone-Anfrage, in Mode 2 und 3. Das passt zur verbleibenden Dämpfung. Auswahlursache und tatsächliche 16-kHz-Fähigkeiten des Radios sind noch offen.
 - Diagnose-Webparser 0.7.0 übernimmt die falsche kHz-Einheit der Herstellerzeile: 8000/16000 sind hier Hz. Offlineauswertung 0.7.1 berücksichtigt dies; Geräteanzeige noch nicht korrigiert.
 - Diagnose wählt p2p-wlan0-0, dessen RX-/TX-Bytezähler im Feldtest null bleiben. WLAN-Verlustdiagnose daraus unzulässig; tatsächliche Dateninterfaces müssen separat erfasst werden.

@@ -9,6 +9,8 @@
 
 Stand: 2026-10-25T14:25:58+01:00
 
+Prüfnachweis 2026-10-25T14:28:48+01:00: 34 lokale Pythonprüfungen und vier JS-Prüfprogramme erfolgreich; CI 40197644303 erfolgreich. Browser-Vorschau bestätigt Beschriftungen und LED-Schalter. Öffentliche Version 0.9.0 ist freigegeben; der reale HTTP-Header der Manifestdatei nennt Cache-Control: max-age=300. Das Handy zeigte noch die ältere gesperrte 0.8.3. Geräteinstallation bleibt offen, kein paralleler PC-Upload gestartet.
+
 Der Nutzer meldete einen erfolgreichen Updateknopfdruck, vermutlich am Handy. Direkte Prüfung in diesem Arbeitsblock zeigt jedoch noch UI 0.7.0 und Updatezustand 0; id=space ist dort unbekannt. Ein erfolgreich installierter Zwischenstand 0.8.3 ist damit nicht bestätigt. Der genaue Auslöser des bisherigen Vorbereitungsfehlers bleibt offen; der Knopfdruck allein beweist keine abgeschlossene Installation.
 
 0.9.0 führt die vorbereiteten verständlichen Einstellungen und die neueren Wartungskorrekturen zusammen: LED 0=Ein/1=Aus als Schalter mit Rücklesekontrolle, Telefonpuffer statt anonymer Mode-Bezeichnung, erklärte Startverzögerung (20 Sekunden für delay=2 belegt), GPS-Option ehrlich als teilweise ungeklärt. Die drei Telefonprofile bleiben unterscheidbar, ihre noch ungeklärten Unterschiede werden ausdrücklich genannt; es werden keine Qualitätsstufen erfunden. Der Resetknopf beschreibt nun korrekt die Löschung der ganzen Datenpartition einschließlich Kopplungen und verlangt eine Bestätigung.

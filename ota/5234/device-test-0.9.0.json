@@ -1,0 +1,18 @@
+{
+  "version": "0.9.0",
+  "checked_at": "2026-10-25T14:28:48+01:00",
+  "commit": "47c0a54731b31b1df2840bba489d443fa11afb35",
+  "local_python_tests_passed": 34,
+  "js_test_programs_passed": 4,
+  "combined_cgi_capacity_errors_hardware_passed": true,
+  "ci_run": 40197644303,
+  "ci_conclusion": "success",
+  "preview_verified": true,
+  "device_ui_last_read": "0.7.0",
+  "device_installation_verified": false,
+  "manifest_public_version": "0.9.0",
+  "manifest_public_enabled": true,
+  "manifest_cache_max_age_seconds": 300,
+  "phone_reported_cached_version": "0.8.3",
+  "firmware_sha256": "7c72d07dd55e24ac7dc641649f39a81a2624f379f1fdbfa947fbc9734fb95cb8"
+}
